@@ -1,0 +1,44 @@
+repo_url : https://github.com/c01dkit/tech-blog
+site_name: c01dkit's tech blog
+site_author: c01dkit
+site_url: https://tech.c01dkit.com
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.code.annotate
+docs_dir: docs
+copyright: '2023 Content provided by c01dkit'
+
+
+nav:
+  - 首页: index.md
+  - Docker: docker.md
+  - 软件环境配置: envs.md
+  - 编程语言:
+    - Python: python.md
+    - 优雅编程: code-gracely.md
+  - 程序逆向:
+    - IDA基础: IDA.md
+    - 逆向基础: reverse-basic.md
+    - 逆向高阶: reverse-advanced.md
+  - 网课学习笔记:
+    - pwn-college:
+      - CSE 365: pwn-college-cse365-spring2023.md
+  - 其他杂项:
+    - 模糊测试: fuzzing.md
+    - 论文学习: picking-ups.md
+    - 服务器端口复用: porting.md
+    - ChatGPT: try-chatgpt.md
+    - linux shell命令学习: linux-shell.md
+
+    
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
