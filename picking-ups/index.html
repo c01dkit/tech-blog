@@ -1,0 +1,981 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="c01dkit">
+      
+      
+        <link rel="canonical" href="https://tech.c01dkit.com/picking-ups/">
+      
+      
+        <link rel="prev" href="../fuzzing/">
+      
+      
+        <link rel="next" href="../porting/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>论文学习 - c01dkit's tech blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-header__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            c01dkit's tech blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              论文学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-nav__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    c01dkit's tech blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../envs/" class="md-nav__link">
+        软件环境配置
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          编程语言
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          编程语言
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
+        优雅编程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          程序逆向
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          程序逆向
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDA/" class="md-nav__link">
+        IDA基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-basic/" class="md-nav__link">
+        逆向基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-advanced/" class="md-nav__link">
+        逆向高阶
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          网课学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          网课学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          pwn-college
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          pwn-college
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
+        CSE 365
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          其他杂项
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          其他杂项
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fuzzing/" class="md-nav__link">
+        模糊测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          论文学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        论文学习
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    文句摘录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四大调查
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    有趣文章
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文词学习
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    情景
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        服务器端口复用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../try-chatgpt/" class="md-nav__link">
+        ChatGPT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-shell/" class="md-nav__link">
+        linux shell命令学习
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    文句摘录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四大调查
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    有趣文章
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文词学习
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    情景
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">文章学习</h1>
+<h2 id="_2">文句摘录</h2>
+<p><em>No Grammar, No Problem: Towards Fuzzing the Linux Kernel without System-Call Descriptions (NDSS 2023)</em></p>
+<ol>
+<li>However, the process of manually collecting system-call traces, or writing descriptions is prone to human-error: the immediate coverage gains from descriptions and traces risk obscuring parts of the code that the fuzzer can no longer exercise meaningfully.</li>
+</ol>
+<p><em>FUZZUSB: Hybrid Stateful Fuzzing of USB Gadget Stacks (Oakland 2022)</em></p>
+<ol>
+<li>While the prevalence and versatility of USB have made our daily life convenient, it has also attracted attackers seeking to exploit vulnerabilities within the USB ecosystem.</li>
+</ol>
+<p><em>Registered Report: DATAFLOW Towards a Data-Flow-Guided Fuzzer</em></p>
+<ol>
+<li>Unfortunately, these more accurate analyses incur a high run-time penalty, impeding fuzzer throughput.</li>
+<li>Unlike DTA, which strives for accuracy, we take inspiration from popular greybox fuzzers (e.g., AFL) and embrace some imprecision in an effort to reduce overhead and thus maximize fuzzing throughput.</li>
+</ol>
+<p><em>A Survey on Adversarial Attacks for Malware Analysis</em></p>
+<ol>
+<li>Adversarial attacks has now emerged as a serious concern, threatening to dismantle and undermine all the progress made in the machine learning domain.</li>
+<li>The fear of evolving adversarial attack is growing among the cyber security research community and has provoked the everlasting war between adversarial attackers and defenders.</li>
+</ol>
+<p><em>Survivalism: Systematic Analysis of Windows Malware Living-Off-The-Land (Oakland 2021)</em></p>
+<ol>
+<li>Orthogonal to our research is the analysis and deobfuscation of script-based malware.</li>
+</ol>
+<p><em>A Systematical and longitudinal study of evasive behaviors in windows malware (Computers &amp; Security 2021)</em></p>
+<ol>
+<li>Using our framework and taxonomy, we study the evasive behaviors adopted by 45,375 malware samples observed in the wild between 2010 and 2019.</li>
+<li>We harvest papers, reports, and blog posts from the security community estimating the influence of the public disclosure of evasive techniques on their adoption in the wild.</li>
+</ol>
+<p><em>Structural Attack against Graph Based Android Malware Detection (CCS 2021)</em></p>
+<ol>
+<li>Graph-based detection methods extract features from graphs and use these features to train classifiers for malware detection. By contrast, structural attacks directly modify the graph features and thus they are more intrinsic and effective.</li>
+</ol>
+<p><em>Deep Learning for Android Malware Defenses: a Systematic Literature Review (ACM Survey 2021)</em></p>
+<ol>
+<li>In front of the increasing difficulties of Android malware detection, it is non-trivial to build a robust and transparent detecting model or system only by traditional machine learning techniques.</li>
+</ol>
+<p><em>Intriguing Properties of Adversarial ML Attacks in the Problem Space (Oakland 2020)</em></p>
+<ol>
+<li>We shed light on the relationship between feature space and problem space, and we introduce the concept of side-effect features as the byproduct of the inverse feature-mapping problem. This enables
+us to define and prove necessary and sufficient conditions for the existence of problem-space attacks.</li>
+</ol>
+<p><em>P2IM: Scalable and Hardware-independent Firmware Testing via Automatic Peripheral Interface Modeling (USENIX SECURITY 2020)</em></p>
+<ol>
+<li>The inapplicability of fuzzers on MCU boils down to the lack of a platform where firmware can execute while taking inputs from fuzzers.</li>
+<li>Although the register access patterns and the type identification method are purely empirical, we find that in practice they work fairly reliably and accurately across a wide range of peripheral devices. We attribute this practical and promising results to two factors.</li>
+<li>The instantiation is on-demand and interleaved with the firmware fuzzing/testing process.</li>
+</ol>
+<p><em>Toward the Analysis of Embedded Firmware through Automated Re-hosting (RAID 2019)</em></p>
+<ol>
+<li>Unfortunately for security researchers, in stark contrast to the desktop and mobile ecosystems, market forces have not created any de facto standard for components, protocols, or software, hampering existing program analysis approaches, and making the understanding of each new device an independent, mostly manual, time-consuming effort.</li>
+<li>In this work, we develop an approach to re-hosting that achieves all of them, and propose a proof-of-concept system, called PRETENDER, which is able to observe hardware-firmware interactions and create models of hardware peripherals automatically.</li>
+<li>To deal with the plethora of software applications that need to be analyzed on desktop and mobile platforms, the security community has developed many techniques for enabling the scalable analysis of programs to find bugs and detect malice.</li>
+<li>Dynamic approaches typically rely on virtualization to enable parallel, scalable analyses, while symbolic approaches rely on function summarization of the underlying operating system to minimize the code
+that they need to execute. In order to use any of these tools, the analyst must take the program out of its original execution environment, and provide a suitable analysis environment able to execute it. This is a process referred to as re-hosting.</li>
+</ol>
+<p><em>What You Corrupt Is Not What You Crash: Challenges in Fuzzing Embedded Devices (NDSS 2018)</em></p>
+<ol>
+<li>As a result, silent memory corruptions occur more frequently on embedded devices than on traditional computer systems, creating a significant challenge for conducting fuzzing sessions on embedded systems software.</li>
+</ol>
+<p><em>Postmortem Program Analysis with Hardware-Enhanced Post-Crash Artifacts (USENIX SECURITY 2017)</em></p>
+<ol>
+<li>As such, it is tedious and arduous for a software developer to plow through an execution trace to diagnose the root cause of a software failure.</li>
+</ol>
+<h2 id="_3">四大调查</h2>
+<ol>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/coopamootoo">[Usenix Security 2022] "I feel invaded, annoyed, anxious and I may protect myself": Individuals' Feelings about Online Tracking and their Protective Behaviour across Gender and Country</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/geeng">[Usenix Security 2022] "Like Lesbians Walking the Perimeter": Experiences of U.S. LGBTQ+ Folks With Online Security, Safety, and Privacy Advice</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/dutkowska-zuk">[Usenix Security 2022] How and Why People Use Virtual Private Networks</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/haney">[Usenix Security 2021] "It's the Company, the Government, You and I": User Perceptions of Responsibility for Smart Home Privacy and Security</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/bilogrevic">[Usenix Security 2021] "Shhh...be quiet!" Reducing the Unwanted Interruptions of Notification Permission Prompts on Chrome</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/guo">[Usenix Security 2021] Effect of Mood, Location, Trust, and Presence of Others on Video-Based Social Authentication</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/theofanos">[Usenix Security 2021] 'Passwords Keep Me Safe' – Understanding What Children Think about Passwords</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/mcdonald">[Usenix Security 2021] "It's stressful having all these phones": Investigating Sex Workers' Safety Goals, Risks, and Practices Online</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/mayer">[Usenix Security 2021] "Now I'm a bit angry:" Individuals' Awareness, Perception, and Responses to Data Breaches that Affected Them</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/akter">[Usenix Security 2020] "I am uncomfortable sharing what I can't see": Privacy Concerns of the Visually Impaired with Camera Based Assistive Applications</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/votipka-understanding">[Usenix Security 2020 | Distingguished Paper Award] Understanding security mistakes developers make: Qualitative analysis from Build It, Break It, Fix It</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/votipka-observational">[Usenix Security 2020] An Observational Investigation of Reverse Engineers’ Processes</a></li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/oesch">[Usenix Security 2020] That Was Then, This Is Now: A Security Evaluation of Password Generation, Storage, and Autofill in Browser-Based Password Managers</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/auto-draft-246/">[NDSS 2022] An In-depth Analysis of Duplicated Linux Kernel Bug Reports</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/are-you-going-to-answer-that-measuring-user-responses-to-anti-robocall-application-indicators/">[NDSS 2020] Are You Going to Answer That? Measuring User Responses to Anti-Robocall Application Indicators</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/time-does-not-heal-all-wounds-a-longitudinal-analysis-of-security-mechanism-support-in-mobile-browsers/">[NDSS 2019] Time Does Not Heal All Wounds: A Longitudinal Analysis of Security-Mechanism Support in Mobile Browsers</a></li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/measuring-the-facebook-advertising-ecosystem/">[NDSS 2019] A First Look into the Facebook Advertising Ecosystem</a></li>
+</ol>
+<h2 id="_4">有趣文章</h2>
+<ol>
+<li><a href="https://www.usenix.org/conference/usenixsecurity21/presentation/wu-qiushi">[Usenix Security 2021] Understanding and Detecting Disordered Error Handling with Precise Function Pairing</a> 不正确的错误处理函数本身可能也会带来新的错误，尤其是在做一些前期清理工作时，执行顺序不正确会带来提权、崩溃与DoS。本文希望推断出预期的清理函数。</li>
+<li><a href="https://www.usenix.org/conference/usenixsecurity20/presentation/andow">[Usenix Security 2020] Actions Speak Louder than Words: Entity-Sensitive Privacy Policy and Data Flow Analysis with PoliCheck</a> 考虑到数据流向的实体，对应用程序的隐私规范进行研究建模。</li>
+<li><a href="https://www.ndss-symposium.org/ndss-paper/how-bad-can-it-git-characterizing-secret-leakage-in-public-github-repositories/">[NDSS 2019] https://www.youtube.com/watch?v=dMndb0Xmr4k&amp;t=1s&amp;list=PLfUWWM-POgQs9SPvg-UA-TNG7UVEcdz8l&amp;index=5</a> GitHub上由于一些不当操作可能会导致API密钥泄露。本文研究表明这种泄露非常猖獗，并且远没有解决问题。</li>
+</ol>
+<h2 id="_5">文词学习</h2>
+<ul>
+<li>encyclopedic 广博的</li>
+<li>unprecedented 史无前例的，空前的</li>
+<li>bluntly 直言不讳地</li>
+<li>as per some estimates 根据一些估计</li>
+<li>indispensable 必不可少的</li>
+<li>to name just a few 仅举几例</li>
+<li>discriminate 鉴别，区别；有区别的</li>
+<li>remediation 整治</li>
+<li>cumbersome 繁琐的</li>
+<li>drastically 剧烈地</li>
+<li>impede 阻碍</li>
+<li>stochastic 随机的</li>
+<li>sharp-edged plateau</li>
+<li>saturating 饱和的</li>
+<li>avert 避免，纾解</li>
+<li>delineation 划定</li>
+<li>nuisance 滋扰</li>
+<li>menace 威胁，危险的人或物</li>
+<li>dismantle 拆开，拆卸，废除</li>
+<li>undermine 暗中破坏，从根基处损坏</li>
+<li>provoke 激起，引起</li>
+<li>ransomware 勒索软件</li>
+<li>withstand 抵挡，经受住，抵抗</li>
+<li>camouflage 伪装，隐蔽，欺瞒</li>
+<li>influx 大量涌入，汇集</li>
+<li>nullify 使无效，作废，取消</li>
+<li>calibrate 校准</li>
+<li>ameliorate 改善，改良</li>
+<li>prolifical 多产的</li>
+<li>henceforth 从今以后，今后</li>
+<li>surmise 推测</li>
+<li>smuggle 走私</li>
+<li>prudent 谨慎的</li>
+<li>intriguing 有趣的，迷人的</li>
+<li>byproduct 副产品，意外结果</li>
+<li>inconspicuous 不明显的 不引人注目的</li>
+<li>brittle 易碎的，难以相处的，尖刻暴躁的，冷淡的</li>
+<li>deceive 欺骗，误导</li>
+<li>versatility 多才多艺，多用途，易变，可转动性</li>
+<li>inflate 使膨胀，使充气，物价上涨</li>
+<li>conflate 合并，混合</li>
+<li>incentive 动机，刺激，诱因，鼓励</li>
+<li>bounty 赏金，奖金，赠物</li>
+<li>exacerbate 使恶化，使加重</li>
+<li>fluctuation 波动，涨落，起伏</li>
+<li>susceptible 易受影响的，易受感染的，可以接受或允许的</li>
+<li>extraneous 外来的，外部的，无关的</li>
+<li>amenable （对法律等）负责的，易控制的；经得起检验或考查的</li>
+<li>vicinity 附近，临近，附近地区，大约的程度或数量</li>
+<li>retention 保留，记忆力，保持力，滞留，扣留</li>
+<li>suffice 足够，有能力，满足……的需要，使满足</li>
+<li>rudimentary 简陋的</li>
+<li>inadvertently 漫不经心地，疏忽地</li>
+<li>cease 停止，终止</li>
+<li>collectively 全体地，共同地</li>
+<li>daunting 令人畏惧的，使人气馁的</li>
+<li>encompass 围绕，包围，包含，包括</li>
+<li>devastating 毁灭性的，令人震惊的</li>
+<li>retrofit 给机器设备装配（新部件），翻新，改型</li>
+<li>yield to 让步于，使自己受到xxx的支配</li>
+<li>sterilizer 消毒者，消毒器</li>
+<li>salient 显著的，突出的，跳跃的，（角）凸出的</li>
+<li>nuanced 有细微差别的</li>
+<li>discern 察觉出，了解；分辨出</li>
+<li>subsidised 补贴的</li>
+<li>culprit 犯人，罪犯</li>
+<li>holistic 全盘的，整体的，功能整体性的</li>
+<li>endeavor 努力，尽力</li>
+<li>influx 注入，流入，汇集</li>
+<li>plausible 貌似真实的，貌似有理的，花言巧语的</li>
+<li>pertain 有关，存在，适用</li>
+<li>obsolescence 废弃，陈旧过时，（器官）废退</li>
+<li>resort to 诉诸，依靠，求助于</li>
+<li>discrepancy 差异，不一致，区别</li>
+<li>impair 损害，削弱</li>
+<li>hefty 重的，健壮的，异常大的，重量级的</li>
+<li>paucity 少量，缺乏，不足，缺少</li>
+<li>obstruct 阻碍，阻止，妨碍</li>
+<li>retention 保留，记忆力，滞留，扣留</li>
+<li>envision 设想，预想 vt.</li>
+<li>remediate 补救，治疗，矫正，修复</li>
+<li>conundrum 谜语，难解的问题</li>
+<li>depict 展示，描述，显示</li>
+<li>expedite 加快进展</li>
+<li>remedy 治疗法，改正，改进，补救</li>
+<li>instinctive reaction 本能反应</li>
+<li>deem 认为，视为，相信</li>
+<li>detour 绕路，绕道，弯路</li>
+<li>futile 无效的，没用的</li>
+<li>the hassle of sth. 某事带来的麻烦</li>
+<li>unencumbered 没有阻碍的，不受妨碍的，无负担的</li>
+<li>idiosyncrasy （某人特有的）气质，习性，癖好</li>
+</ul>
+<h2 id="_6">情景</h2>
+<p>准备开始介绍技术细节：</p>
+<ul>
+<li>In this section, we elaborate on the technical details of our xxx approach.  First, we describe how to xxx. Second, we discuss how to xxx. Finally, we discuss how to xxx.</li>
+<li>As we elaborate below, the reasons behind this are two folds.</li>
+</ul>
+<p>说别的方法存在问题：</p>
+<ul>
+<li>However, it inevitably detours the fuzzing program away from the critical objects.</li>
+</ul>
+<p>一些工作细节：</p>
+<ul>
+<li>In our work, we manually annotate all these sinks based on their naming patterns.</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2023 Content provided by c01dkit
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+    
+  </body>
+</html>
