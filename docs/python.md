@@ -43,7 +43,7 @@ populate_parser(parser)
 
 ## 配置读取：yaml
 
-除了argparse以外，可以把一些很长的配置数据（比如多到命令行敲是不现实的）放到yml里，然后用yaml读取，得到（嵌套的）字典，然后再取内容就很方便了。
+除了argparse以外，可以把一些很长的配置数据（比如多到命令行敲是不现实的）放到yml里，然后用yaml读取，得到（嵌套的）字典，然后再取内容就很方便了。需要pip安装pyyaml这个包
 
 ```python
 import yaml
@@ -164,6 +164,65 @@ def parse_mmio_set(filename):
     return _parse_file(filename, parse_mmio_set_line)
 ```
 
+## 中间数据存储：capnp
+
+Cap'n Proto好像是一种帮助快速序列化/反序列化的工具，python这边封装了C++的实现，需要pip安装pycapnp这个包。使用时需要首先定义数据结构，比如：
+
+```c++ 
+// test.capnp
+struct TraceEvent {
+  union {
+    basicBlock @0 :BasicBlock;
+    access @1 :Access;
+  }
+}
+
+struct BasicBlock {
+    pc @0 :UInt32;
+    lr @1 :UInt32;
+}
+
+struct Access {
+    target @0 :AccessTarget;
+    type @1 :AccessType;
+    size @2 :UInt8;
+    pc @3 :UInt32;
+}
+
+enum AccessTarget {
+    ram @0;
+    mmio @1;
+}
+enum AccessType {
+    read @0;
+    write @1;
+}
+
+```
+使用时，python程序如下：
+
+```python
+import capnp
+import test_capnp
+
+# 连续写入文件，对union初始化
+trace_file = open('test.bin','wb')
+event = test_capnp.TraceEvent.new_message()
+basicBlock = event.init('basicBlock')
+basicBlock.pc = uc.reg_read(UC_ARM_REG_PC)
+basicBlock.lr = uc.reg_read(UC_ARM_REG_LR)
+event.write(trace_file)
+event.write(trace_file)
+trace_file.close()
+
+# 从文件中连续读取，解析union
+trace_file = open('test.bin','rb')
+for event in test_capnp.TraceEvent.read_multiple(f):
+    if event.which() == 'basicBlock':
+        print(event.basicBlock.pc)
+trace_file.close()
+
+```
 ## 计时终止程序
 
 如果需要让程序在运行一段时间后终止，在程序内部进行时间检查并不优雅（因为是无关逻辑的）；可以为这个子程序设计signal
@@ -190,6 +249,7 @@ except Exception as e:
 
 ```
 
-## 参考项目
+## 参考资料
 
 * [(USENIX Security 2022)Fuzzware: Using Precise MMIO Modeling for Effective Firmware Fuzzing](https://github.com/fuzzware-fuzzer/fuzzware)
+* [Cap'n Proto](https://capnproto.github.io/pycapnp/quickstart.html)

@@ -81,8 +81,16 @@ git config --global http.https://github.com.proxy http://xxx.xxx.xxx.xxx:xxx
 sudo apt-get install linux-tools-`uname -r`
 ```
 
+## 选择ssh密钥
+
+```shell
+evel `ssh-agent`
+ssh-add <私钥文件>
+```
+
 ## 参考文章
 
 * 安装rust[https://hosthum.com/p/install-rust-lang/](https://hosthum.com/p/install-rust-lang/)
 * 安装ohmyzsh[https://ohmyz.sh/](https://ohmyz.sh/)
 * 配置Intel PT[https://carteryagemann.com/a-practical-beginners-guide-to-intel-processor-trace.html](https://carteryagemann.com/a-practical-beginners-guide-to-intel-processor-trace.html)
+* 配置ssh-agent[https://blog.csdn.net/shadow_zed/article/details/112260652](https://blog.csdn.net/shadow_zed/article/details/112260652)

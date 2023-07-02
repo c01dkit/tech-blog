@@ -13,8 +13,7 @@ copyright: '2023 Content provided by c01dkit'
 
 nav:
   - 首页: index.md
-  - Docker: docker.md
-  - 软件环境配置: envs.md
+  - linux服务器运维: linux-server.md
   - 编程语言:
     - Python: python.md
     - 优雅编程: code-gracely.md
@@ -22,15 +21,26 @@ nav:
     - IDA基础: IDA.md
     - 逆向基础: reverse-basic.md
     - 逆向高阶: reverse-advanced.md
-  - 网课学习笔记:
+  - 学习笔记:
+    - Git: git.md
+    - Docker: docker.md
+    - 根因分析: rca.md
     - pwn-college:
       - CSE 365: pwn-college-cse365-spring2023.md
+  - 科研生活: 
+    - 科研心得: sci-thoughts.md
+    - latex基础: latex.md
+    - 词汇学习: word-learning.md
+    - 文句摘录: picking-ups.md
+    - 情景模板: sentence-templates.md
+    - 四大调查: investigations.md
+    - 有趣文章: interesting-articles.md
   - 其他杂项:
     - 模糊测试: fuzzing.md
-    - 论文学习: picking-ups.md
     - 服务器端口复用: porting.md
     - ChatGPT: try-chatgpt.md
-    - linux shell命令学习: linux-shell.md
+    - 环境配置: envs.md
+    
 
     
 markdown_extensions:

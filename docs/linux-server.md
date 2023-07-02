@@ -1,4 +1,11 @@
-# linux 常用命令学习
+# linux服务器运维
+
+## 根据pid查询细节
+
+```shell
+sudo ls -lah /proc/<pid>
+```
+然后根据其中的cwd找到运行目录，exe找到运行程序
 
 ## 在linux终端向程序输入字节
 
