@@ -10,20 +10,20 @@
         <meta name="author" content="c01dkit">
       
       
-        <link rel="canonical" href="https://tech.c01dkit.com/code-gracely/">
+        <link rel="canonical" href="https://tech.c01dkit.com/rca/">
       
       
-        <link rel="prev" href="../python/">
+        <link rel="prev" href="../docker/">
       
       
-        <link rel="next" href="../IDA/">
+        <link rel="next" href="../pwn-college-cse365-spring2023/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
-        <title>优雅编程 - c01dkit's tech blog</title>
+        <title>根因分析 - c01dkit's tech blog</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              优雅编程
+              根因分析
             
           </span>
         </div>
@@ -244,16 +244,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
@@ -262,7 +260,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           编程语言
@@ -287,153 +285,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          优雅编程
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
         优雅编程
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    程序优化方法
-  </a>
-  
-    <nav class="md-nav" aria-label="程序优化方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    利用短路与哨兵
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    优化计算效率
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    使用低级语言重写代码
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    设计恰当的执行控制流
-  </a>
-  
-    <nav class="md-nav" aria-label="设计恰当的执行控制流">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    循环
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    建表，以提高代码质量
-  </a>
-  
-    <nav class="md-nav" aria-label="建表，以提高代码质量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#if-else" class="md-nav__link">
-    用查表法替换繁琐的if-else判断
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    用索引表替换数据表
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    用结果表替换数学计算结果
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    一些小小的语法特性
-  </a>
-  
-    <nav class="md-nav" aria-label="一些小小的语法特性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    C
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -528,14 +384,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
       
       
       
@@ -544,7 +402,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           学习笔记
@@ -583,11 +441,80 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../rca/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          根因分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         根因分析
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    不同的分析粒度的优势
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    分析时间开销
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    一些想法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    相关论文的一些发现（疑问）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    参考文献
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -899,109 +826,36 @@
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    程序优化方法
+    不同的分析粒度的优势
   </a>
   
-    <nav class="md-nav" aria-label="程序优化方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    利用短路与哨兵
+    分析时间开销
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    优化计算效率
+    一些想法
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    使用低级语言重写代码
+    相关论文的一些发现（疑问）
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
-    设计恰当的执行控制流
+    参考文献
   </a>
-  
-    <nav class="md-nav" aria-label="设计恰当的执行控制流">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    循环
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    建表，以提高代码质量
-  </a>
-  
-    <nav class="md-nav" aria-label="建表，以提高代码质量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#if-else" class="md-nav__link">
-    用查表法替换繁琐的if-else判断
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    用索引表替换数据表
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    用结果表替换数学计算结果
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    一些小小的语法特性
-  </a>
-  
-    <nav class="md-nav" aria-label="一些小小的语法特性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    C
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1023,97 +877,52 @@
   
 
 
-<h1 id="_1">优雅编程</h1>
-<h2 id="_2">程序优化方法</h2>
-<p>优化需要通过大量测试来验证一致性、性能，因为并非所有优化都是正确或必要的。从重构程序执行流的角度来讲，优化并不是灵丹妙药，并在不同语言、不同编译器、不同环境、不同任务中表现出巨大的差异。以下的优化方法均仅供参考。</p>
-<h3 id="_3">利用短路与哨兵</h3>
-<ul>
-<li>将出现频率高的情况放在优先执行的位置</li>
-<li>循环中，搜索到目标后立即退出循环</li>
-<li>循环搜索时，也可以将搜索对象放在数组最后（额外空间），最后检查下标。（本质上是保证不会越界搜索，且保证循环一定正确结束）</li>
-</ul>
-<h3 id="_4">优化计算效率</h3>
-<ul>
-<li>程序执行前计算结果，通过常量保存、硬编码、文件保存的方法来避免重复计算</li>
-<li>尽量减少循环体内的计算工作，可以在之前计算完毕并保存，之后引用</li>
-<li>公共子表达式应当保存在变量里</li>
-<li>适当将乘法重写为加法、幂重写为乘法、整数代替浮点数、单精度代替双精度、移位操作代替乘除2、三角恒等式代替三角函数</li>
-<li>尽量减少数组维度与数组引用</li>
-<li>多重循环时，将循环次数少的放外层</li>
-</ul>
-<h3 id="_5">使用低级语言重写代码</h3>
+<h1 id="_1">根因分析</h1>
+<p><strong>什么是根因分析？</strong>
+根因分析(Root Cause Analysis)或者说缺陷定位(Fault Localization)是程序开发人员或安全分析人员在确认程序存在异常行为后，通过手动或自动的方法来定位异常行为的根本原因的过程。根因分析是程序安全分析流程中比较重要的一环。</p>
+<p><strong>为什么需要设计一些根因分析方法？</strong>
+在当下各类自动化漏洞挖掘工具(比如各类fuzzer)的辅助下，每日发现的bug数量已经远超开发人员确认并修复的数量。设计一种自动化发现漏洞的工具并不难，难在如何根据这些工具报出的crash信息来准确地分析出漏洞的根本原因。对于大型程序而言，崩溃测试样例(crashing testcase)执行下来可能经历了几百万条汇编指令，手工确认稍微有点不现实了。因此需要设计一些(自动化)的根因分析工具。</p>
+<p><strong>怎么进行根因分析？目前有哪些工作？</strong>
+最朴素而直观的思想就是消耗安全分析人员的精力，从程序的入口点(entry)或者崩溃点(crash site)出发，看看程序是怎么执行的，哪些元素(program entity)会导致最后的crash，然后再进行对应的修复。根据定位元素的粒度不同，根因分析可以定位到函数级(function level)、语句级(statement level)、汇编指令级(instruction level)。由于在汇编指令上进行分析可以更普适地适应多种编程语言、不需要获取源码，所以下文的讨论都是围绕汇编指令级展开。</p>
+<p>目前一些自动化根因分析研究思路有：</p>
 <ol>
-<li>使用高级语言完成程序编写</li>
-<li>进行测试，验证正确性</li>
-<li>进行程序分析，确定热点代码</li>
-<li>对热点代码使用低级语言改写</li>
+<li>基于程序谱的分析方法(Spectrum-based)。大概思路是不需要考虑汇编指令的语义信息，利用一些统计学的方法来分析哪些指令有问题。这类方法基于这样一个场景：假设我们有一大批相似的测试样例，其中有些会导致程序崩溃，有些不会，那么这两类测试样例的执行路径可能有不同的偏好。那么那些更倾向于在崩溃测试样例中执行的指令更有可能是root cause。</li>
+<li>事后分析方法(Postmortem-based)。直译尸检分析，形象理解为从程序崩溃后留下的“尸体”开始分析。它假定程序崩溃后会产生一个coredump(核心转储)文件，包含了崩溃点的内存快照(memory snapshot)，以及这个测试样例的执行路径(execution trace)。前者用于提供数据流信息(比如内存值、寄存器值)，后者用于提供控制流信息(汇编指令执行与跳转)。在此基础上，结合一些逆向执行(reverse execution)和后向污点分析(backward taint analysis)的方法，定位可能的root cause。</li>
+<li>基于模型的分析方法(Model-based)。这一类方法是近些年提出的，它通过定义语义相关的模型，利用机器学习或深度学习的思想，找到语义上导致崩溃的root cause。</li>
 </ol>
-<h2 id="_6">设计恰当的执行控制流</h2>
-<h3 id="_7">循环</h3>
+<p><strong>这些研究思路都解决了什么问题？有什么独特的优点？存在哪些独有的不足？</strong>
+基于程序谱的分析方法直观上似乎有点道理。它仅考虑汇编指令本身，而但仅仅从统计结果上去分析，可能并不能准确分析出逻辑上的root cause。这类方法一般会设计一种排名策略(ranking)，对选择出的可疑指令进行top1-topn的排名，来试图提高准确性。这类方法一般需要根据一个崩溃样例以及和它相似的崩溃样例和非崩溃样例进行分析，因此时空开销都比较大。</p>
+<p>事后分析方法相比程序谱分析方法考虑了指令语义，比如在逆向执行的时候会设计一些汇编指令handler，对于内存的分析也会更精确些。但污点分析方法毕竟存在过度污染(over-tainting)的问题，导致结果冗余比较严重。</p>
+<p>基于模型的分析方法利用AI的优势，可以给出更有语义信息的root cause，在一定程度上帮助开发人员去分析。不过模型的训练依赖训练集的质量，并且受程序语义影响很大。在不同领域之间可能迁移性不是很好，比如没法处理一些特定的密码学函数。且为待测程序建立模型来描述其结构与行为是非常复杂、耗时的事情</p>
+<p><strong>现有的这些方法有没有什么普遍存在的问题？</strong>
+在最后评估阶段(evaluation)，一般先通过手工分析确定哪些汇编指令，如果方法输出的汇编指令集合里包含这些指令，那么就认为是发现了root cause。但自动化方法毕竟缺少人工参与，给出的结果一定是不准确的。现有的工作的一个主流思想在于“方法给出的集合可以包含无关指令，但不能缺少相关指令”，旨在提高召回率(recall)。因此往往给出与root cause不相关的指令。但实际上，在最后的修复端，如果给出不相关指令过多，那么仍然需要开发者去分析，依旧耗时耗力。</p>
+<p>据ISSTA 2016一篇调研（Practitioners’ expectations on automated fault localization），9.43%希望root cause在分析结果的Top1，73.58%容许在Top5，15.09%容许在Top10。所以约98%的情况下需要在Top10内给出结果。就分析准确度与开发人员满意度而言，如果RCA工具准确度达90%，满意度几乎达到100%了。准确度低于20%时只有12%接受，如果满意度达50%、75%、90%，准确度需要分别达到50%、75%、85%（但是原文说90%）。</p>
+<p>目前的绝大部分RCA分析的工作的输出是两类：ranked list和suspicious set。但两者都存在的问题是仅仅高亮了可能存在bug的元素，而缺乏一些rational的分析。</p>
+<h2 id="_2">不同的分析粒度的优势</h2>
+<p>基于文件粒度的RCA工作（比如Scaffle）希望找到包含百万级同质代码库中哪些文件和crash有关。在此基础上让对应的工程师团队去处理bug，有利于大型组织管理。</p>
+<p>据ISSTA 2016一篇调研（Practitioners’ expectations on automated fault localization），开发者对粒度的top3期望依次是方法级别、语句级别、基本块级别，不过对这三种粒度的倾向之间没有明显差异。而当时比较多的方法是语句级别的</p>
+<h2 id="_3">分析时间开销</h2>
+<p>根据采用的策略不同，RCA之间的时间开销差异可能达两个数量级。（秒级-分钟级-小时级）。</p>
+<p>据ISSTA 2016一篇调研（Practitioners’ expectations on automated fault localization），90%开发者接受1min以内的分析，不到9%开发者接受超过1h的分析。50%开发者大概在30min以内。</p>
+<h2 id="_4">一些想法</h2>
+<ol>
+<li>什么是漏洞的根本原因？假如函数A内创建临时变量x并调用函数B(x)，在B内引发crash，那么应该归咎为A没有处理x呢，还是B没有检查x呢？这是API实现的问题，还是API误用的问题？(开发者or用户)</li>
+<li>对于某一个crash，如果开发人员进行了修复，那么这个修复能拿来当root cause吗？不同开发人员修复的风格可能不一样，修复也未必是完全的，root cause就是一个主观的问题了。</li>
+</ol>
+<h2 id="_5">相关论文的一些发现（疑问）</h2>
 <ul>
-<li>循环层数最好不要超过三层</li>
-<li>短循环可以多使用break、continue等控制，长循环尽量保证唯一出口</li>
-<li>循环附近不要写重复的代码（修改需要同步修改多处，不便维护）</li>
-<li>for适合与“数量”有关的循环，且不要在内部修改下标；while适合与“条件”有关的循环</li>
-<li>循环体应当自成子程序，循环条件应当清晰易读</li>
-<li>多使用for循环，但不要把与循环无关的语句（比如初始化一个不用于循环的变量）放在循环头</li>
-<li>不要写空循环，将空循环改写成while循环</li>
-<li>如果一个循环可以做两件事情，把它们拆成两个循环，除非注明在性能上有所提高</li>
-<li>不要将循环下标作为结果返回。如果需要使用，可以在循环开始前定义新的变量，然后在循环内部对这一变量进行赋值</li>
+<li>“传统的SFL方法效果在Defects4J等部分数据集可能远优于DLFL方法，可能是基准实验的过拟合问题。”传统方法的过拟合指的是什么？DLFL为什么在基准测试集取得和别的数据集一样好的效果？传统方法在不同测试集的表现差异是方法的问题还是测试集的问题？（A Universal Data Augmentation Approach for Fault Localization, ICSE 2022）</li>
+<li>不同种类的FL方法在时间开销上数量级是不同的。测试的时候如果集成上较低数量级开销的方法，不会对运行时间有很大影响，但可以提升效率。不同种类FL方法相关性不高，可以考虑结合使用。（An Empirical Study of Fault Localization Families and Their Combinations, TSE 2021）</li>
+<li>调用栈做FL分析时，如果根因在栈上的话，40%是第一个栈帧，90%在前10个栈帧里。（Do stack traces help developers fix bugs? Mining Softw. Repositories, 2010）</li>
 </ul>
-<h2 id="_8">建表，以提高代码质量</h2>
-<h3 id="if-else">用查表法替换繁琐的if-else判断</h3>
-<p>使用大量if-else的坏处：</p>
+<h2 id="_6">参考文献</h2>
 <ul>
-<li>不易阅读</li>
-<li>代码重复度高，无意义</li>
-<li>对于复杂情况，容易漏条件</li>
-<li>判断逻辑硬编码在代码中，维护不便</li>
+<li>Scaffle: Bug Localization on Millions of Files, ISSTA 2020</li>
+<li>Probabilistic reasoning in diagnosing causes of program failures, STVR 2016</li>
+<li>Practitioners’ expectations on automated fault localization, ISSTA 2016</li>
 </ul>
-<p>使用查表法的好处：</p>
-<ul>
-<li>易读</li>
-<li>代码简洁且高效</li>
-<li>不会漏掉条件</li>
-<li>可以将表放在外部文件或者统一放在一起，便于维护；可以在不改变程序的情况下修正运行结果</li>
-</ul>
-<p>用法：将要判断的各个参数作为表的维度，将判断结果作为表索引后的结果。</p>
-<h3 id="_9">用索引表替换数据表</h3>
-<p>稀疏的数据表在存储对齐的情况下会浪费大量空间。与之相比，采用索引表可以降低空间浪费量（仍然会产生浪费）。为了进一步减少索引表空间，可以使用阶梯索引表，根据数据的范围（而不是具体的数据值）进行建索引，比如根据百分制成绩计算绩点，建立相应的data-to-key函数，放在数组中。</p>
-<h3 id="_10">用结果表替换数学计算结果</h3>
-<p>考虑到系统函数的精确性，计算速度可能较慢。可以预先手动算出一些数据并建表，计算时直接查表即可，大大提高程序性能。</p>
-<h2 id="_11">一些小小的语法特性</h2>
-<h3 id="c">C</h3>
-<p>初始化数组，可以连续赋值</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">5</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>初始化结构体或联合，可以一起赋值</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[]</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<hr />
+<p>以上内容仅代表个人观点，不定期更新，欢迎讨论</p>
 
 
 

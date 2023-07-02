@@ -10,20 +10,20 @@
         <meta name="author" content="c01dkit">
       
       
-        <link rel="canonical" href="https://tech.c01dkit.com/code-gracely/">
+        <link rel="canonical" href="https://tech.c01dkit.com/linux-server/">
       
       
-        <link rel="prev" href="../python/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../IDA/">
+        <link rel="next" href="../python/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
-        <title>优雅编程 - c01dkit's tech blog</title>
+        <title>linux服务器运维 - c01dkit's tech blog</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#linux" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              优雅编程
+              linux服务器运维
             
           </span>
         </div>
@@ -229,11 +229,59 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          linux服务器运维
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         linux服务器运维
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pid" class="md-nav__link">
+    根据pid查询细节
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    在linux终端向程序输入字节
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -244,16 +292,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
@@ -262,7 +308,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           编程语言
@@ -287,153 +333,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          优雅编程
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
         优雅编程
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    程序优化方法
-  </a>
-  
-    <nav class="md-nav" aria-label="程序优化方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    利用短路与哨兵
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    优化计算效率
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    使用低级语言重写代码
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    设计恰当的执行控制流
-  </a>
-  
-    <nav class="md-nav" aria-label="设计恰当的执行控制流">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    循环
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    建表，以提高代码质量
-  </a>
-  
-    <nav class="md-nav" aria-label="建表，以提高代码质量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#if-else" class="md-nav__link">
-    用查表法替换繁琐的if-else判断
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    用索引表替换数据表
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    用结果表替换数学计算结果
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    一些小小的语法特性
-  </a>
-  
-    <nav class="md-nav" aria-label="一些小小的语法特性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    C
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -898,110 +802,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    程序优化方法
+  <a href="#pid" class="md-nav__link">
+    根据pid查询细节
   </a>
-  
-    <nav class="md-nav" aria-label="程序优化方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    利用短路与哨兵
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    优化计算效率
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    使用低级语言重写代码
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    设计恰当的执行控制流
+  <a href="#linux_1" class="md-nav__link">
+    在linux终端向程序输入字节
   </a>
-  
-    <nav class="md-nav" aria-label="设计恰当的执行控制流">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    循环
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    建表，以提高代码质量
-  </a>
-  
-    <nav class="md-nav" aria-label="建表，以提高代码质量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#if-else" class="md-nav__link">
-    用查表法替换繁琐的if-else判断
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    用索引表替换数据表
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    用结果表替换数学计算结果
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    一些小小的语法特性
-  </a>
-  
-    <nav class="md-nav" aria-label="一些小小的语法特性">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c" class="md-nav__link">
-    C
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1023,96 +833,17 @@
   
 
 
-<h1 id="_1">优雅编程</h1>
-<h2 id="_2">程序优化方法</h2>
-<p>优化需要通过大量测试来验证一致性、性能，因为并非所有优化都是正确或必要的。从重构程序执行流的角度来讲，优化并不是灵丹妙药，并在不同语言、不同编译器、不同环境、不同任务中表现出巨大的差异。以下的优化方法均仅供参考。</p>
-<h3 id="_3">利用短路与哨兵</h3>
-<ul>
-<li>将出现频率高的情况放在优先执行的位置</li>
-<li>循环中，搜索到目标后立即退出循环</li>
-<li>循环搜索时，也可以将搜索对象放在数组最后（额外空间），最后检查下标。（本质上是保证不会越界搜索，且保证循环一定正确结束）</li>
-</ul>
-<h3 id="_4">优化计算效率</h3>
-<ul>
-<li>程序执行前计算结果，通过常量保存、硬编码、文件保存的方法来避免重复计算</li>
-<li>尽量减少循环体内的计算工作，可以在之前计算完毕并保存，之后引用</li>
-<li>公共子表达式应当保存在变量里</li>
-<li>适当将乘法重写为加法、幂重写为乘法、整数代替浮点数、单精度代替双精度、移位操作代替乘除2、三角恒等式代替三角函数</li>
-<li>尽量减少数组维度与数组引用</li>
-<li>多重循环时，将循环次数少的放外层</li>
-</ul>
-<h3 id="_5">使用低级语言重写代码</h3>
-<ol>
-<li>使用高级语言完成程序编写</li>
-<li>进行测试，验证正确性</li>
-<li>进行程序分析，确定热点代码</li>
-<li>对热点代码使用低级语言改写</li>
-</ol>
-<h2 id="_6">设计恰当的执行控制流</h2>
-<h3 id="_7">循环</h3>
-<ul>
-<li>循环层数最好不要超过三层</li>
-<li>短循环可以多使用break、continue等控制，长循环尽量保证唯一出口</li>
-<li>循环附近不要写重复的代码（修改需要同步修改多处，不便维护）</li>
-<li>for适合与“数量”有关的循环，且不要在内部修改下标；while适合与“条件”有关的循环</li>
-<li>循环体应当自成子程序，循环条件应当清晰易读</li>
-<li>多使用for循环，但不要把与循环无关的语句（比如初始化一个不用于循环的变量）放在循环头</li>
-<li>不要写空循环，将空循环改写成while循环</li>
-<li>如果一个循环可以做两件事情，把它们拆成两个循环，除非注明在性能上有所提高</li>
-<li>不要将循环下标作为结果返回。如果需要使用，可以在循环开始前定义新的变量，然后在循环内部对这一变量进行赋值</li>
-</ul>
-<h2 id="_8">建表，以提高代码质量</h2>
-<h3 id="if-else">用查表法替换繁琐的if-else判断</h3>
-<p>使用大量if-else的坏处：</p>
-<ul>
-<li>不易阅读</li>
-<li>代码重复度高，无意义</li>
-<li>对于复杂情况，容易漏条件</li>
-<li>判断逻辑硬编码在代码中，维护不便</li>
-</ul>
-<p>使用查表法的好处：</p>
-<ul>
-<li>易读</li>
-<li>代码简洁且高效</li>
-<li>不会漏掉条件</li>
-<li>可以将表放在外部文件或者统一放在一起，便于维护；可以在不改变程序的情况下修正运行结果</li>
-</ul>
-<p>用法：将要判断的各个参数作为表的维度，将判断结果作为表索引后的结果。</p>
-<h3 id="_9">用索引表替换数据表</h3>
-<p>稀疏的数据表在存储对齐的情况下会浪费大量空间。与之相比，采用索引表可以降低空间浪费量（仍然会产生浪费）。为了进一步减少索引表空间，可以使用阶梯索引表，根据数据的范围（而不是具体的数据值）进行建索引，比如根据百分制成绩计算绩点，建立相应的data-to-key函数，放在数组中。</p>
-<h3 id="_10">用结果表替换数学计算结果</h3>
-<p>考虑到系统函数的精确性，计算速度可能较慢。可以预先手动算出一些数据并建表，计算时直接查表即可，大大提高程序性能。</p>
-<h2 id="_11">一些小小的语法特性</h2>
-<h3 id="c">C</h3>
-<p>初始化数组，可以连续赋值</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">    </span><span class="p">[</span><span class="mi">5</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="p">};</span>
+<h1 id="linux">linux服务器运维</h1>
+<h2 id="pid">根据pid查询细节</h2>
+<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ls<span class="w"> </span>-lah<span class="w"> </span>/proc/&lt;pid&gt;
 </code></pre></div>
-<p>初始化结构体或联合，可以一起赋值</p>
-<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-<span class="p">};</span>
+然后根据其中的cwd找到运行目录，exe找到运行程序</p>
+<h2 id="linux_1">在linux终端向程序输入字节</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 输入raw bytes</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x31\x32&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>program
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[]</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">test</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="c1"># 输入raw binary</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x31\x32&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="p">|</span><span class="w"> </span>program<span class="w"> </span>
 </code></pre></div>
 
 
