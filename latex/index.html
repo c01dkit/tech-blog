@@ -273,6 +273,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        C语言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go/" class="md-nav__link">
+        Go
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../python/" class="md-nav__link">
         Python
       </a>
@@ -588,14 +616,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    定义文档类
+  <a href="#latex_1" class="md-nav__link">
+    英文latex
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#latex_1" class="md-nav__link">
+  <a href="#latex_2" class="md-nav__link">
     中文latex
   </a>
   
@@ -804,14 +832,14 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    定义文档类
+  <a href="#latex_1" class="md-nav__link">
+    英文latex
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#latex_1" class="md-nav__link">
+  <a href="#latex_2" class="md-nav__link">
     中文latex
   </a>
   
@@ -836,12 +864,174 @@
 
 
 <h1 id="latex">latex基础</h1>
-<h2 id="_1">定义文档类</h2>
-<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[12pt,a4paper]</span><span class="nb">{</span>article<span class="nb">}</span> <span class="c">% </span>
+<h2 id="latex_1">英文latex</h2>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[conference,11pt]</span><span class="nb">{</span>IEEEtran<span class="nb">}</span>
+<span class="k">\IEEEoverridecommandlockouts</span>
+<span class="c">% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.</span>
+<span class="k">\usepackage</span><span class="nb">{</span>cite<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsmath,amssymb,amsfonts<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>textcomp<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>xcolor<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>caption<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>url<span class="nb">}</span>
+<span class="k">\def\UrlBreaks</span><span class="nb">{</span><span class="k">\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J</span>
+<span class="k">\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V</span>
+<span class="k">\do\W\do\X\do\Y\do\Z\do</span><span class="sb">\[</span><span class="nv">\do\\\do</span><span class="s">\]</span><span class="k">\do\^\do\_\do\`\do\a\do\b</span>
+<span class="k">\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n</span>
+<span class="k">\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z</span>
+<span class="k">\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\&gt;\do\]\do\)\do\,</span>
+<span class="k">\do\?\do\&#39;\do</span>+<span class="k">\do\=\do\#</span><span class="nb">}</span>
+<span class="k">\def\BibTeX</span><span class="nb">{{</span><span class="k">\rm</span> B<span class="k">\kern</span>-.05em<span class="nb">{</span><span class="k">\sc</span> i<span class="k">\kern</span>-.025em b<span class="nb">}</span><span class="k">\kern</span>-.08em
+    T<span class="k">\kern</span>-.1667em<span class="k">\lower</span>.7ex<span class="k">\hbox</span><span class="nb">{</span>E<span class="nb">}</span><span class="k">\kern</span>-.125emX<span class="nb">}}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>lscape, latexsym, amssymb, algorithmic, multirow<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="na">[linesnumbered, vlined, ruled]</span><span class="nb">{</span>algorithm2e<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>mathtools, bbm, color<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>booktabs<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsthm,mathrsfs,amsfonts,dsfont<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>listings<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegray<span class="nb">}{</span>rgb<span class="nb">}{</span>0.5,0.5,0.5<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codepurple<span class="nb">}{</span>rgb<span class="nb">}{</span>0.58,0,0.82<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.95<span class="nb">}</span>
+<span class="k">\lstdefinestyle</span><span class="nb">{</span>mystyle<span class="nb">}{</span>
+ <span class="c">% backgroundcolor=\color{backcolour},   </span>
+ commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+ keywordstyle=<span class="k">\color</span><span class="nb">{</span>magenta<span class="nb">}</span>,
+ numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>codegray<span class="nb">}</span>,
+ stringstyle=<span class="k">\color</span><span class="nb">{</span>codepurple<span class="nb">}</span>,
+ <span class="c">% basicstyle=\footnotesize\ttfamily,</span>
+ basicstyle=<span class="k">\footnotesize\scriptsize</span>,
+ breakatwhitespace=false,         
+ breaklines=true,                 
+ captionpos=b,                    
+ keepspaces=true,
+ numbers=left,  <span class="c">%% 行号 </span>
+ <span class="c">% numbersep=2pt,                  </span>
+ showspaces=false,                
+ showstringspaces=false,
+ showtabs=false,                  
+ tabsize=1,
+ xleftmargin=<span class="k">\parindent</span>,
+<span class="nb">}</span>
+<span class="k">\lstset</span><span class="nb">{</span>style=mystyle<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+
+<span class="k">\title</span><span class="nb">{</span>xxxx<span class="nb">}</span>
+
+<span class="k">\author</span><span class="nb">{</span>xxxx<span class="nb">}</span>
+
+<span class="k">\maketitle</span>
+
+<span class="k">\begin</span><span class="nb">{</span>abstract<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>abstract<span class="nb">}</span>
+
+
+<span class="k">\begin</span><span class="nb">{</span>IEEEkeywords<span class="nb">}</span>
+xxx,xxx
+<span class="k">\end</span><span class="nb">{</span>IEEEkeywords<span class="nb">}</span>
+
+<span class="k">\bibliographystyle</span><span class="nb">{</span>IEEEtran<span class="nb">}</span>
+<span class="nb">{</span>
+<span class="k">\begingroup</span>
+<span class="k">\bibliography</span><span class="nb">{</span>ref<span class="nb">}</span>
+<span class="k">\endgroup</span>
+<span class="nb">}</span>
+
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
 </code></pre></div>
-<h2 id="latex_1">中文latex</h2>
-<div class="highlight"><pre><span></span><code><span class="k">\usepackage</span><span class="nb">{</span>ctex<span class="nb">}</span> <span class="c">% 然后用xelatex编译链</span>
-<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\abstractname</span><span class="nb">}{</span><span class="k">\textbf</span><span class="nb">{</span>摘<span class="k">\quad</span> 要<span class="nb">}}</span> <span class="c">%重命名摘要</span>
+<h2 id="latex_2">中文latex</h2>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[12pt]</span><span class="nb">{</span>article<span class="nb">}</span>
+
+<span class="k">\usepackage</span><span class="nb">{</span>cite<span class="nb">}</span> <span class="c">% 引用参考文献</span>
+<span class="k">\usepackage</span><span class="nb">{</span>ctex<span class="nb">}</span> <span class="c">% 中文支持</span>
+<span class="k">\usepackage</span><span class="nb">{</span>times<span class="nb">}</span><span class="c">% 英文使用Times New Roman</span>
+<span class="k">\usepackage</span><span class="nb">{</span>url,hyperref<span class="nb">}</span> <span class="c">% 超链接</span>
+<span class="k">\usepackage</span><span class="nb">{</span>xspace<span class="nb">}</span> <span class="c">% 无标点自动空格</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span> <span class="c">% 插入图片用</span>
+<span class="k">\usepackage</span><span class="nb">{</span>geometry<span class="nb">}</span> <span class="c">% 设置页边距</span>
+<span class="k">\usepackage</span><span class="nb">{</span>listings<span class="nb">}</span> <span class="c">% 插入代码块</span>
+<span class="k">\usepackage</span><span class="nb">{</span>color<span class="nb">}</span> <span class="c">% 定义颜色，用于控制代码高亮</span>
+<span class="k">\usepackage</span><span class="nb">{</span>subcaption<span class="nb">}</span> <span class="c">% 画子图</span>
+<span class="k">\usepackage</span><span class="nb">{</span>tikz<span class="nb">}</span> <span class="c">% 后续画圆圈</span>
+<span class="k">\usepackage</span><span class="nb">{</span>multirow<span class="nb">}</span> <span class="c">% 表格多行文本</span>
+<span class="c">% \usepackage{tabu}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>longtable<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>float<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>tabu<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>booktabs<span class="nb">}</span> <span class="c">% 画表格</span>
+
+<span class="k">\usepackage</span><span class="na">[linesnumbered, vlined, ruled]</span><span class="nb">{</span>algorithm2e<span class="nb">}</span> <span class="c">% 算法列表</span>
+
+<span class="c">% 设置页边距</span>
+<span class="k">\geometry</span><span class="nb">{</span>a4paper,left=2cm,right=2cm,top=2cm,bottom=3cm<span class="nb">}</span> 
+
+<span class="c">% 定义代码样式</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegray<span class="nb">}{</span>rgb<span class="nb">}{</span>0.5,0.5,0.5<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codepurple<span class="nb">}{</span>rgb<span class="nb">}{</span>0.58,0,0.82<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.95<span class="nb">}</span>
+<span class="k">\lstdefinestyle</span><span class="nb">{</span>mystyle<span class="nb">}{</span>
+ <span class="c">% backgroundcolor=\color{backcolour},   </span>
+ commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+ keywordstyle=<span class="k">\color</span><span class="nb">{</span>magenta<span class="nb">}</span>,
+ numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>codegray<span class="nb">}</span>,
+ stringstyle=<span class="k">\color</span><span class="nb">{</span>codepurple<span class="nb">}</span>,
+ <span class="c">% basicstyle=\footnotesize\ttfamily,</span>
+ basicstyle=<span class="k">\footnotesize\scriptsize</span>,
+ breakatwhitespace=false,         
+ breaklines=true,                 
+ captionpos=b,                    
+ keepspaces=true,
+ numbers=left,  <span class="c">%% 行号 </span>
+ <span class="c">% numbersep=2pt,                  </span>
+ showspaces=false,                
+ showstringspaces=false,
+ showtabs=false,                  
+ tabsize=1,
+ xleftmargin=<span class="k">\parindent</span>,
+<span class="nb">}</span>
+<span class="k">\lstset</span><span class="nb">{</span>style=mystyle<span class="nb">}</span>
+
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\abstractname</span><span class="nb">}{</span><span class="k">\textbf</span><span class="nb">{</span>摘<span class="k">\quad</span> 要<span class="nb">}}</span> <span class="c">% 更改摘要二字的样式</span>
+
+<span class="c">% use these commands to consistently refer to stuff</span>
+
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bugCount</span><span class="nb">}{</span>xx<span class="nb">}</span>  
+
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\tabincell</span><span class="nb">}</span>[2]<span class="nb">{</span><span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>@<span class="nb">{}</span>#1@<span class="nb">{}}</span>#2<span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}}</span>
+
+<span class="k">\newcommand*\emptcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="k">\tikz\draw</span> (0,0) circle (#1);<span class="nb">}</span> 
+<span class="k">\newcommand*\halfcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="c">%</span>
+    <span class="k">\begin</span><span class="nb">{</span>tikzpicture<span class="nb">}</span>
+    <span class="k">\draw</span><span class="na">[fill]</span> (0,0)-- (90:#1) arc (90:270:#1) -- cycle ;
+    <span class="k">\draw</span> (0,0) circle (#1);
+    <span class="k">\end</span><span class="nb">{</span>tikzpicture<span class="nb">}}</span>
+<span class="k">\newcommand*\fullcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="k">\tikz\fill</span> (0,0) circle (#1);<span class="nb">}</span> 
+
+<span class="k">\def\BibTeX</span><span class="nb">{{</span><span class="k">\rm</span> B<span class="k">\kern</span>-.05em<span class="nb">{</span><span class="k">\sc</span> i<span class="k">\kern</span>-.025em b<span class="nb">}</span><span class="k">\kern</span>-.08em
+    T<span class="k">\kern</span>-.1667em<span class="k">\lower</span>.7ex<span class="k">\hbox</span><span class="nb">{</span>E<span class="nb">}</span><span class="k">\kern</span>-.125emX<span class="nb">}}</span>
+
+<span class="k">\title</span><span class="nb">{</span><span class="k">\fontsize</span><span class="nb">{</span>18pt<span class="nb">}{</span>27pt<span class="nb">}</span><span class="k">\selectfont</span> <span class="k">\textbf</span><span class="nb">{</span>xxxx<span class="nb">}}</span>
+<span class="k">\author</span><span class="nb">{</span><span class="k">\fontsize</span><span class="nb">{</span>14pt<span class="nb">}{</span>21pt<span class="nb">}</span><span class="k">\selectfont</span> <span class="k">\textbf</span><span class="nb">{</span>xxxx<span class="nb">}}</span>
+<span class="k">\date</span><span class="nb">{}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>sloppypar<span class="nb">}</span> <span class="c">% 防止长单词出界</span>
+<span class="k">\maketitle</span>
+
+<span class="k">\begin</span><span class="nb">{</span>abstract<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>abstract<span class="nb">}</span>
+
+<span class="k">\section</span><span class="nb">{</span>背景<span class="nb">}</span>
+
+<span class="k">\subsection</span><span class="nb">{</span>可信执行环境<span class="nb">}</span>
+<span class="k">\bibliographystyle</span><span class="nb">{</span>plain<span class="nb">}</span>
+<span class="k">\bibliography</span><span class="nb">{</span>Ref<span class="nb">}</span>
+
+<span class="k">\end</span><span class="nb">{</span>sloppypar<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
 </code></pre></div>
 
 
