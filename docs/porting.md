@@ -1,4 +1,6 @@
-# 端口复用方法
+# 折腾网站
+
+## 端口复用方法
 
 由于服务器安全设定，只对外开放一个端口，如何提供ssh连接、https服务？搜索了下可以根据流量特征用sslh简单转发一下数据包到不同的内部端口。在root下apt install sslh后修改配置：
 
@@ -125,4 +127,17 @@ configure arguments: --user=c01dkit --group=c01dkit --prefix=/usr/share/nginx --
 
 这里指定user为c01dkit，然后网站也都放在c01dkit的家目录里面，以防网站页面因为权限问题打不开（好像默认是www-data），可能是蟹脚改法○( ＾皿＾)っ
 
-关于https证书，可以按[这里](https://certbot.eff.org/)的方法，先`snap install --classic certbot`安装certbot，（不知道为啥当时设置了一下certbot路径`sudo ln -s /snap/bin/certbot /usr/bin/certbot`）。如果80端口已经对外开放，可以简单地`certbot --nginx`自动帮忙认证（即certbot创建认证文件然后在公网访问）。如果80端口不对外开放，可以自选dns认证：`certbot certonly --manual --preferred-challenges=dns`然后在域名管理那边添加一下记录即可。然后在nginx的conf那里设置好证书，访问就有https认证了！对于http访问，可以用301跳转。
+## https证书
+
+关于https证书，可以按[这里](https://certbot.eff.org/)的方法，先`snap install --classic certbot`安装certbot，（不知道为啥当时设置了一下certbot路径`sudo ln -s /snap/bin/certbot /usr/bin/certbot`）。如果80端口已经对外开放，可以简单地`certbot --nginx`自动帮忙认证（即certbot创建认证文件然后在公网访问）。如果80端口不对外开放，可以自选dns认证：`certbot certonly --manual --preferred-challenges=dns`然后在域名管理那边添加一下记录即可，比如创建一个_acme-challenge.remote的TXT记录。然后在nginx的conf那里设置好证书路径，访问就有https认证了！对于http访问，可以用301跳转。
+
+一次认证是90天有效期，到期之前会发邮件，更新证书时需要运行`certbot renew  --manual-auth-hook=xxx.sh` 其中sh脚本是自己编写的一个自动化完成DNS记录更新。为了懒省事，可以这么写：
+
+```shell
+echo ${CERTBOT_VALIDATION} >> xxx.txt
+echo ${CERTBOT_DOMAIN} >> xxx.txt
+sleep 120
+exit 0
+```
+
+然后在两分钟之内，把xxx.txt里CERTBOT_VALIDATION对应的哈希值手动更新在DNS记录里即可。

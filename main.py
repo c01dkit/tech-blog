@@ -3,6 +3,7 @@
 from pathlib import Path
 import yaml
 import re
+import datetime
 # 读取docs目录下所有md文件
 def get_md_files():
     md_files = []
@@ -85,9 +86,9 @@ def generate_index(nav, md_files, titles):
                         # 生成md文件的链接，使用相对路径，起始地址为'./'
                         result.append('- ['+lines[i]+']'+'(./'+stem+'/#'+locators[i]+')\n')
     return result
-result = ["""# Welcome to c01dkit's tech blog
+result = [f"""# Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)
+目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间{datetime.datetime.now().strftime('%Y-%m-%d')}
 """]
 mds = get_md_files()
 nav = get_nav()

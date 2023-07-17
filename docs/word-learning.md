@@ -109,3 +109,5 @@
 * disseminate 散布，传播（问卷等）
 * elicitation 引出，启发
 * obsolete 废弃的，老式的，已过时的
+* In particular, it works like SBFL, where a bug-inducing commit and a non-inducing commit are analogous（相似的，可比拟的） to a failing test and a passing test in SBFL, respectively.
+* The effectiveness of recurrent neural network is marginally（略微地） higher than multi-layer perceptron.

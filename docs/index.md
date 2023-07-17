@@ -1,11 +1,24 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)
+目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-07-17
 
 ## linux服务器运维
 
 - [根据pid查询细节](./linux-server/#pid)
 - [在linux终端向程序输入字节](./linux-server/#linux_1)
+- [查询服务器显卡](./linux-server/#_1)
+- [统计服务器进程占用](./linux-server/#_2)
+- [统计磁盘用量](./linux-server/#_3)
+- [修改DNS](./linux-server/#dns)
+
+## 编程语言 / C语言
+
+- [根据结构体成员取结构体首地址](./c/#_1)
+
+## 编程语言 / Go
+
+- [go环境配置](./go/#go_1)
+- [快速入门](./go/#_1)
 
 ## 编程语言 / Python
 
@@ -70,6 +83,7 @@
 
 ## 学习笔记 / Docker
 
+- [安装docker](./docker/#docker_1)
 - [指定镜像保存位置](./docker/#_1)
 - [从镜像创建容器并挂载目录](./docker/#_2)
 - [新容器初始化](./docker/#_3)
@@ -84,21 +98,29 @@
 - [相关论文的一些发现（疑问）](./rca/#_5)
 - [参考文献](./rca/#_6)
 
-## 学习笔记 / pwn-college / CSE 365
+## 学习笔记 / pwn-college / CSE 365 - spring 2023
 
 - [Talking Web 学习笔记](./pwn-college-cse365-spring2023/#talking-web)
 - [请求方法](./pwn-college-cse365-spring2023/#_1)
 - [urlencoding](./pwn-college-cse365-spring2023/#urlencoding)
-- [Talking Web WriteUps](./pwn-college-cse365-spring2023/#talking-web-writeups)
-- [Assembly Crash Course学习笔记](./pwn-college-cse365-spring2023/#assembly-crash-course)
-- [Assembly Crash Course Writeups](./pwn-college-cse365-spring2023/#assembly-crash-course-writeups)
+- [Assembly Crash Course 学习笔记](./pwn-college-cse365-spring2023/#assembly-crash-course)
+- [Building a Web Server 学习笔记](./pwn-college-cse365-spring2023/#building-a-web-server)
 - [Reverse Engineering 学习笔记](./pwn-college-cse365-spring2023/#reverse-engineering)
+- [Talking Web WriteUps](./pwn-college-cse365-spring2023/#talking-web-writeups)
+- [Assembly Crash Course Writeups](./pwn-college-cse365-spring2023/#assembly-crash-course-writeups)
+- [Building a Web Server Writeups](./pwn-college-cse365-spring2023/#building-a-web-server-writeups)
 - [Reverse Engineering Writeups](./pwn-college-cse365-spring2023/#reverse-engineering-writeups)
+
+## 科研生活 / 科研心得
+
+- [养成习惯](./sci-thoughts/#_2)
+- [科研写作](./sci-thoughts/#_3)
 
 ## 科研生活 / latex基础
 
-- [定义文档类](./latex/#_1)
-- [中文latex](./latex/#latex_1)
+- [推荐工具](./latex/#_1)
+- [英文latex](./latex/#latex_1)
+- [中文latex](./latex/#latex_2)
 
 ## 其他杂项 / 模糊测试
 
@@ -109,6 +131,11 @@
 - [IoTHunter](./fuzzing/#iothunter)
 - [数据流指导的模糊测试](./fuzzing/#_3)
 - [DATAFLOW](./fuzzing/#dataflow)
+
+## 其他杂项 / 服务器端口复用
+
+- [端口复用方法](./porting/#_2)
+- [https证书](./porting/#https)
 
 ## 其他杂项 / ChatGPT
 

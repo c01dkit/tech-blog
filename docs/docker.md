@@ -1,10 +1,31 @@
 # Docker使用笔记
 
+## 安装docker
+
+按照[https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)的说明安装即可
+
 ## 指定镜像保存位置
 
 默认使用的位置是`/var/lib/docker`，在根目录下容易占满。可以通过修改配置文件`/lib/systemd/system/docker.service`的-g参数来指定位置。可以通过`docker info`查看保存的位置Docker Root Dir。
 
 配置文件可以通过`systemctl status docker`并查看Load使用的配置文件是哪个。
+
+另一种指定镜像保存位置的方法：修改/etc/docker/daemon.json，设置为
+
+```json
+{
+  "data-root": "/home/docker"
+}
+```
+
+随后重载一下配置：
+
+```shell
+sudo cp -r /var/lib/docker /home/docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo systemctl status docker
+```
 
 ## 从镜像创建容器并挂载目录
 

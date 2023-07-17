@@ -1,5 +1,7 @@
 # CSE 365 - Spring 2023
 
+在终端连接pwn-college时，先在网页端配置下公钥，然后`ssh -i 私钥 hacker@dojo.pwn.college`即可。网页端启动一个实例后，远程也会自动启动对应的环境。问题一般放在根目录的challenge文件夹下
+
 ## Talking Web 学习笔记
 
 请求第一行Request line：请求方法 URI 协议版本 CRLF
@@ -34,9 +36,44 @@ POST请求时，需要带上Content-Type
 
 RFC 1945 HTTP协议是无状态的，但是网络应用是有状态的。使用cookie来保持状态。
 
+## Assembly Crash Course 学习笔记
+
+## Building a Web Server 学习笔记
+
+使用socket创建一个A-B的网络文件，然后使用bind将socket与具体的ip绑定。使用listen来被动侦听sockfd。使用accept接受外部连接。
+
+使用TCP/IP进行网络通讯，服务器端的例子如：
+
+```c
+// int socket(int domain, int type, int protocol)
+socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP)
+
+// int bind(int sockfd, struct sockaddr* addr, socklen_t addrlen)
+/*
+ * struct sockaddr {
+ *   uint16_t sa_family;
+ *   uint8_t  sa_data[14];   
+ * }
+ * 
+ * struct sockaddr_in {
+ *   uint16_t sin_family;
+ *   uint16_t sin_port;
+ *   uint32_t sin_addr;
+ *   uint8_t  __pad[8];
+ * }
+*/
+bind(socket_fd, {sa_family=AF_INET, sin_port=htons(port), sin_addr=inet_addr("0.0.0.0")}, 16)
+
+// int listen(int sock fd, int backlog);
+listen(socket_fd, 0)
+
+// int accept(int sockfd, struct sockaddr* addr, socklen_t* addrlen);
+accept(socket_fd, NULL, NULL)
+```
+
+## Reverse Engineering 学习笔记
+
 ## Talking Web WriteUps
-
-
 
 这个章节的题目是用curl、python和nc来实现发送各种http请求，先运行`/challenge/run`启动flask服务器，然后新开个终端用各种姿势连接本地127.0.0.1即可。
 
@@ -286,7 +323,6 @@ import requests as r
 r.get("http://127.0.0.1").text
 ```
 
-## Assembly Crash Course学习笔记
 
 ## Assembly Crash Course Writeups
 
@@ -604,8 +640,216 @@ ret
 
 print(asm(payload))
 ```
+## Building a Web Server Writeups
 
-## Reverse Engineering 学习笔记
+不得不吐槽pwn-college有一点不好，每个模块第一个challenge说明太少了，完全不知道从哪开始下手。在challenge 1的wp里详细讲一下这个模块怎么开始做，然后后续就省略了。
+
+用汇编写server，可以查表[64位syscall手册](https://x64.syscall.sh/)
+
+**Level 1**
+
+首先还是运行/challeng/run，得到一段输出：
+
+```text
+===== Welcome to Building a Web Server! =====
+In this series of challenges, you will be writing assembly to interact with your environment, and ultimately build a web server
+In this challenge you will exit a program.
+
+Usage: `/challenge/run <path_to_web_server>`
+
+$ cat server.s
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+$ as -o server.o server.s && ld -o server server.o
+
+$ strace ./server
+execve("./server", ["./server"], 0x7ffccb8c6480 /* 17 vars */) = 0
+exit(0)                                 = ?
++++ exited with 0 +++
+```
+
+这道题的意思是让用汇编写一个服务端。在运行`/challenge/run server`的时候，判题程序会启动用户指定的这个server，然后检查这个server程序是不是直接exit(0)了。所以只需要编译一个exit(0)的server即可。
+
+题目里其实已经给出了server.s的模板（cat server.s的输出）和编译方式（as -o server.o server.s && ld -o server server.o）。所以这道题只需要把`cat server.s`的输出保存到server.s文件，然后直接运行`as -o server.o server.s && ld -o server server.o`编译出一个server的可执行程序，最后运行`/challenge/run ./server`即可。
+
+模板里只执行了一个退出的syscall，正好是这一题的要求。本来以为这道题意思是自己写一个server的汇编文件，然后run的时候指定源文件，由判题程序编译的呢，结果发现run的时候是需要指定一个编译好的可执行程序hh。
+
+完整解题步骤如下：
+
+```text
+hacker@building-a-web-server-level-1:~$ echo ".intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data" > ./server.s
+
+hacker@building-a-web-server-level-1:~$ as -o server.o server.s && ld -o server server.o
+
+hacker@building-a-web-server-level-1:~$ /challenge/run ./server
+===== Welcome to Building a Web Server! =====
+In this series of challenges, you will be writing assembly to interact with your environment, and ultimately build a web server
+In this challenge you will exit a program.
+
+
+===== Expected: Parent Process =====
+[ ] execve(<execve_args>) = 0
+[ ] exit(0) = ?
+
+===== Trace: Parent Process =====
+[✓] execve("/proc/self/fd/3", ["/proc/self/fd/3"], 0x7f07cf7959a0 /* 0 vars */) = 0
+[✓] exit(0)                                 = ?
+[?] +++ exited with 0 +++
+
+===== Result =====
+[✓] Success
+
+pwn.college{xxxx}
+```
+
+以下的各个题目就只写server.s的内容了
+
+**Level 2**
+
+In this challenge you will create a socket.
+
+```assembly
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+
+    push rax
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+```
+
+**Level 3**
+
+In this challenge you will bind an address to a socket.
+
+在Level2创建socket的基础上，将其绑定到0.0.0.0:80上。（可以运行Level1创建的server来先阅读下题目要求，如下所示）
+
+===== Expected: Parent Process =====
+[ ] execve(<execve_args>) = 0
+[ ] socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+[ ] bind(3, {sa_family=AF_INET, sin_port=htons(<bind_port>), sin_addr=inet_addr("<bind_address>")}, 16) = 0
+    - Bind to port 80
+    - Bind to address 0.0.0.0
+[ ] exit(0) = ?
+
+最终解如下。这里直接用栈来保存sockaddr_in结构体了，比较粗暴。
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    push rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, rax # socket_fd
+    push 0x50000002 # AF_INET(2) and PORT(80) in big endian
+    mov rsi, rsp # sockaddr_in
+    push 0x0 # IP(0.0.0.0)
+    push 0x0 # padding
+    push 0x0 # padding
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    push rax
+    syscall
+    
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+
+.section .data
+```
+
+**Level 4**
+
+In this challenge you will listen on a socket.
+
+使用listen监听这个socket。由于这里listen也要用到之前socket创建的文件描述符，注意到样例的汇编文件最后提示用data了，所以干脆换用数据区来保存各种结构体，也弃用Level3里对栈做的那些修改了。这里sockfd和sockaddr都是地址，所以mov的时候会自动解引用，用lea指令来获得地址本身。
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    push rax
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+    
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+
+.section .data
+
+sockfd:   .quad 0
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+
+```
 
 ## Reverse Engineering Writeups
 

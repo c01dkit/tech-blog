@@ -78,3 +78,7 @@ that they need to execute. In order to use any of these tools, the analyst must 
 *POMP++: Facilitating Postmortem Program Diagnosis with Value-Set Analysis*
 
 * Briefly speaking, postmortem program diagnosis is to identify the program statements pertaining to the crash, analyze these statements, and eventually figure out why a bad value was passed to the crash site.
+
+*A Survey on Software Fault Localization (TSE 2016)*
+
+* Furthermore, manual fault localization relies heavily on the software developer’s experience, judgment, and intuition to identify and prioritize code that is likely to be faulty.

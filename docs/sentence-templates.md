@@ -6,6 +6,14 @@
 * In this work, we propose POMP++, a system to address the above limitations in analyzing a post-crash artifact and pinpointing statements pertaining to the crash.
 * In this paper, we present REPT, a practical system that enables reverse debugging of software failures in deployed systems.
 
+介绍某一流程在整体系统中的作用：
+
+* During program debugging, fault localization is the activity of identifying the exact locations of program faults.
+
+说明某一步骤并非简单的：
+
+* However, identifying the bug-inducing commit precisely for a bug-revealing test can be non-trivial due to the following reasons.
+
 凝练本文实验效果：
 
 * We design and implement REPT, deploy it on Microsoft Windows, and integrate it into WinDbg. We evaluate REPT on 16 real-world bugs and show that it can recover data values accurately (92% on average) and efficiently (in less than 20 seconds) for these bugs. We also show that it enables effective reverse debugging for 14 bugs.
