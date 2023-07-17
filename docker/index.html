@@ -491,6 +491,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    安装docker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     指定镜像保存位置
   </a>
@@ -582,7 +589,7 @@
   
     <li class="md-nav__item">
       <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
-        CSE 365
+        CSE 365 - spring 2023
       </a>
     </li>
   
@@ -853,6 +860,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#docker_1" class="md-nav__link">
+    安装docker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     指定镜像保存位置
   </a>
@@ -906,9 +920,22 @@
 
 
 <h1 id="docker">Docker使用笔记</h1>
+<h2 id="docker_1">安装docker</h2>
+<p>按照<a href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository">https://docs.docker.com/engine/install/ubuntu/</a>的说明安装即可</p>
 <h2 id="_1">指定镜像保存位置</h2>
 <p>默认使用的位置是<code>/var/lib/docker</code>，在根目录下容易占满。可以通过修改配置文件<code>/lib/systemd/system/docker.service</code>的-g参数来指定位置。可以通过<code>docker info</code>查看保存的位置Docker Root Dir。</p>
 <p>配置文件可以通过<code>systemctl status docker</code>并查看Load使用的配置文件是哪个。</p>
+<p>另一种指定镜像保存位置的方法：修改/etc/docker/daemon.json，设置为</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;data-root&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/docker&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>随后重载一下配置：</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/var/lib/docker<span class="w"> </span>/home/docker
+sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker
+</code></pre></div>
 <h2 id="_2">从镜像创建容器并挂载目录</h2>
 <p>会在容器中创建目录，映射宿主机目录。宿主机的目录和容器目录内容是一样的，修改一方，另一方随之改变</p>
 <p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--name<span class="o">=</span>&lt;container_name&gt;<span class="w"> </span>--user<span class="o">=</span>&lt;user_id&gt;:&lt;group_id&gt;<span class="w"> </span>--hostname<span class="o">=</span>xxxx<span class="w"> </span>--workdir<span class="o">=</span>xxxx<span class="w">  </span>-v<span class="w"> </span>/etc/passwd:/etc/passwd:ro<span class="w"> </span>-v<span class="w"> </span>/etc/group:/etc/group:ro<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">=</span>&lt;宿主机目录&gt;,target<span class="o">=</span>&lt;容器目录&gt;<span class="w"> </span>&lt;镜像名&gt;:&lt;tag&gt;<span class="w"> </span>/bin/bash

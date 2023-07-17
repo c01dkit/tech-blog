@@ -511,7 +511,7 @@
   
     <li class="md-nav__item">
       <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
-        CSE 365
+        CSE 365 - spring 2023
       </a>
     </li>
   
@@ -724,9 +724,47 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          服务器端口复用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         服务器端口复用
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    端口复用方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    https证书
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -787,6 +825,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    端口复用方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    https证书
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -803,7 +863,8 @@
   
 
 
-<h1 id="_1">端口复用方法</h1>
+<h1 id="_1">折腾网站</h1>
+<h2 id="_2">端口复用方法</h2>
 <p>由于服务器安全设定，只对外开放一个端口，如何提供ssh连接、https服务？搜索了下可以根据流量特征用sslh简单转发一下数据包到不同的内部端口。在root下apt install sslh后修改配置：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Default options for sslh initscript</span>
 <span class="c1"># sourced by /etc/init.d/sslh</span>
@@ -910,7 +971,15 @@ TLS SNI support enabled
 configure arguments: --user=c01dkit --group=c01dkit --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/usr/lib/nginx/modules --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-compat --with-debug --with-pcre-jit --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_auth_request_module --with-http_v2_module --with-http_dav_module --with-http_slice_module --with-threads --with-http_addition_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_sub_module
 </code></pre></div></p>
 <p>这里指定user为c01dkit，然后网站也都放在c01dkit的家目录里面，以防网站页面因为权限问题打不开（好像默认是www-data），可能是蟹脚改法○( ＾皿＾)っ</p>
-<p>关于https证书，可以按<a href="https://certbot.eff.org/">这里</a>的方法，先<code>snap install --classic certbot</code>安装certbot，（不知道为啥当时设置了一下certbot路径<code>sudo ln -s /snap/bin/certbot /usr/bin/certbot</code>）。如果80端口已经对外开放，可以简单地<code>certbot --nginx</code>自动帮忙认证（即certbot创建认证文件然后在公网访问）。如果80端口不对外开放，可以自选dns认证：<code>certbot certonly --manual --preferred-challenges=dns</code>然后在域名管理那边添加一下记录即可。然后在nginx的conf那里设置好证书，访问就有https认证了！对于http访问，可以用301跳转。</p>
+<h2 id="https">https证书</h2>
+<p>关于https证书，可以按<a href="https://certbot.eff.org/">这里</a>的方法，先<code>snap install --classic certbot</code>安装certbot，（不知道为啥当时设置了一下certbot路径<code>sudo ln -s /snap/bin/certbot /usr/bin/certbot</code>）。如果80端口已经对外开放，可以简单地<code>certbot --nginx</code>自动帮忙认证（即certbot创建认证文件然后在公网访问）。如果80端口不对外开放，可以自选dns认证：<code>certbot certonly --manual --preferred-challenges=dns</code>然后在域名管理那边添加一下记录即可，比如创建一个_acme-challenge.remote的TXT记录。然后在nginx的conf那里设置好证书路径，访问就有https认证了！对于http访问，可以用301跳转。</p>
+<p>一次认证是90天有效期，到期之前会发邮件，更新证书时需要运行<code>certbot renew  --manual-auth-hook=xxx.sh</code> 其中sh脚本是自己编写的一个自动化完成DNS记录更新。为了懒省事，可以这么写：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">CERTBOT_VALIDATION</span><span class="si">}</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>xxx.txt
+<span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">CERTBOT_DOMAIN</span><span class="si">}</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>xxx.txt
+sleep<span class="w"> </span><span class="m">120</span>
+<span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<p>然后在两分钟之内，把xxx.txt里CERTBOT_VALIDATION对应的哈希值手动更新在DNS记录里即可。</p>
 
 
 

@@ -23,7 +23,7 @@
     
     
       
-        <title>CSE 365 - c01dkit's tech blog</title>
+        <title>CSE 365 - spring 2023 - c01dkit's tech blog</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CSE 365
+              CSE 365 - spring 2023
             
           </span>
         </div>
@@ -524,12 +524,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          CSE 365
+          CSE 365 - spring 2023
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        CSE 365
+        CSE 365 - spring 2023
       </a>
       
         
@@ -575,15 +575,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#talking-web-writeups" class="md-nav__link">
-    Talking Web WriteUps
+  <a href="#assembly-crash-course" class="md-nav__link">
+    Assembly Crash Course 学习笔记
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#assembly-crash-course" class="md-nav__link">
-    Assembly Crash Course学习笔记
+  <a href="#building-a-web-server" class="md-nav__link">
+    Building a Web Server 学习笔记
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-engineering" class="md-nav__link">
+    Reverse Engineering 学习笔记
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#talking-web-writeups" class="md-nav__link">
+    Talking Web WriteUps
   </a>
   
 </li>
@@ -596,8 +610,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reverse-engineering" class="md-nav__link">
-    Reverse Engineering 学习笔记
+  <a href="#building-a-web-server-writeups" class="md-nav__link">
+    Building a Web Server Writeups
   </a>
   
 </li>
@@ -909,15 +923,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#talking-web-writeups" class="md-nav__link">
-    Talking Web WriteUps
+  <a href="#assembly-crash-course" class="md-nav__link">
+    Assembly Crash Course 学习笔记
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#assembly-crash-course" class="md-nav__link">
-    Assembly Crash Course学习笔记
+  <a href="#building-a-web-server" class="md-nav__link">
+    Building a Web Server 学习笔记
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-engineering" class="md-nav__link">
+    Reverse Engineering 学习笔记
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#talking-web-writeups" class="md-nav__link">
+    Talking Web WriteUps
   </a>
   
 </li>
@@ -930,8 +958,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reverse-engineering" class="md-nav__link">
-    Reverse Engineering 学习笔记
+  <a href="#building-a-web-server-writeups" class="md-nav__link">
+    Building a Web Server Writeups
   </a>
   
 </li>
@@ -962,6 +990,7 @@
 
 
 <h1 id="cse-365-spring-2023">CSE 365 - Spring 2023</h1>
+<p>在终端连接pwn-college时，先在网页端配置下公钥，然后<code>ssh -i 私钥 hacker@dojo.pwn.college</code>即可。网页端启动一个实例后，远程也会自动启动对应的环境。问题一般放在根目录的challenge文件夹下</p>
 <h2 id="talking-web">Talking Web 学习笔记</h2>
 <p>请求第一行Request line：请求方法 URI 协议版本 CRLF</p>
 <p>响应第一行Status line：协议版本 状态码 解释 CRLF</p>
@@ -989,6 +1018,36 @@
 </ul>
 <p>前者body里写a=xx，后者写{"a":"xx"}。json可以构造更复杂的blob</p>
 <p>RFC 1945 HTTP协议是无状态的，但是网络应用是有状态的。使用cookie来保持状态。</p>
+<h2 id="assembly-crash-course">Assembly Crash Course 学习笔记</h2>
+<h2 id="building-a-web-server">Building a Web Server 学习笔记</h2>
+<p>使用socket创建一个A-B的网络文件，然后使用bind将socket与具体的ip绑定。使用listen来被动侦听sockfd。使用accept接受外部连接。</p>
+<p>使用TCP/IP进行网络通讯，服务器端的例子如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// int socket(int domain, int type, int protocol)</span>
+<span class="n">socket_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="w"> </span><span class="n">IPPROTO_IP</span><span class="p">)</span>
+
+<span class="c1">// int bind(int sockfd, struct sockaddr* addr, socklen_t addrlen)</span>
+<span class="cm">/*</span>
+<span class="cm"> * struct sockaddr {</span>
+<span class="cm"> *   uint16_t sa_family;</span>
+<span class="cm"> *   uint8_t  sa_data[14];   </span>
+<span class="cm"> * }</span>
+<span class="cm"> * </span>
+<span class="cm"> * struct sockaddr_in {</span>
+<span class="cm"> *   uint16_t sin_family;</span>
+<span class="cm"> *   uint16_t sin_port;</span>
+<span class="cm"> *   uint32_t sin_addr;</span>
+<span class="cm"> *   uint8_t  __pad[8];</span>
+<span class="cm"> * }</span>
+<span class="cm">*/</span>
+<span class="n">bind</span><span class="p">(</span><span class="n">socket_fd</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">sa_family</span><span class="o">=</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="n">sin_port</span><span class="o">=</span><span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">),</span><span class="w"> </span><span class="n">sin_addr</span><span class="o">=</span><span class="n">inet_addr</span><span class="p">(</span><span class="s">&quot;0.0.0.0&quot;</span><span class="p">)},</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1">// int listen(int sock fd, int backlog);</span>
+<span class="n">listen</span><span class="p">(</span><span class="n">socket_fd</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">// int accept(int sockfd, struct sockaddr* addr, socklen_t* addrlen);</span>
+<span class="n">accept</span><span class="p">(</span><span class="n">socket_fd</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="reverse-engineering">Reverse Engineering 学习笔记</h2>
 <h2 id="talking-web-writeups">Talking Web WriteUps</h2>
 <p>这个章节的题目是用curl、python和nc来实现发送各种http请求，先运行<code>/challenge/run</code>启动flask服务器，然后新开个终端用各种姿势连接本地127.0.0.1即可。</p>
 <p>这三种工具的大致思路：
@@ -1150,7 +1209,6 @@ curl<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;ses
 import<span class="w"> </span>requests<span class="w"> </span>as<span class="w"> </span>r
 r.get<span class="o">(</span><span class="s2">&quot;http://127.0.0.1&quot;</span><span class="o">)</span>.text
 </code></pre></div>
-<h2 id="assembly-crash-course">Assembly Crash Course学习笔记</h2>
 <h2 id="assembly-crash-course-writeups">Assembly Crash Course Writeups</h2>
 <p>这个章节的题需要把汇编变成raw bytes，然后喂给/challenge/run。需要先运行这个run，然后根据要求完成。比如可以用pwntools的asm模块生成汇编，然后echo进run里。</p>
 <p><strong>Level 1</strong></p>
@@ -1376,7 +1434,186 @@ r.get<span class="o">(</span><span class="s2">&quot;http://127.0.0.1&quot;</span
 
 <span class="nb">print</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
 </code></pre></div>
-<h2 id="reverse-engineering">Reverse Engineering 学习笔记</h2>
+<h2 id="building-a-web-server-writeups">Building a Web Server Writeups</h2>
+<p>不得不吐槽pwn-college有一点不好，每个模块第一个challenge说明太少了，完全不知道从哪开始下手。在challenge 1的wp里详细讲一下这个模块怎么开始做，然后后续就省略了。</p>
+<p>用汇编写server，可以查表<a href="https://x64.syscall.sh/">64位syscall手册</a></p>
+<p><strong>Level 1</strong></p>
+<p>首先还是运行/challeng/run，得到一段输出：</p>
+<div class="highlight"><pre><span></span><code>===== Welcome to Building a Web Server! =====
+In this series of challenges, you will be writing assembly to interact with your environment, and ultimately build a web server
+In this challenge you will exit a program.
+
+Usage: `/challenge/run &lt;path_to_web_server&gt;`
+
+$ cat server.s
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+$ as -o server.o server.s &amp;&amp; ld -o server server.o
+
+$ strace ./server
+execve(&quot;./server&quot;, [&quot;./server&quot;], 0x7ffccb8c6480 /* 17 vars */) = 0
+exit(0)                                 = ?
++++ exited with 0 +++
+</code></pre></div>
+<p>这道题的意思是让用汇编写一个服务端。在运行<code>/challenge/run server</code>的时候，判题程序会启动用户指定的这个server，然后检查这个server程序是不是直接exit(0)了。所以只需要编译一个exit(0)的server即可。</p>
+<p>题目里其实已经给出了server.s的模板（cat server.s的输出）和编译方式（as -o server.o server.s &amp;&amp; ld -o server server.o）。所以这道题只需要把<code>cat server.s</code>的输出保存到server.s文件，然后直接运行<code>as -o server.o server.s &amp;&amp; ld -o server server.o</code>编译出一个server的可执行程序，最后运行<code>/challenge/run ./server</code>即可。</p>
+<p>模板里只执行了一个退出的syscall，正好是这一题的要求。本来以为这道题意思是自己写一个server的汇编文件，然后run的时候指定源文件，由判题程序编译的呢，结果发现run的时候是需要指定一个编译好的可执行程序hh。</p>
+<p>完整解题步骤如下：</p>
+<div class="highlight"><pre><span></span><code>hacker@building-a-web-server-level-1:~$ echo &quot;.intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data&quot; &gt; ./server.s
+
+hacker@building-a-web-server-level-1:~$ as -o server.o server.s &amp;&amp; ld -o server server.o
+
+hacker@building-a-web-server-level-1:~$ /challenge/run ./server
+===== Welcome to Building a Web Server! =====
+In this series of challenges, you will be writing assembly to interact with your environment, and ultimately build a web server
+In this challenge you will exit a program.
+
+
+===== Expected: Parent Process =====
+[ ] execve(&lt;execve_args&gt;) = 0
+[ ] exit(0) = ?
+
+===== Trace: Parent Process =====
+[✓] execve(&quot;/proc/self/fd/3&quot;, [&quot;/proc/self/fd/3&quot;], 0x7f07cf7959a0 /* 0 vars */) = 0
+[✓] exit(0)                                 = ?
+[?] +++ exited with 0 +++
+
+===== Result =====
+[✓] Success
+
+pwn.college{xxxx}
+</code></pre></div>
+<p>以下的各个题目就只写server.s的内容了</p>
+<p><strong>Level 2</strong></p>
+<p>In this challenge you will create a socket.</p>
+<div class="highlight"><pre><span></span><code>.intel_syntax noprefix
+.globl _start
+
+.section .text
+
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+
+    push rax
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+</code></pre></div>
+<p><strong>Level 3</strong></p>
+<p>In this challenge you will bind an address to a socket.</p>
+<p>在Level2创建socket的基础上，将其绑定到0.0.0.0:80上。（可以运行Level1创建的server来先阅读下题目要求，如下所示）</p>
+<p>===== Expected: Parent Process =====
+[ ] execve(<execve_args>) = 0
+[ ] socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+[ ] bind(3, {sa_family=AF_INET, sin_port=htons(<bind_port>), sin_addr=inet_addr("<bind_address>")}, 16) = 0
+    - Bind to port 80
+    - Bind to address 0.0.0.0
+[ ] exit(0) = ?</p>
+<p>最终解如下。这里直接用栈来保存sockaddr_in结构体了，比较粗暴。</p>
+<div class="highlight"><pre><span></span><code><span class="na">.intel_syntax</span><span class="w"> </span><span class="no">noprefix</span>
+<span class="na">.globl</span><span class="w"> </span><span class="no">_start</span>
+
+<span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
+
+<span class="nl">_start:</span>
+<span class="w">    </span><span class="c1"># create a socket</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1"># AF_INET</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># SOCK_STREAM</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># IPPROTO_IP</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="c1"># sys_socket</span>
+<span class="w">    </span><span class="nf">syscall</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="no">rax</span>
+
+<span class="w">    </span><span class="c1"># bind the socket to 0.0.0.0:80</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="no">rax</span><span class="w"> </span><span class="c1"># socket_fd</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="mi">0x50000002</span><span class="w"> </span><span class="c1"># AF_INET(2) and PORT(80) in big endian</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="no">rsp</span><span class="w"> </span><span class="c1"># sockaddr_in</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># IP(0.0.0.0)</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># padding</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># padding</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdx</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="c1"># addrlen</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="c1"># sys_bind</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="no">rax</span>
+<span class="w">    </span><span class="nf">syscall</span>
+
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="w">     </span><span class="c1"># SYS_exit</span>
+<span class="w">    </span><span class="nf">syscall</span>
+
+
+<span class="na">.section</span><span class="w"> </span><span class="no">.data</span>
+</code></pre></div>
+<p><strong>Level 4</strong></p>
+<p>In this challenge you will listen on a socket.</p>
+<p>使用listen监听这个socket。由于这里listen也要用到之前socket创建的文件描述符，注意到样例的汇编文件最后提示用data了，所以干脆换用数据区来保存各种结构体，也弃用Level3里对栈做的那些修改了。这里sockfd和sockaddr都是地址，所以mov的时候会自动解引用，用lea指令来获得地址本身。</p>
+<div class="highlight"><pre><span></span><code><span class="na">.intel_syntax</span><span class="w"> </span><span class="no">noprefix</span>
+<span class="na">.globl</span><span class="w"> </span><span class="no">_start</span>
+
+<span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
+
+<span class="nl">_start:</span>
+<span class="w">    </span><span class="c1"># create a socket</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1"># AF_INET</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1"># SOCK_STREAM</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># IPPROTO_IP</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">41</span><span class="w"> </span><span class="c1"># sys_socket</span>
+<span class="w">    </span><span class="nf">syscall</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">sockfd</span><span class="p">,</span><span class="w"> </span><span class="no">rax</span>
+
+<span class="w">    </span><span class="c1"># bind the socket to 0.0.0.0:80</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="no">sockfd</span><span class="w">   </span><span class="c1"># socket_fd</span>
+<span class="w">    </span><span class="nf">lea</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="no">sockaddr</span><span class="w"> </span><span class="c1"># sockaddr</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdx</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="c1"># addrlen</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="w"> </span><span class="c1"># sys_bind</span>
+<span class="w">    </span><span class="nf">push</span><span class="w"> </span><span class="no">rax</span>
+<span class="w">    </span><span class="nf">syscall</span>
+
+<span class="w">    </span><span class="c1"># listen(3, 0)</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="no">sockfd</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="c1"># sys_listen</span>
+<span class="w">    </span><span class="nf">syscall</span>
+
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="w">     </span><span class="c1"># SYS_exit</span>
+<span class="w">    </span><span class="nf">syscall</span>
+
+
+<span class="na">.section</span><span class="w"> </span><span class="no">.data</span>
+
+<span class="nl">sockfd:</span><span class="w">   </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0</span>
+<span class="nl">sockaddr:</span><span class="w"> </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0x50000002</span><span class="w"> </span><span class="c1"># AF_INET(2) and PORT(80) in big endian</span>
+<span class="w">          </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># IP(0.0.0.0)</span>
+<span class="w">          </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># padding</span>
+<span class="w">          </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0x0</span><span class="w"> </span><span class="c1"># padding</span>
+</code></pre></div>
 <h2 id="reverse-engineering-writeups">Reverse Engineering Writeups</h2>
 <p><strong>Level 1</strong></p>
 <ul>

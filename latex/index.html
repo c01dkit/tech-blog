@@ -511,7 +511,7 @@
   
     <li class="md-nav__item">
       <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
-        CSE 365
+        CSE 365 - spring 2023
       </a>
     </li>
   
@@ -614,6 +614,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    推荐工具
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#latex_1" class="md-nav__link">
@@ -832,6 +839,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    推荐工具
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#latex_1" class="md-nav__link">
     英文latex
   </a>
@@ -864,6 +878,8 @@
 
 
 <h1 id="latex">latex基础</h1>
+<h2 id="_1">推荐工具</h2>
+<p>使用<a href="https://www.tablesgenerator.com/#">Table Generator</a>绘制表格</p>
 <h2 id="latex_1">英文latex</h2>
 <div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[conference,11pt]</span><span class="nb">{</span>IEEEtran<span class="nb">}</span>
 <span class="k">\IEEEoverridecommandlockouts</span>
@@ -964,8 +980,32 @@ xxx,xxx
 
 <span class="k">\usepackage</span><span class="na">[linesnumbered, vlined, ruled]</span><span class="nb">{</span>algorithm2e<span class="nb">}</span> <span class="c">% 算法列表</span>
 
+<span class="c">% 使用 ctex 宏包设置中文图题</span>
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\figurename</span><span class="nb">}{</span>图<span class="nb">}</span>
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\tablename</span><span class="nb">}{</span>表<span class="nb">}</span>
+
 <span class="c">% 设置页边距</span>
 <span class="k">\geometry</span><span class="nb">{</span>a4paper,left=2cm,right=2cm,top=2cm,bottom=3cm<span class="nb">}</span> 
+
+
+<span class="c">% 设置字体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\song</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>song<span class="nb">}}</span>    <span class="c">% 宋体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\fs</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>fs<span class="nb">}}</span>             <span class="c">% 仿宋体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\kai</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>kai<span class="nb">}}</span>          <span class="c">% 楷体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\hei</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>hei<span class="nb">}}</span>         <span class="c">% 黑体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\li</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>li<span class="nb">}}</span>               <span class="c">% 隶书</span>
+
+<span class="c">% 设置字号</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\yihao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>26pt<span class="nb">}{</span>36pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>           <span class="c">% 一号, 1.4 倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\erhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>22pt<span class="nb">}{</span>28pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>          <span class="c">% 二号, 1.25倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaoer</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>18pt<span class="nb">}{</span>18pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>          <span class="c">% 小二, 单倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\sanhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>16pt<span class="nb">}{</span>24pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>        <span class="c">% 三号, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaosan</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>15pt<span class="nb">}{</span>22pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>        <span class="c">% 小三, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\sihao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>14pt<span class="nb">}{</span>21pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>            <span class="c">% 四号, 1.5 倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\banxiaosi</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>13pt<span class="nb">}{</span>19.5pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>    <span class="c">% 半小四, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaosi</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>12pt<span class="nb">}{</span>18pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>            <span class="c">% 小四, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\dawuhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>11pt<span class="nb">}{</span>11pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>       <span class="c">% 大五号, 单倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\wuhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>10.5pt<span class="nb">}{</span>15.75pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>    <span class="c">% 五号, 单倍行距</span>
 
 <span class="c">% 定义代码样式</span>
 <span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
