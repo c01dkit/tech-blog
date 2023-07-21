@@ -68,7 +68,26 @@ bind(socket_fd, {sa_family=AF_INET, sin_port=htons(port), sin_addr=inet_addr("0.
 listen(socket_fd, 0)
 
 // int accept(int sockfd, struct sockaddr* addr, socklen_t* addrlen);
-accept(socket_fd, NULL, NULL)
+tunnel = accept(socket_fd, NULL, NULL)
+
+// revceive http request: GET / HTTP/1.0
+read(tunnel, "GET / HTTP/1.0",19)
+
+// response
+write(tunnel, "HTTP/1.0 200 OK\r\n\r\n", 19)
+
+// receive http request: GET /flag HTTP/1.0
+read(tunnel, "GET /flag HTTP/1.0\r\n\r\n",256)
+
+// open and read file
+filefd = open("/flag",O_RDDONLY)
+read(filefd, "FLAG", 256)
+
+//response
+write(tunnel, "HTTP/1.0 200 OK\r\n\r\nFLAG", 27)
+
+close(tunnel)
+
 ```
 
 ## Reverse Engineering 学习笔记
@@ -756,6 +775,7 @@ In this challenge you will bind an address to a socket.
 
 在Level2创建socket的基础上，将其绑定到0.0.0.0:80上。（可以运行Level1创建的server来先阅读下题目要求，如下所示）
 
+```
 ===== Expected: Parent Process =====
 [ ] execve(<execve_args>) = 0
 [ ] socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
@@ -763,6 +783,7 @@ In this challenge you will bind an address to a socket.
     - Bind to port 80
     - Bind to address 0.0.0.0
 [ ] exit(0) = ?
+```
 
 最终解如下。这里直接用栈来保存sockaddr_in结构体了，比较粗暴。
 
@@ -790,7 +811,6 @@ _start:
     push 0x0 # padding
     mov rdx, 16 # addrlen
     mov rax, 49 # sys_bind
-    push rax
     syscall
     
     mov rdi, 0
@@ -827,7 +847,6 @@ _start:
     lea rsi, sockaddr # sockaddr
     mov rdx, 16 # addrlen
     mov rax, 49 # sys_bind
-    push rax
     syscall
     
     # listen(3, 0)
@@ -849,6 +868,855 @@ sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
           .quad 0x0 # padding
           .quad 0x0 # padding
 
+```
+
+**Level 5**
+
+In this challenge you will accept a connection.
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+    
+    # accept(3, NULL, NULL)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+
+.section .data
+
+sockfd:   .quad 0
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+```
+
+**Level 6**
+
+In this challenge you will respond to an http request.
+
+这个题的意思是希望实现一个静态的站点，接收客户端发送的请求后，始终回复HTTP/1.0 200 OK。需要创建一个缓冲区保存请求，这里开了个256字节的内存（实际上有140字节）。
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+    
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 256
+    mov rax, 0
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1
+    syscall
+
+    # close(4)
+    mov rdi, tunnel
+    mov rax, 3
+    syscall
+    
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+request:  .space 256
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+```
+
+**Level 7**
+
+In this challenge you will respond to a GET request for the contents of a specified file.
+
+实现一个动态一点的服务器。这题中，客户端会请求服务器端读取一个文件并返回结果。文件是判题程序随机生成在/tmp下的，内容长度也是随机的。所以写代码的时候要多预留点缓冲区来保存文件内容。
+
+open文件时，文件名要从request请求里提取。因为生成的文件名长度是固定的，所以懒省事直接在request缓冲区里改了（字符串末尾\0）。
+
+```
+===== Expected: Parent Process =====
+[ ] execve(<execve_args>) = 0
+[ ] socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+[ ] bind(3, {sa_family=AF_INET, sin_port=htons(<bind_port>), sin_addr=inet_addr("<bind_address>")}, 16) = 0
+    - Bind to port 80
+    - Bind to address 0.0.0.0
+[ ] listen(3, 0) = 0
+[ ] accept(3, NULL, NULL) = 4
+[ ] read(4, <read_request>, <read_request_count>) = <read_request_result>
+[ ] open("<open_path>", O_RDONLY) = 5
+[ ] read(5, <read_file>, <read_file_count>) = <read_file_result>
+[ ] close(5) = 0
+[ ] write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+[ ] write(4, <write_file>, <write_file_count>) = <write_file_result>
+[ ] close(4) = 0
+[ ] exit(0) = ?
+
+===== Trace: Parent Process =====
+[✓] execve("/proc/self/fd/3", ["/proc/self/fd/3"], 0x7ffacc256990 /* 0 vars */) = 0
+[✓] socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 3
+[✓] bind(3, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+[✓] listen(3, 0)                            = 0
+[✓] accept(3, NULL, NULL)                   = 4
+[✓] read(4, "GET /tmp/tmpungh1ajd HTTP/1.1\r\nHost: localhost\r\nUser-Agent: python-requests/2.31.0\r\nAccept-Encoding: gzip, deflate\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n", 256) = 155
+[✓] open("/tmp/tmpungh1ajd", O_RDONLY)      = 5
+[✓] read(5, "3Hy3xnjNjQIBfP6QDUW4ekuQtBwdXQPbhtPFxawXzQ6LXVQDgs8ZlslYncY9DMQohXFVHFyMPnOI6kaGqURTh2fXHuKe2oqjntry7Pt5QQP0148CyzGKtmOigovhOHobD2zujqgJIRXxjny3UVL9", 1024) = 148
+[✓] close(5)                                = 0
+[✓] write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+[✓] write(4, "3Hy3xnjNjQIBfP6QDUW4ekuQtBwdXQPbhtPFxawXzQ6LXVQDgs8ZlslYncY9DMQohXFVHFyMPnOI6kaGqURTh2fXHuKe2oqjntry7Pt5QQP0148CyzGKtmOigovhOHobD2zujqgJIRXxjny3UVL9", 148) = 148
+[✓] close(4)                                = 0
+[✓] exit(0)                                 = ?
+[?] +++ exited with 0 +++
+
+===== Result =====
+[✓] Success
+```
+
+使用的汇编代码如下：
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+    
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 256
+    mov rax, 0 # sys_read
+    syscall
+
+    # open("<open_path>", O_RDONLY) = 5
+    lea rdi, [request+4] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0 # O_RDONLY
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+
+    # read(5, <read_file>, <read_file_count>) = <read_file_result>
+    mov rdi, txtfile
+    lea rsi, filecontent
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov filecnt, rax # 
+
+    # close(5)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+    # write(4, <write_file>, <write_file_count>) = <write_file_result>
+    mov rdi, tunnel
+    lea rsi, filecontent
+    mov rdx, filecnt
+    mov rax, 1 # sys_write
+    syscall
+
+    # close(4)
+    mov rdi, tunnel
+    mov rax, 3 # sys_close
+    syscall
+
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+txtfile:  .quad 0
+filecnt:  .quad 0
+request:  .space 256
+filecontent: .space 1024
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+
+```
+
+**Level 8**
+
+In this challenge you will accept multiple requests.
+
+使用一个程序接受多个请求。由于socket没有关，在最后加一个accept即可。程序最后accept超时sigkill退出。
+
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+    
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 256
+    mov rax, 0 # sys_read
+    syscall
+
+    # open("<open_path>", O_RDONLY) = 5
+    lea rdi, [request+4] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0 # O_RDONLY
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+
+    # read(5, <read_file>, <read_file_count>) = <read_file_result>
+    mov rdi, txtfile
+    lea rsi, filecontent
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov filecnt, rax # 
+
+    # close(5)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+    # write(4, <write_file>, <write_file_count>) = <write_file_result>
+    mov rdi, tunnel
+    lea rsi, filecontent
+    mov rdx, filecnt
+    mov rax, 1 # sys_write
+    syscall
+
+    # close(4)
+    mov rdi, tunnel
+    mov rax, 3 # sys_close
+    syscall
+
+    # accept(3, NULL, NULL)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+    
+    # exit
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+txtfile:  .quad 0
+filecnt:  .quad 0
+request:  .space 256
+filecontent: .space 1024
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+```
+
+**Level 9**
+
+In this challenge you will concurrently accept multiple requests.
+
+这道题是让做一个多进程，父进程负责循环accept，子进程用于动态处理文件读写。根据fork返回值来判断父进程（返回值为子进程pid）还是子进程（返回值为0）。父进程中，关闭tunnel；子进程中，关闭sockfd。
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+
+parent_process_1:
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # fork() = <fork_result>
+    mov rax, 57 # sys_fork
+    syscall
+    
+    test rax, rax
+    jnz parent_process_2
+    jz child_process
+
+parent_process_2:
+
+    # close(3)
+    mov rdi, tunnel
+    mov rax, 3 # sys_close
+    syscall
+    jmp parent_process_1
+
+child_process:
+
+    # close(3)
+    mov rdi, sockfd
+    mov rax, 3 # sys_close
+    syscall
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 256
+    mov rax, 0 # sys_read
+    syscall
+
+    # open("<open_path>", O_RDONLY) = 3
+    lea rdi, [request+4] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0 # O_RDONLY
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+
+    # read(3, <read_file>, <read_file_count>) = <read_file_result>
+    mov rdi, txtfile
+    lea rsi, filecontent
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov filecnt, rax # 
+
+    # close(3)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+    # write(4, <write_file>, <write_file_count>) = <write_file_result>
+    mov rdi, tunnel
+    lea rsi, filecontent
+    mov rdx, filecnt
+    mov rax, 1 # sys_write
+    syscall
+
+    # exit
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+txtfile:  .quad 0
+filecnt:  .quad 0
+request:  .space 256
+filecontent: .space 1024
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+
+```
+
+**Level 10**
+
+In this challenge you will respond to a POST request with a specified file and update its contents.
+
+这道题是用POST请求，要求用多进程处理，在子进程中把POST的请求体保存在临时文件，并返回200 OK。考虑到文件名是定长的，所以沿用之前的方法得到文件名。这里用的一个trick是用"\r\n\r\n"来从请求中分割请求体，并且内容的计算是用read的返回值减去偏移量算的。这是偷懒没有实现解析Content-Length的功能hhh
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+
+parent_process_1:
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # fork() = <fork_result>
+    mov rax, 57 # sys_fork
+    syscall
+    
+    test rax, rax
+    jnz parent_process_2
+    jz child_process
+
+parent_process_2:
+
+    # close(3)
+    mov rdi, tunnel
+    mov rax, 3 # sys_close
+    syscall
+    jmp parent_process_1
+
+child_process:
+
+    # close(3)
+    mov rdi, sockfd
+    mov rax, 3 # sys_close
+    syscall
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov requestlen, rax
+
+    # open("<open_path>", O_WRONLY|O_CREAT, 0777) = 3
+    lea rdi, [request+5] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0x41 # O_WRONLY | O_CREAT
+    mov rdx, 0777
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+    
+    # locate POST body
+    mov rcx, 0
+    mov ebx, separate
+locate_body:
+    mov eax, [request+rcx]
+    add rcx, 1
+    cmp eax, ebx
+    jne locate_body
+    # extrace POST body
+    add rcx, 3
+    mov rdi, txtfile
+    lea rsi, [request+rcx]
+    mov rdx, requestlen
+    sub rdx, rcx
+    mov rax, 1 # sys_write
+    syscall
+
+    # close(3)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+    # exit
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+txtfile:  .quad 0
+filecnt:  .quad 0
+requestlen: .quad 0
+request:  .space 1024
+filecontent: .space 1024
+separate: .ascii "\r\n\r\n"
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
+```
+
+**Level 11**
+
+In this challenge you will respond to multiple concurrent GET and POST requests.
+
+直接发了一堆GET和POST混合请求。不过好像没说每个请求要干嘛，就直接结合下level9和level10的结果，比较request是以POST开头还是GET开头，分别跳转到对应的逻辑就行了。
+
+```asm
+.intel_syntax noprefix
+.globl _start
+
+.section .text
+    
+_start:
+    # create a socket
+    mov rdi, 2 # AF_INET
+    mov rsi, 1 # SOCK_STREAM
+    mov rdx, 0 # IPPROTO_IP
+    mov rax, 41 # sys_socket
+    syscall
+    mov sockfd, rax
+
+    # bind the socket to 0.0.0.0:80
+    mov rdi, sockfd   # socket_fd
+    lea rsi, sockaddr # sockaddr
+    mov rdx, 16 # addrlen
+    mov rax, 49 # sys_bind
+    syscall
+    
+    # listen(3, 0)
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rax, 50 # sys_listen
+    syscall
+
+parent_process_1:
+    # accept(3, NULL, NULL) = 4
+    mov rdi, sockfd
+    mov rsi, 0
+    mov rdx, 0
+    mov rax, 43 # sys_accept
+    syscall
+    mov tunnel, rax
+
+    # fork() = <fork_result>
+    mov rax, 57 # sys_fork
+    syscall
+    
+    test rax, rax
+    jnz parent_process_2
+    jz child_process
+
+parent_process_2:
+
+    # close(3)
+    mov rdi, tunnel
+    mov rax, 3 # sys_close
+    syscall
+    jmp parent_process_1
+
+child_process:
+
+    # close(3)
+    mov rdi, sockfd
+    mov rax, 3 # sys_close
+    syscall
+
+    # read(4, <read_request>, <read_request_count>) = <read_request_result>
+    mov rdi, tunnel
+    lea rsi, request
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov requestlen, rax
+
+    # check GET or POST
+    mov eax, request
+    mov ebx, requestget
+    cmp eax, ebx
+    je handle_get
+    mov ebx, requestpost
+    cmp eax, ebx
+    je handle_post
+
+    jmp program_exit
+
+handle_get:
+    # open("<open_path>", O_RDONLY) = 3
+    lea rdi, [request+4] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0 # O_RDONLY
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+
+    # read(3, <read_file>, <read_file_count>) = <read_file_result>
+    mov rdi, txtfile
+    lea rsi, filecontent
+    mov rdx, 1024
+    mov rax, 0 # sys_read
+    syscall
+    mov filecnt, rax # 
+    # close(3)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+    # write(4, <write_file>, <write_file_count>) = <write_file_result>
+    mov rdi, tunnel
+    lea rsi, filecontent
+    mov rdx, filecnt
+    mov rax, 1 # sys_write
+    syscall
+
+    jmp program_exit
+
+handle_post:
+    # open("<open_path>", O_WRONLY|O_CREAT, 0777) = 3
+    lea rdi, [request+5] # extract file name
+    movb [rdi+16], 0
+    mov rsi, 0x41 # O_WRONLY | O_CREAT
+    mov rdx, 0777
+    mov rax, 2 # sys_open
+    syscall
+    mov txtfile, rax
+    
+    # locate POST body
+    mov rcx, 0
+    mov ebx, separate
+locate_body:
+    mov eax, [request+rcx]
+    add rcx, 1
+    cmp eax, ebx
+    jne locate_body
+    # extrace POST body
+    add rcx, 3
+    mov rdi, txtfile
+    lea rsi, [request+rcx]
+    mov rdx, requestlen
+    sub rdx, rcx
+    mov rax, 1 # sys_write
+    syscall
+
+    # close(3)
+    mov rdi, txtfile
+    mov rax, 3 # sys_close
+    syscall
+
+    # write(4, "HTTP/1.0 200 OK\r\n\r\n", 19) = 19
+    mov rdi, tunnel
+    lea rsi, response
+    mov rdx, 19
+    mov rax, 1 # sys_write
+    syscall
+
+program_exit:
+    # exit
+    mov rdi, 0
+    mov rax, 60     # SYS_exit
+    syscall
+
+.section .data
+
+sockfd:   .quad 0
+tunnel:   .quad 0
+txtfile:  .quad 0
+filecnt:  .quad 0
+requestlen: .quad 0
+request:  .space 1024
+filecontent: .space 1024
+requestget: .ascii "GET "
+requestpost: .ascii "POST"
+separate: .ascii "\r\n\r\n"
+response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
+          .quad 0x0 # IP(0.0.0.0)
+          .quad 0x0 # padding
+          .quad 0x0 # padding
 ```
 
 ## Reverse Engineering Writeups

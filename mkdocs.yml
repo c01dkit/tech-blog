@@ -19,6 +19,8 @@ nav:
     - Go: go.md
     - Python: python.md
     - 优雅编程: code-gracely.md
+  - 编程应用:
+    - python爬虫: crawler.md
   - 程序逆向:
     - IDA基础: IDA.md
     - 逆向基础: reverse-basic.md

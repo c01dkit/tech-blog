@@ -1,6 +1,6 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-07-17
+目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-07-21
 
 ## linux服务器运维
 
@@ -45,6 +45,14 @@
 - [用结果表替换数学计算结果](./code-gracely/#_10)
 - [一些小小的语法特性](./code-gracely/#_11)
 - [C](./code-gracely/#c)
+
+## 编程应用 / python爬虫
+
+- [Scrapy](./crawler/#scrapy)
+- [加国内代理](./crawler/#_2)
+- [application/json类型](./crawler/#applicationjson)
+- [application/x-www-form-urlencoded类型](./crawler/#applicationx-www-form-urlencoded)
+- [Selenium](./crawler/#selenium)
 
 ## 程序逆向 / IDA基础
 
