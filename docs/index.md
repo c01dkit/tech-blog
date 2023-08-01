@@ -1,6 +1,6 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-07-21
+目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-08-01
 
 ## linux服务器运维
 
@@ -105,6 +105,11 @@
 - [一些想法](./rca/#_4)
 - [相关论文的一些发现（疑问）](./rca/#_5)
 - [参考文献](./rca/#_6)
+
+## 学习笔记 / autoconf
+
+- [不分目录结构](./autoconf/#_1)
+- [区分目录结构](./autoconf/#_2)
 
 ## 学习笔记 / pwn-college / CSE 365 - spring 2023
 

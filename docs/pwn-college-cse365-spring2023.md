@@ -1760,7 +1760,7 @@ trick：使用`disas $pc`查看发现有个win函数，参数用的0。直接`se
 * 有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数`-x xxx.gdb`，就可以在gdb启动后自动化运行脚本
 * `~/.gdbinit`在初始化gdb会话时自动运行
 
-以下是个gdb脚本的例子，`silent`用于在遇到断电时减少输出信息，以及使用`set`和`printf`设置变量、打印值。
+以下是个gdb脚本的例子，`silent`用于在遇到断点时减少输出信息，以及使用`set`和`printf`设置变量、打印值。
 ```shell
 start
 break *main+42

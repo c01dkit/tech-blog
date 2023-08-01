@@ -29,6 +29,7 @@ nav:
     - Git: git.md
     - Docker: docker.md
     - 根因分析: rca.md
+    - autoconf: autoconf.md
     - pwn-college:
       - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
   - 科研生活: 

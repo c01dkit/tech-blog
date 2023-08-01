@@ -1,5 +1,9 @@
 # 文句摘录
 
+*Alligator in Vest: A Practical Failure-Diagnosis Framework via Arm Hardware Features (ISSTA 2023)*
+
+* In light of these limitations, we propose Investigator, a practical failure diagnosis framework on Arm to fulfill the three requirements.
+
 *RR: A Fault Model for Efficient TEE Replication (NDSS 2023)*
 
 * The correctness of replication protocols hinges on the property of quorum intersection.
