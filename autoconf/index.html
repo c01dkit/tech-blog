@@ -10,20 +10,20 @@
         <meta name="author" content="c01dkit">
       
       
-        <link rel="canonical" href="https://tech.c01dkit.com/reverse-advanced/">
+        <link rel="canonical" href="https://tech.c01dkit.com/autoconf/">
       
       
-        <link rel="prev" href="../reverse-basic/">
+        <link rel="prev" href="../rca/">
       
       
-        <link rel="next" href="../git/">
+        <link rel="next" href="../pwn-college-cse365-spring2023/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
-        <title>逆向高阶 - c01dkit's tech blog</title>
+        <title>autoconf - c01dkit's tech blog</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#autoconf" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              逆向高阶
+              autoconf
             
           </span>
         </div>
@@ -384,16 +384,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
       
@@ -402,7 +400,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           程序逆向
@@ -441,52 +439,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          逆向高阶
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../reverse-advanced/" class="md-nav__link">
         逆向高阶
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    Windows逆向技术概念
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -504,14 +461,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
       
       
       
@@ -520,7 +479,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           学习笔记
@@ -573,11 +532,59 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../autoconf/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          autoconf
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         autoconf
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    不分目录结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    区分目录结构
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -888,8 +895,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    Windows逆向技术概念
+  <a href="#_1" class="md-nav__link">
+    不分目录结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    区分目录结构
   </a>
   
 </li>
@@ -912,9 +926,128 @@
   
 
 
-<h1 id="_1">逆向高阶</h1>
-<h2 id="windows">Windows逆向技术概念</h2>
-<p>DLL注入，Windows消息钩取，DLL卸载，代码注入，API钩取，进程隐藏，IE连接控制，TLS回调函数，TEB，PEB，SEH，IA-32，反调试（静态、动态），PE镜像，Debug Blocker</p>
+<h1 id="autoconf">autoconf学习笔记</h1>
+<p>自己开发软件时，生成规范的configure等文件。可参考<a href="https://www.cnblogs.com/klausage/p/14163844.html">https://www.cnblogs.com/klausage/p/14163844.html</a>等</p>
+<h2 id="_1">不分目录结构</h2>
+<ol>
+<li>编写Makefile.am文件，比如：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">bin_PROGRAMS</span><span class="o">=</span>helloworld
+<span class="nv">helloworld_SOURCES</span><span class="o">=</span>helloworld.c
+</code></pre></div>
+<ul>
+<li>
+<p><code>bin_PROGRAMS</code>用于给项目起名，比如X，那么之后的X_SOURCES则用来指定使用的源文件</p>
+</li>
+<li>
+<p>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c">#                                               -*- Autoconf -*-</span>
+<span class="c"># Process this file with autoconf to produce a configure script.</span>
+
+<span class="err">AC_PREREQ([2.69])</span>
+<span class="err">AC_INIT([FULL-PACKAGE-NAME],</span><span class="w"> </span><span class="err">[VERSION],</span><span class="w"> </span><span class="err">[BUG-REPORT-ADDRESS])</span>
+<span class="err">AM_INIT_AUTOMAKE([foreign])</span><span class="w"> </span><span class="c"># 如果不加这一句，默认gnu，则之后目录里要有NEWS、README、AUTHORS、ChangLog等文件（需自己手动建立）</span>
+<span class="err">AC_CONFIG_SRCDIR([main.h])</span>
+<span class="err">AC_CONFIG_HEADERS([config.h])</span>
+<span class="c"># Checks for programs.</span>
+<span class="err">AC_PROG_CC</span>
+
+<span class="c"># Checks for libraries.</span>
+
+<span class="c"># Checks for header files.</span>
+
+<span class="c"># Checks for typedefs, structures, and compiler characteristics.</span>
+
+<span class="c"># Checks for library functions.</span>
+
+<span class="err">AC_CONFIG_FILES([Makefile])</span>
+<span class="err">AC_OUTPUT</span>
+</code></pre></div>
+<ol>
+<li>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</li>
+<li>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</li>
+<li>运行<code>./configure</code>生成makefile</li>
+<li>运行<code>make</code>，基于makefile编译代码</li>
+</ol>
+<h2 id="_2">区分目录结构</h2>
+<p>也就是说源码可能在多个文件夹下，比如src。那么每个文件夹需要单独写Makefile.am来指定如何编译。</p>
+<ol>
+<li>编写Makefile.am文件</li>
+</ol>
+<p>源码所在的文件夹的Makefile文件示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">bin_PROGRAMS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>reverse
+
+<span class="c">#AM_CFLAGS= -DDEBUG -DLOG_INSTRUCTIONS -I ../include</span>
+<span class="nv">AM_CFLAGS</span><span class="o">=</span><span class="w"> </span>-DDEBUG<span class="w"> </span>-I<span class="w"> </span>../include
+
+<span class="nv">reverse_CPPFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-msse4.1
+
+<span class="nv">handlers_FILES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>handler_flag_manip.c<span class="w"> </span>handler_interrupt.c
+
+<span class="c">#handler_interrupt.c</span>
+
+<span class="nv">reverse_SOURCES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>access_memory.c<span class="w"> </span>alias_manager.c<span class="w"> </span><span class="k">$(</span>handlers_FILES<span class="k">)</span>
+</code></pre></div>
+<ul>
+<li><code>AM_CFLAGS</code>用于添加编译选项</li>
+</ul>
+<p>项目文件夹需要指定源文件所在的文件夹</p>
+<p>POMP的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SUBDIRS</span><span class="o">=</span>src<span class="w"> </span><span class="c1"># 指定src文件夹</span>
+<span class="nv">dist_doc_DATA</span><span class="o">=</span>README
+
+<span class="nv">TESTSUITES_DIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>testsuites
+<span class="nv">EXECUTABLE</span><span class="o">=</span><span class="k">$(</span>SUBDIRS<span class="k">)</span>/reverse
+
+<span class="nf">abc2mtex</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>EXECUTABLE<span class="k">)</span><span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/core<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/library/<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/inst.reverse
+
+<span class="nf">aireplay-ng</span><span class="o">:</span>
+<span class="w">    </span><span class="k">$(</span>EXECUTABLE<span class="k">)</span><span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/core<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/library/<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/inst.reverse
+</code></pre></div>
+<ol>
+<li>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c">#                                               -*- Autoconf -*-</span>
+<span class="c"># Process this file with autoconf to produce a configure script.</span>
+
+<span class="err">AC_PREREQ([2.69])</span>
+<span class="err">AC_INIT([reverse_from_coredump],</span><span class="w"> </span><span class="err">[0.0.1],</span><span class="w"> </span><span class="err">[mudongliangabcd@gmail.com])</span>
+<span class="err">AM_INIT_AUTOMAKE([-Wall</span><span class="w"> </span><span class="err">-Werror</span><span class="w"> </span><span class="err">foreign])</span>
+<span class="err">AC_CONFIG_HEADERS([config.h])</span>
+
+<span class="c"># Checks for programs.</span>
+<span class="err">AC_PROG_CC</span>
+
+<span class="c"># Checks for libraries.</span>
+<span class="err">AC_CHECK_LIB([disasm],</span><span class="w"> </span><span class="err">[x86_init])</span>
+<span class="err">AC_CHECK_LIB([elf],</span><span class="w"> </span><span class="err">[gelf_getehdr])</span>
+
+<span class="c"># Checks for header files.</span>
+<span class="err">AC_CHECK_HEADERS([fcntl.h</span><span class="w"> </span><span class="err">malloc.h</span><span class="w"> </span><span class="err">stddef.h</span><span class="w"> </span><span class="err">stdint.h</span><span class="w"> </span><span class="err">stdlib.h</span><span class="w"> </span><span class="err">string.h</span><span class="w"> </span><span class="err">unistd.h])</span>
+
+<span class="c"># Checks for typedefs, structures, and compiler characteristics.</span>
+<span class="err">AC_CHECK_HEADER_STDBOOL</span>
+<span class="err">AC_C_INLINE</span>
+<span class="err">AC_TYPE_OFF_T</span>
+<span class="err">AC_TYPE_SIZE_T</span>
+
+<span class="c"># Checks for library functions.</span>
+<span class="err">AC_FUNC_MALLOC</span>
+<span class="err">AC_CHECK_FUNCS([memset</span><span class="w"> </span><span class="err">strerror])</span>
+
+<span class="err">AC_CONFIG_FILES([Makefile</span>
+<span class="w">                 </span><span class="err">src/Makefile])</span>
+<span class="err">AC_OUTPUT</span>
+</code></pre></div>
+<ol>
+<li>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</li>
+<li>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</li>
+<li>运行<code>./configure</code>生成makefile</li>
+<li>运行<code>make</code>，基于makefile编译代码</li>
+</ol>
 
 
 

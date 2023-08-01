@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://tech.c01dkit.com/pwn-college-cse365-spring2023/">
       
       
-        <link rel="prev" href="../rca/">
+        <link rel="prev" href="../autoconf/">
       
       
         <link rel="next" href="../sci-thoughts/">
@@ -532,6 +532,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../autoconf/" class="md-nav__link">
+        autoconf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -541,17 +555,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
           pwn-college
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_6_4">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6_5">
           <span class="md-nav__icon md-icon"></span>
           pwn-college
         </label>
@@ -2524,7 +2538,7 @@ _start:
 <li>有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数<code>-x xxx.gdb</code>，就可以在gdb启动后自动化运行脚本</li>
 <li><code>~/.gdbinit</code>在初始化gdb会话时自动运行</li>
 </ul>
-<p>以下是个gdb脚本的例子，<code>silent</code>用于在遇到断电时减少输出信息，以及使用<code>set</code>和<code>printf</code>设置变量、打印值。
+<p>以下是个gdb脚本的例子，<code>silent</code>用于在遇到断点时减少输出信息，以及使用<code>set</code>和<code>printf</code>设置变量、打印值。
 <div class="highlight"><pre><span></span><code>start
 <span class="nb">break</span><span class="w"> </span>*main+42
 commands
