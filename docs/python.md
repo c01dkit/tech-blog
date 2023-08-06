@@ -249,6 +249,75 @@ except Exception as e:
 
 ```
 
+## 二进制字节与hex互相转换：IntelHex
+
+fuzzware里添加退出handler打印state（即模拟coredump）时，使用了IntelHex来保存中间结果。可以参考下面的例子，进行相互转化。IntelHex文件本身的格式，可以[参考这里](http://www.cbww.cn/news/37136.shtml)
+
+```python
+from intelhex import IntelHex
+ih = IntelHex()
+
+data = {
+    0x30000000: b'\x00\x01\x02\x03\x04',
+    0x20002000: b'\x04\x05\x06\x07'
+}
+
+for base_addr, contents in data.items():
+    ih.puts(base_addr, contents)
+
+with open('test.hex', 'w') as f:
+    ih.write_hex_file(f)
+
+
+# 从已有的hex文件中读取数据
+ih = IntelHex()
+ih.fromfile('test.hex', format='hex')
+
+"""test.hex
+:020000042000DA
+:0420000004050607C6
+:020000043000CA
+:050000000001020304F1
+:00000001FF
+
+hex格式以冒号开头，随后1字节表示数据长度，紧接4字节表示地址，随后1字节为记录类型：
+00：表示数据
+01：表示文件结束
+02：表示扩展段地址。随后的2字节左移4位，作为段地址，在之后的计算中和地址相加作为最后地址
+03：表示起始段地址。随后的4字节中，前、后2字节分别表示CS、IP
+04：表示扩展线性地址。随后的2字节指定32地址的高16位
+05：表示起始线性地址。随后的4字节指定指令执行起始地址
+最后一字节表示校验码
+
+比如:020000042000DA，分为:02 0000 04 2000 DA
+"""
+
+# 获取解析后的数据，并合并连续的地址
+restored_data = {}
+current_address = None
+current_data = b''
+
+for address in ih.addresses():
+    # Check if the address is consecutive with the current data
+    if current_address is None or address == current_address + len(current_data):
+        if current_address is None:
+            current_address = address
+        current_data += bytes([ih[address]])
+    else:
+        # Save the previous data and start a new block
+        restored_data[current_address] = current_data
+        current_address = address
+        current_data = bytes([ih[address]])
+
+# Save the last block of data
+if current_address is not None:
+    restored_data[current_address] = current_data
+
+# 输出还原后的data字典
+print(restored_data)
+# {536879104: b'\x04\x05\x06\x07', 805306368: b'\x00\x01\x02\x03\x04'}
+```
+
 ## 参考资料
 
 * [(USENIX Security 2022)Fuzzware: Using Precise MMIO Modeling for Effective Firmware Fuzzing](https://github.com/fuzzware-fuzzer/fuzzware)

@@ -2,7 +2,11 @@
 
 ## 端口复用方法
 
-由于服务器安全设定，只对外开放一个端口，如何提供ssh连接、https服务？搜索了下可以根据流量特征用sslh简单转发一下数据包到不同的内部端口。在root下apt install sslh后修改配置：
+由于服务器安全设定，只对外开放一个22端口提供ssh连接。那么在此基础上如何提供http、https等多种服务？搜索了下可以根据流量特征用sslh简单转发一下数据包到不同的内部端口。
+
+### sslh：根据流量特征转发数据包
+
+在root下apt install sslh后修改配置文件`/etc/default/sslh`：
 
 
 ```shell
@@ -16,7 +20,31 @@ Run=yes
 DAEMON_OPTS="--user sslh --listen 0.0.0.0:4684 --ssh 127.0.0.1:5752 --ssl 127.0.0.1:443 --http 127.0.0.1:1284 --pidfile /var/run/sslh/sslh.pid"
 ```
 
-ssh的设定开了本地22和5752端口，配置时修改/etc/ssh/sshd_config文件，加一行Port 5752即可。同时记得使用公钥认证登录，禁用密码登录。nginx（1.22版本）的配置如下
+这里也可以`cat /lib/systemd/system/sslh.service`看一下service文件，其中有一行`ExecStart=/usr/sbin/sslh --foreground $DAEMON_OPTS`，可以看到在启动sslh时参数是DAEMON_OPTS。所以重点就在于配置好DAEMON_OPTS。
+
+解释一下几个参数的意思：
+
+* --listen 0.0.0.0:4684 表示sslh运行在4684端口，将这个端口收到的数据包按规则转发到其他端口上
+* --ssh 127.0.0.1:5752 表示将收到的ssh数据包转发到本地5752端口
+* --ssl 127.0.0.1:443 表示将收到的ssl数据包转发到本地443端口
+* --http 127.0.0.1:1284 表示将收到的http请求转发到本地1284端口
+
+然后`systemctl enable sslh`、`systemctl start sslh`启动sslh，将本地4684端口收到的流量根据ssh、ssl、http的特征分别进行端口转发。
+
+### ssh：提供远程连接
+
+由于原本对外开放的22端口只用于接收ssh请求，如果想要提供更多服务，需要先把22端口的接收的数据都转发给sslh，让它来进行分类。那么ssh请求应该就不能再还给22端口了（不然可能又被转发给sslh？不确定），可以考虑再开一个端口监听ssh请求。这里ssh的设定开了本地22和5752端口，配置时修改`/etc/ssh/sshd_config`文件，加一行Port 5752即可。同时记得使用公钥认证登录，禁用密码登录。
+
+```shell
+Port 22
+Port 5752
+PubkeyAuthentication yes
+PasswordAuthentication no
+```
+
+### nginx：提供http/https服务
+
+在nginx官网下载源码并按说明编译。nginx（1.22版本）的配置如下：
 
 ```
 user  c01dkit;
@@ -77,14 +105,31 @@ http {
 
 ```
 
+这里配置了nginx监听本地1284端口来处理http访问，将https请求转发到443端口，也设置了ssl的证书。证书的配置方法可以见后文的`https证书`章节。
 
-然后systemctl enable sslh、systemctl start sslh启动sslh。这里将本地4684端口收到的流量根据ssh、ssl、http的特征分别进行端口转发。此时接着设置防火墙将所有外部流量转发到4684端口即可。这里假定ssh服务也开在了5752端口，nginx配置https监听443端口、http监听1284端口。
+关于nginx，可以nginx -V查看编译选项，然后自己从源码编译下。常见的-V输出有：
+
+```
+nginx version: nginx/1.22.1
+built by gcc 11.3.0 (Ubuntu 11.3.0-1ubuntu1~22.04) 
+built with OpenSSL 3.0.2 15 Mar 2022
+TLS SNI support enabled
+configure arguments: --user=c01dkit --group=c01dkit --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/usr/lib/nginx/modules --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-compat --with-debug --with-pcre-jit --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_auth_request_module --with-http_v2_module --with-http_dav_module --with-http_slice_module --with-threads --with-http_addition_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_sub_module
+```
+
+这里指定user为c01dkit，然后网站也都放在c01dkit的家目录里面，以防网站页面因为权限问题打不开（好像默认是www-data），可能是蟹脚改法○( ＾皿＾)っ
+
+### iptables：转发外部访问到sslh
+
+最后接着设置防火墙将所有外部流量从开放的唯一端口转发到4684端口即可。
 
 ```shell
 iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 4684
 ```
 
-这里假定外部端口开放的端口映射到本地22端口。这里22端口也是有ssh服务在监听。有时担心sslh服务挂掉导致4684没有ssh服务、ssh连不上，设置了定时任务来关掉、打开防火墙（此时只能ssh连接，提供运维窗口期），比如每周三4点到6点只提供22端口的ssh服务：
+这里假定外部端口开放的端口映射到本地22端口。这里22端口也是有ssh服务在监听。
+
+有时担心sslh服务挂掉导致4684没有ssh服务、ssh连不上，设置了定时任务来关掉、打开防火墙（此时只能ssh连接，提供运维窗口期），比如每周三4点到6点只提供22端口的ssh服务：
 
 ```shell
 # Edit this file to introduce tasks to be run by cron.
@@ -114,18 +159,9 @@ iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 4684
 0 6 * * 3 iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 4684
 ```
 
-由于这样设置iptables重启后会失效，所以服务器意外重启的话只不过是恢复到最基础的22端口ssh而已。
+由于这样设置iptables会在服务器重启后失效，所以服务器意外重启的话只不过是恢复到最基础的22端口ssh而已。
 
-关于nginx，可以nginx -V查看编译选项，然后自己从源码编译下。常见的-V输出有：
-```
-nginx version: nginx/1.22.1
-built by gcc 11.3.0 (Ubuntu 11.3.0-1ubuntu1~22.04) 
-built with OpenSSL 3.0.2 15 Mar 2022
-TLS SNI support enabled
-configure arguments: --user=c01dkit --group=c01dkit --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/usr/lib/nginx/modules --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-compat --with-debug --with-pcre-jit --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_auth_request_module --with-http_v2_module --with-http_dav_module --with-http_slice_module --with-threads --with-http_addition_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_sub_module
-```
 
-这里指定user为c01dkit，然后网站也都放在c01dkit的家目录里面，以防网站页面因为权限问题打不开（好像默认是www-data），可能是蟹脚改法○( ＾皿＾)っ
 
 ## https证书
 

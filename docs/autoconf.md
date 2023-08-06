@@ -5,7 +5,7 @@
 
 ## 不分目录结构
 
-1. 编写Makefile.am文件，比如：
+**编写Makefile.am文件，比如：**
 
 ```makefile
 bin_PROGRAMS=helloworld
@@ -14,7 +14,8 @@ helloworld_SOURCES=helloworld.c
 
 * `bin_PROGRAMS`用于给项目起名，比如X，那么之后的X_SOURCES则用来指定使用的源文件
 
-2. 执行`autoscan`，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：
+
+**执行`autoscan`，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：**
 
 ```makefile
 #                                               -*- Autoconf -*-
@@ -41,16 +42,19 @@ AC_OUTPUT
 
 ```
 
-3. 执行`aclocal && autoheader && autoconf`，生成aclocal.m4、config.h.in和configure
-4. 运行`automake --add-missing`，会根据Makefile.am生成Makefile.in
-5. 运行`./configure`生成makefile
-6. 运行`make`，基于makefile编译代码
+**执行`aclocal && autoheader && autoconf`，生成aclocal.m4、config.h.in和configure**
+
+**运行`automake --add-missing`，会根据Makefile.am生成Makefile.in**
+
+**运行`./configure`生成makefile**
+
+**运行`make`，基于makefile编译代码**
 
 ## 区分目录结构
 
 也就是说源码可能在多个文件夹下，比如src。那么每个文件夹需要单独写Makefile.am来指定如何编译。
 
-1. 编写Makefile.am文件
+**编写Makefile.am文件**
 
 源码所在的文件夹的Makefile文件示例：
 
@@ -92,7 +96,7 @@ aireplay-ng:
 
 ```
 
-2. 执行`autoscan`，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：
+**执行`autoscan`，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：**
 
 ```makefile
 #                                               -*- Autoconf -*-
@@ -130,7 +134,10 @@ AC_OUTPUT
 ```
 
 
-3. 执行`aclocal && autoheader && autoconf`，生成aclocal.m4、config.h.in和configure
-4. 运行`automake --add-missing`，会根据Makefile.am生成Makefile.in
-5. 运行`./configure`生成makefile
-6. 运行`make`，基于makefile编译代码
+**执行`aclocal && autoheader && autoconf`，生成aclocal.m4、config.h.in和configure**
+
+**运行`automake --add-missing`，会根据Makefile.am生成Makefile.in**
+
+**运行`./configure`生成makefile**
+
+**运行`make`，基于makefile编译代码**

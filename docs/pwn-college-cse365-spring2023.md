@@ -8,7 +8,7 @@
 
 响应第一行Status line：协议版本 状态码 解释 CRLF
 
-### 请求方法
+常见的请求方法：
 
 * GET：获取信息，如果URI是处理程序，则获取程序运行后的结果（而不是源码）
 * HEAD：和GET类似，但是response不返回body，一般用于测试资源是否存在、修改时间，获取资源元数据等
@@ -23,9 +23,7 @@
 * query 资源可以利用的额外信息
 * fragment 客户端有关这一资源的信息（不会传给服务器？）
 
-### urlencoding
-
-请求的资源含有一些特殊符号比如?,/,&,#等等时，使用%xx进行编码，其中xx是ASCII码
+请求的资源含有一些特殊符号比如?,/,&,#等等时，使用%xx进行编码，其中xx是ASCII码。这种做法称为urlencoding
 
 POST请求时，需要带上Content-Type
 
@@ -92,11 +90,61 @@ close(tunnel)
 
 ## Reverse Engineering 学习笔记
 
+* `start`在main函数打断点并运行
+* `starti`在_start函数打断点并运行
+* `run`不打断点，直接运行
+* `attach <PID>`将gdb附着到一个正在运行的进程
+* `core <PATH>`分析一个程序运行后产生的coredump文件
+* `start <ARG1> <ARG2> < <STDIN_PATH>`运行带有参数的程序，和shell里输命令一样
+* `info registers`可以查看寄存器的值（或者简单的`i r`）
+* `print`用来打印变量或者寄存器的值，比如`p/x $rdi`以16进制打印rdi寄存器的值
+* `x/<n><u><f> <address>`用来打印变量或绝对地址的内容。`n`表示number，也就是说要打印几个单元；`u`表示unit size，每个单元的字节长度，可取`b/h/w/g`，分别表示1，2，4，8字节；`f`表示输出格式，可取`d/x/s/i`，分别表示十进制、十六进制、字符串、汇编指令。address表示要打印的地址，可以写成数学表达式。
+* `set disassembly-flavor intel`用来修改汇编指令的表示形式，这里是intel指令。
+* 使用`stepi <n>`步入n条汇编指令，`nexti <n>`步过n条汇编指令；分别简写为`si`与`ni`
+* 使用`finish`执行到当前函数结束并返回
+* 使用`break *<addres>`在address处打断点，可以简写为`b *<address>`
+* 使用`display/<n><u><f>`来在每一条操作结束后显示某些数值。nuf的用法和`x`打印内存地址一样
+* 有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数`-x xxx.gdb`，就可以在gdb启动后自动化运行脚本
+* `~/.gdbinit`在初始化gdb会话时自动运行
+* 使用`set pagination off`关闭分页确认
+以下是个gdb脚本的例子，`silent`用于在遇到断点时减少输出信息，以及使用`set`和`printf`设置变量、打印值。
+
+```shell
+start
+break *main+42
+commands
+    silent
+    set $local_variable = *(unsigned long long*)($rbp-0x32)
+    printf "Current value: %llx\n", $local_variable
+    continue
+end
+continue
+```
+
+* 使用`if`、`catch`来劫持systemcall，比如：
+
+```shell
+start
+catch syscall read
+commands
+    silent
+    if ($rdi == 42)
+        set $rdi = 0
+    end
+    continue
+end
+continue
+```
+
+* 使用`call`直接调用函数，比如`call (void)win()`
+
+
 ## Talking Web WriteUps
 
 这个章节的题目是用curl、python和nc来实现发送各种http请求，先运行`/challenge/run`启动flask服务器，然后新开个终端用各种姿势连接本地127.0.0.1即可。
 
 这三种工具的大致思路：
+
 * curl是通过一些参数来加设定
 * nc需要生写http请求内容
 * python可以用requests来做
@@ -1723,52 +1771,95 @@ sockaddr: .quad 0x50000002 # AF_INET(2) and PORT(80) in big endian
 
 **Level 1**
 
-* `start`在main函数打断点并运行
-* `starti`在_start函数打断点并运行
-* `run`不打断点，直接运行
-* `attach <PID>`将gdb附着到一个正在运行的进程
-* `core <PATH>`分析一个程序运行后产生的coredump文件
-* `start <ARG1> <ARG2> < <STDIN_PATH>`运行带有参数的程序，和shell里输命令一样
-
 运行/challenge下的文件，会自动打开gdb，输入`run`启动程序，进入第一关。第一关主要是讲下大致的题目要求，在这里按++c++继续运行会直接给出flag。
 
 **Level 2**
 
-* `info registers`可以查看寄存器的值（或者简单的`i r`）
-* `print`用来打印变量或者寄存器的值，比如`p/x $rdi`以16进制打印rdi寄存器的值
 
 本关run以后`p/x $r12`然后按++c++，把结果输入就行。
 
 **Level 3**
 
-* `x/<n><u><f> <address>`用来打印变量或绝对地址的内容。`n`表示number，也就是说要打印几个单元；`u`表示unit size，每个单元的字节长度，可取`b/h/w/g`，分别表示1，2，4，8字节；`f`表示输出格式，可取`d/x/s/i`，分别表示十进制、十六进制、字符串、汇编指令。address表示要打印的地址，可以写成数学表达式。
-* `set disassembly-flavor intel`用来修改汇编指令的表示形式，这里是intel指令。
-
-这一关主要是熟悉打印内存数据，可以在++c++进入程序前后用`x/20gx $rsp`对比一下栈上什么数据改变了。算是不看汇编的一点小trick。
+这一关主要是熟悉打印内存数据，可以在按++c++进入程序前后用`x/20gx $rsp`对比一下栈上什么数据改变了。算是不看汇编的一点小trick。
 
 **Level 4**
 
-* 使用`stepi <n>`步入n条汇编指令，`nexti <n>`步过n条汇编指令；分别简写为`si`与`ni`
-* 使用`finish`执行到当前函数结束并返回
-* 使用`break *<addres>`在address处打断点，可以简写为`b *<address>`
-* 使用`display/<n><u><f>`来在每一条操作结束后显示某些数值。nuf的用法和`x`打印内存地址一样
-
-trick：使用`disas $pc`查看发现有个win函数，参数用的0。直接`set $rax=0`，`set $pc=xxx`跳转到win的函数就行了。
+这关的没用正常解法。有一点小trick：使用`disas $pc`查看发现有个win函数，参数用的0。直接`set $rax=0`，`set $pc=xxx`跳转到win的函数就行了。
 
 **Level 5**
 
-* 有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数`-x xxx.gdb`，就可以在gdb启动后自动化运行脚本
-* `~/.gdbinit`在初始化gdb会话时自动运行
+这题提示可以编写gdb脚本，加载后会自动执行。这道题目会在循环中多次设置随机数，所以需要自动化解决。
 
-以下是个gdb脚本的例子，`silent`用于在遇到断点时减少输出信息，以及使用`set`和`printf`设置变量、打印值。
+run后先`disas $pc`看一看main函数的关键逻辑：
+
+```
+0x000055981a8ccd40 <+666>:   mov    esi,0x0
+0x000055981a8ccd45 <+671>:   lea    rdi,[rip+0xd5e]        # 0x55981a8cdaaa
+0x000055981a8ccd4c <+678>:   mov    eax,0x0
+0x000055981a8ccd51 <+683>:   call   0x55981a8cc250 <open@plt>
+0x000055981a8ccd56 <+688>:   mov    ecx,eax
+0x000055981a8ccd58 <+690>:   lea    rax,[rbp-0x18]
+0x000055981a8ccd5c <+694>:   mov    edx,0x8
+0x000055981a8ccd61 <+699>:   mov    rsi,rax
+0x000055981a8ccd64 <+702>:   mov    edi,ecx
+0x000055981a8ccd66 <+704>:   call   0x55981a8cc210 <read@plt>
+0x000055981a8ccd6b <+709>:   lea    rdi,[rip+0xd46]        # 0x55981a8cdab8
+0x000055981a8ccd72 <+716>:   call   0x55981a8cc190 <puts@plt>
+0x000055981a8ccd77 <+721>:   lea    rdi,[rip+0xd5a]        # 0x55981a8cdad8
+0x000055981a8ccd7e <+728>:   mov    eax,0x0
+0x000055981a8ccd83 <+733>:   call   0x55981a8cc1d0 <printf@plt>
+0x000055981a8ccd88 <+738>:   lea    rax,[rbp-0x10]
+0x000055981a8ccd8c <+742>:   mov    rsi,rax
+0x000055981a8ccd8f <+745>:   lea    rdi,[rip+0xd51]        # 0x55981a8cdae7
+0x000055981a8ccd96 <+752>:   mov    eax,0x0
+0x000055981a8ccd9b <+757>:   call   0x55981a8cc260 <__isoc99_scanf@plt>
+```
+
+猜测在`0x000055981a8ccd51`处的open是打开了随机数发生器（比如/dev/urandom），然后`0x000055981a8ccd66`处的read是读8个字节，即最终的随机数，保存在rsi寄存器指向的位置，即rbp-0x18处。所以自动化脚本可以在`0x000055981a8ccd72`处（即*main+716）打个断点，打印此时rbp-0x18的值。
+
+即先编写下述脚本，然后启动程序时-x追加脚本即可。
+
 ```shell
 start
-break *main+42
+break *main+716
 commands
-silent
-set $local_variable = *(unsigned long long*)($rbp-0x32)
-printf "Current value: %llx\n", $local_variable
-continue
+    silent
+    set $local_variable = *(unsigned long long*)($rbp-0x18)
+    printf "Current value: %llx\n", $local_variable
+    continue
 end
 continue
 ```
+
+当然解法有很多，看disas后的结果，输入的数据被scanf保存到rbp-0x10处，与rbp-0x18比较。也可以在比较前直接修改寄存器让值相等。
+
+**Level 6**
+
+这一关才教怎么用set改寄存器，从而修改程序执行逻辑。是不是可以暗示直接拿flag？run后`set $rip=*main+715`，然后继续运行程序。
+
+**Level 7**
+
+？？？原来还可以这么玩？？
+
+**Level 8**
+
+直接调用`call (void)win()`，可以`disas *win`看一下win函数。
+
+```
+0x0000556609b49951 <+0>:     endbr64
+0x0000556609b49955 <+4>:     push   rbp
+0x0000556609b49956 <+5>:     mov    rbp,rsp
+0x0000556609b49959 <+8>:     sub    rsp,0x10
+0x0000556609b4995d <+12>:    mov    QWORD PTR [rbp-0x8],0x0
+0x0000556609b49965 <+20>:    mov    rax,QWORD PTR [rbp-0x8]
+0x0000556609b49969 <+24>:    mov    eax,DWORD PTR [rax]
+0x0000556609b4996b <+26>:    lea    edx,[rax+0x1]
+0x0000556609b4996e <+29>:    mov    rax,QWORD PTR [rbp-0x8]
+0x0000556609b49972 <+33>:    mov    DWORD PTR [rax],edx
+0x0000556609b49974 <+35>:    lea    rdi,[rip+0x73e]        # 0x556609b4a0b9
+0x0000556609b4997b <+42>:    call   0x556609b49180 <puts@plt>
+```
+
+可见在`0x0000556609b49969`处，从rax指向的地址读取4字节。但是此时rax在前两条语句已经被修改为0了，所以触发NULL指针解引用，引起SIGSEGV退出。所以试试直接跳过这段，进入win时修改rip寄存器即可。
+
+依次执行：`break *win`，`call (void)win()`，`set $rip=*win+35`，`c`即可。
