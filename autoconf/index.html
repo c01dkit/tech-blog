@@ -929,20 +929,14 @@
 <h1 id="autoconf">autoconf学习笔记</h1>
 <p>自己开发软件时，生成规范的configure等文件。可参考<a href="https://www.cnblogs.com/klausage/p/14163844.html">https://www.cnblogs.com/klausage/p/14163844.html</a>等</p>
 <h2 id="_1">不分目录结构</h2>
-<ol>
-<li>编写Makefile.am文件，比如：</li>
-</ol>
+<p><strong>编写Makefile.am文件，比如：</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nv">bin_PROGRAMS</span><span class="o">=</span>helloworld
 <span class="nv">helloworld_SOURCES</span><span class="o">=</span>helloworld.c
 </code></pre></div>
 <ul>
-<li>
-<p><code>bin_PROGRAMS</code>用于给项目起名，比如X，那么之后的X_SOURCES则用来指定使用的源文件</p>
-</li>
-<li>
-<p>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</p>
-</li>
+<li><code>bin_PROGRAMS</code>用于给项目起名，比如X，那么之后的X_SOURCES则用来指定使用的源文件</li>
 </ul>
+<p><strong>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c">#                                               -*- Autoconf -*-</span>
 <span class="c"># Process this file with autoconf to produce a configure script.</span>
 
@@ -965,17 +959,13 @@
 <span class="err">AC_CONFIG_FILES([Makefile])</span>
 <span class="err">AC_OUTPUT</span>
 </code></pre></div>
-<ol>
-<li>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</li>
-<li>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</li>
-<li>运行<code>./configure</code>生成makefile</li>
-<li>运行<code>make</code>，基于makefile编译代码</li>
-</ol>
+<p><strong>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</strong></p>
+<p><strong>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</strong></p>
+<p><strong>运行<code>./configure</code>生成makefile</strong></p>
+<p><strong>运行<code>make</code>，基于makefile编译代码</strong></p>
 <h2 id="_2">区分目录结构</h2>
 <p>也就是说源码可能在多个文件夹下，比如src。那么每个文件夹需要单独写Makefile.am来指定如何编译。</p>
-<ol>
-<li>编写Makefile.am文件</li>
-</ol>
+<p><strong>编写Makefile.am文件</strong></p>
 <p>源码所在的文件夹的Makefile文件示例：</p>
 <div class="highlight"><pre><span></span><code><span class="nv">bin_PROGRAMS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>reverse
 
@@ -1007,9 +997,7 @@
 <span class="nf">aireplay-ng</span><span class="o">:</span>
 <span class="w">    </span><span class="k">$(</span>EXECUTABLE<span class="k">)</span><span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/core<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/library/<span class="w"> </span><span class="k">$(</span>TESTSUITES_DIR<span class="k">)</span>/<span class="nv">$@</span>/inst.reverse
 </code></pre></div>
-<ol>
-<li>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</li>
-</ol>
+<p><strong>执行<code>autoscan</code>，生成configure.scan，并修改其中的AC_INIT、AM_INIT_AUTOMAKE，重命名文件为configure.ac，比如：</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c">#                                               -*- Autoconf -*-</span>
 <span class="c"># Process this file with autoconf to produce a configure script.</span>
 
@@ -1042,12 +1030,10 @@
 <span class="w">                 </span><span class="err">src/Makefile])</span>
 <span class="err">AC_OUTPUT</span>
 </code></pre></div>
-<ol>
-<li>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</li>
-<li>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</li>
-<li>运行<code>./configure</code>生成makefile</li>
-<li>运行<code>make</code>，基于makefile编译代码</li>
-</ol>
+<p><strong>执行<code>aclocal &amp;&amp; autoheader &amp;&amp; autoconf</code>，生成aclocal.m4、config.h.in和configure</strong></p>
+<p><strong>运行<code>automake --add-missing</code>，会根据Makefile.am生成Makefile.in</strong></p>
+<p><strong>运行<code>./configure</code>生成makefile</strong></p>
+<p><strong>运行<code>make</code>，基于makefile编译代码</strong></p>
 
 
 

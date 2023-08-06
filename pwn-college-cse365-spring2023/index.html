@@ -615,26 +615,6 @@
     Talking Web 学习笔记
   </a>
   
-    <nav class="md-nav" aria-label="Talking Web 学习笔记">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    请求方法
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#urlencoding" class="md-nav__link">
-    urlencoding
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -963,26 +943,6 @@
     Talking Web 学习笔记
   </a>
   
-    <nav class="md-nav" aria-label="Talking Web 学习笔记">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    请求方法
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#urlencoding" class="md-nav__link">
-    urlencoding
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1057,7 +1017,7 @@
 <h2 id="talking-web">Talking Web 学习笔记</h2>
 <p>请求第一行Request line：请求方法 URI 协议版本 CRLF</p>
 <p>响应第一行Status line：协议版本 状态码 解释 CRLF</p>
-<h3 id="_1">请求方法</h3>
+<p>常见的请求方法：</p>
 <ul>
 <li>GET：获取信息，如果URI是处理程序，则获取程序运行后的结果（而不是源码）</li>
 <li>HEAD：和GET类似，但是response不返回body，一般用于测试资源是否存在、修改时间，获取资源元数据等</li>
@@ -1072,8 +1032,7 @@
 <li>query 资源可以利用的额外信息</li>
 <li>fragment 客户端有关这一资源的信息（不会传给服务器？）</li>
 </ul>
-<h3 id="urlencoding">urlencoding</h3>
-<p>请求的资源含有一些特殊符号比如?,/,&amp;,#等等时，使用%xx进行编码，其中xx是ASCII码</p>
+<p>请求的资源含有一些特殊符号比如?,/,&amp;,#等等时，使用%xx进行编码，其中xx是ASCII码。这种做法称为urlencoding</p>
 <p>POST请求时，需要带上Content-Type</p>
 <ul>
 <li>Content-Type: application/x-www-form-urlencoded</li>
@@ -1129,12 +1088,61 @@
 <span class="n">close</span><span class="p">(</span><span class="n">tunnel</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="reverse-engineering">Reverse Engineering 学习笔记</h2>
+<ul>
+<li><code>start</code>在main函数打断点并运行</li>
+<li><code>starti</code>在_start函数打断点并运行</li>
+<li><code>run</code>不打断点，直接运行</li>
+<li><code>attach &lt;PID&gt;</code>将gdb附着到一个正在运行的进程</li>
+<li><code>core &lt;PATH&gt;</code>分析一个程序运行后产生的coredump文件</li>
+<li><code>start &lt;ARG1&gt; &lt;ARG2&gt; &lt; &lt;STDIN_PATH&gt;</code>运行带有参数的程序，和shell里输命令一样</li>
+<li><code>info registers</code>可以查看寄存器的值（或者简单的<code>i r</code>）</li>
+<li><code>print</code>用来打印变量或者寄存器的值，比如<code>p/x $rdi</code>以16进制打印rdi寄存器的值</li>
+<li><code>x/&lt;n&gt;&lt;u&gt;&lt;f&gt; &lt;address&gt;</code>用来打印变量或绝对地址的内容。<code>n</code>表示number，也就是说要打印几个单元；<code>u</code>表示unit size，每个单元的字节长度，可取<code>b/h/w/g</code>，分别表示1，2，4，8字节；<code>f</code>表示输出格式，可取<code>d/x/s/i</code>，分别表示十进制、十六进制、字符串、汇编指令。address表示要打印的地址，可以写成数学表达式。</li>
+<li><code>set disassembly-flavor intel</code>用来修改汇编指令的表示形式，这里是intel指令。</li>
+<li>使用<code>stepi &lt;n&gt;</code>步入n条汇编指令，<code>nexti &lt;n&gt;</code>步过n条汇编指令；分别简写为<code>si</code>与<code>ni</code></li>
+<li>使用<code>finish</code>执行到当前函数结束并返回</li>
+<li>使用<code>break *&lt;addres&gt;</code>在address处打断点，可以简写为<code>b *&lt;address&gt;</code></li>
+<li>使用<code>display/&lt;n&gt;&lt;u&gt;&lt;f&gt;</code>来在每一条操作结束后显示某些数值。nuf的用法和<code>x</code>打印内存地址一样</li>
+<li>有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数<code>-x xxx.gdb</code>，就可以在gdb启动后自动化运行脚本</li>
+<li><code>~/.gdbinit</code>在初始化gdb会话时自动运行</li>
+<li>使用<code>set pagination off</code>关闭分页确认
+以下是个gdb脚本的例子，<code>silent</code>用于在遇到断点时减少输出信息，以及使用<code>set</code>和<code>printf</code>设置变量、打印值。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>start
+<span class="nb">break</span><span class="w"> </span>*main+42
+commands
+<span class="w">    </span>silent
+<span class="w">    </span><span class="nb">set</span><span class="w"> </span><span class="nv">$local_variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>*<span class="o">(</span>unsigned<span class="w"> </span>long<span class="w"> </span>long*<span class="o">)(</span><span class="nv">$rbp</span>-0x32<span class="o">)</span>
+<span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;Current value: %llx\n&quot;</span>,<span class="w"> </span><span class="nv">$local_variable</span>
+<span class="w">    </span><span class="k">continue</span>
+end
+<span class="k">continue</span>
+</code></pre></div>
+<ul>
+<li>使用<code>if</code>、<code>catch</code>来劫持systemcall，比如：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>start
+catch<span class="w"> </span>syscall<span class="w"> </span><span class="nb">read</span>
+commands
+<span class="w">    </span>silent
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$rdi</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">42</span><span class="o">)</span>
+<span class="w">        </span><span class="nb">set</span><span class="w"> </span><span class="nv">$rdi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span>end
+<span class="w">    </span><span class="k">continue</span>
+end
+<span class="k">continue</span>
+</code></pre></div>
+<ul>
+<li>使用<code>call</code>直接调用函数，比如<code>call (void)win()</code></li>
+</ul>
 <h2 id="talking-web-writeups">Talking Web WriteUps</h2>
 <p>这个章节的题目是用curl、python和nc来实现发送各种http请求，先运行<code>/challenge/run</code>启动flask服务器，然后新开个终端用各种姿势连接本地127.0.0.1即可。</p>
-<p>这三种工具的大致思路：
-* curl是通过一些参数来加设定
-* nc需要生写http请求内容
-* python可以用requests来做</p>
+<p>这三种工具的大致思路：</p>
+<ul>
+<li>curl是通过一些参数来加设定</li>
+<li>nc需要生写http请求内容</li>
+<li>python可以用requests来做</li>
+</ul>
 <p>需要先简单地连接127.0.0.1然后根据报错提示来修改请求。</p>
 <p><strong>Level 1</strong></p>
 <p>Send an HTTP request using curl</p>
@@ -2504,51 +2512,71 @@ _start:
 </code></pre></div>
 <h2 id="reverse-engineering-writeups">Reverse Engineering Writeups</h2>
 <p><strong>Level 1</strong></p>
-<ul>
-<li><code>start</code>在main函数打断点并运行</li>
-<li><code>starti</code>在_start函数打断点并运行</li>
-<li><code>run</code>不打断点，直接运行</li>
-<li><code>attach &lt;PID&gt;</code>将gdb附着到一个正在运行的进程</li>
-<li><code>core &lt;PATH&gt;</code>分析一个程序运行后产生的coredump文件</li>
-<li><code>start &lt;ARG1&gt; &lt;ARG2&gt; &lt; &lt;STDIN_PATH&gt;</code>运行带有参数的程序，和shell里输命令一样</li>
-</ul>
 <p>运行/challenge下的文件，会自动打开gdb，输入<code>run</code>启动程序，进入第一关。第一关主要是讲下大致的题目要求，在这里按<span class="keys"><kbd class="key-c">C</kbd></span>继续运行会直接给出flag。</p>
 <p><strong>Level 2</strong></p>
-<ul>
-<li><code>info registers</code>可以查看寄存器的值（或者简单的<code>i r</code>）</li>
-<li><code>print</code>用来打印变量或者寄存器的值，比如<code>p/x $rdi</code>以16进制打印rdi寄存器的值</li>
-</ul>
 <p>本关run以后<code>p/x $r12</code>然后按<span class="keys"><kbd class="key-c">C</kbd></span>，把结果输入就行。</p>
 <p><strong>Level 3</strong></p>
-<ul>
-<li><code>x/&lt;n&gt;&lt;u&gt;&lt;f&gt; &lt;address&gt;</code>用来打印变量或绝对地址的内容。<code>n</code>表示number，也就是说要打印几个单元；<code>u</code>表示unit size，每个单元的字节长度，可取<code>b/h/w/g</code>，分别表示1，2，4，8字节；<code>f</code>表示输出格式，可取<code>d/x/s/i</code>，分别表示十进制、十六进制、字符串、汇编指令。address表示要打印的地址，可以写成数学表达式。</li>
-<li><code>set disassembly-flavor intel</code>用来修改汇编指令的表示形式，这里是intel指令。</li>
-</ul>
-<p>这一关主要是熟悉打印内存数据，可以在<span class="keys"><kbd class="key-c">C</kbd></span>进入程序前后用<code>x/20gx $rsp</code>对比一下栈上什么数据改变了。算是不看汇编的一点小trick。</p>
+<p>这一关主要是熟悉打印内存数据，可以在按<span class="keys"><kbd class="key-c">C</kbd></span>进入程序前后用<code>x/20gx $rsp</code>对比一下栈上什么数据改变了。算是不看汇编的一点小trick。</p>
 <p><strong>Level 4</strong></p>
-<ul>
-<li>使用<code>stepi &lt;n&gt;</code>步入n条汇编指令，<code>nexti &lt;n&gt;</code>步过n条汇编指令；分别简写为<code>si</code>与<code>ni</code></li>
-<li>使用<code>finish</code>执行到当前函数结束并返回</li>
-<li>使用<code>break *&lt;addres&gt;</code>在address处打断点，可以简写为<code>b *&lt;address&gt;</code></li>
-<li>使用<code>display/&lt;n&gt;&lt;u&gt;&lt;f&gt;</code>来在每一条操作结束后显示某些数值。nuf的用法和<code>x</code>打印内存地址一样</li>
-</ul>
-<p>trick：使用<code>disas $pc</code>查看发现有个win函数，参数用的0。直接<code>set $rax=0</code>，<code>set $pc=xxx</code>跳转到win的函数就行了。</p>
+<p>这关的没用正常解法。有一点小trick：使用<code>disas $pc</code>查看发现有个win函数，参数用的0。直接<code>set $rax=0</code>，<code>set $pc=xxx</code>跳转到win的函数就行了。</p>
 <p><strong>Level 5</strong></p>
-<ul>
-<li>有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数<code>-x xxx.gdb</code>，就可以在gdb启动后自动化运行脚本</li>
-<li><code>~/.gdbinit</code>在初始化gdb会话时自动运行</li>
-</ul>
-<p>以下是个gdb脚本的例子，<code>silent</code>用于在遇到断点时减少输出信息，以及使用<code>set</code>和<code>printf</code>设置变量、打印值。
+<p>这题提示可以编写gdb脚本，加载后会自动执行。这道题目会在循环中多次设置随机数，所以需要自动化解决。</p>
+<p>run后先<code>disas $pc</code>看一看main函数的关键逻辑：</p>
+<div class="highlight"><pre><span></span><code>0x000055981a8ccd40 &lt;+666&gt;:   mov    esi,0x0
+0x000055981a8ccd45 &lt;+671&gt;:   lea    rdi,[rip+0xd5e]        # 0x55981a8cdaaa
+0x000055981a8ccd4c &lt;+678&gt;:   mov    eax,0x0
+0x000055981a8ccd51 &lt;+683&gt;:   call   0x55981a8cc250 &lt;open@plt&gt;
+0x000055981a8ccd56 &lt;+688&gt;:   mov    ecx,eax
+0x000055981a8ccd58 &lt;+690&gt;:   lea    rax,[rbp-0x18]
+0x000055981a8ccd5c &lt;+694&gt;:   mov    edx,0x8
+0x000055981a8ccd61 &lt;+699&gt;:   mov    rsi,rax
+0x000055981a8ccd64 &lt;+702&gt;:   mov    edi,ecx
+0x000055981a8ccd66 &lt;+704&gt;:   call   0x55981a8cc210 &lt;read@plt&gt;
+0x000055981a8ccd6b &lt;+709&gt;:   lea    rdi,[rip+0xd46]        # 0x55981a8cdab8
+0x000055981a8ccd72 &lt;+716&gt;:   call   0x55981a8cc190 &lt;puts@plt&gt;
+0x000055981a8ccd77 &lt;+721&gt;:   lea    rdi,[rip+0xd5a]        # 0x55981a8cdad8
+0x000055981a8ccd7e &lt;+728&gt;:   mov    eax,0x0
+0x000055981a8ccd83 &lt;+733&gt;:   call   0x55981a8cc1d0 &lt;printf@plt&gt;
+0x000055981a8ccd88 &lt;+738&gt;:   lea    rax,[rbp-0x10]
+0x000055981a8ccd8c &lt;+742&gt;:   mov    rsi,rax
+0x000055981a8ccd8f &lt;+745&gt;:   lea    rdi,[rip+0xd51]        # 0x55981a8cdae7
+0x000055981a8ccd96 &lt;+752&gt;:   mov    eax,0x0
+0x000055981a8ccd9b &lt;+757&gt;:   call   0x55981a8cc260 &lt;__isoc99_scanf@plt&gt;
+</code></pre></div>
+<p>猜测在<code>0x000055981a8ccd51</code>处的open是打开了随机数发生器（比如/dev/urandom），然后<code>0x000055981a8ccd66</code>处的read是读8个字节，即最终的随机数，保存在rsi寄存器指向的位置，即rbp-0x18处。所以自动化脚本可以在<code>0x000055981a8ccd72</code>处（即*main+716）打个断点，打印此时rbp-0x18的值。</p>
+<p>即先编写下述脚本，然后启动程序时-x追加脚本即可。</p>
 <div class="highlight"><pre><span></span><code>start
-<span class="nb">break</span><span class="w"> </span>*main+42
+<span class="nb">break</span><span class="w"> </span>*main+716
 commands
-silent
-<span class="nb">set</span><span class="w"> </span><span class="nv">$local_variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>*<span class="o">(</span>unsigned<span class="w"> </span>long<span class="w"> </span>long*<span class="o">)(</span><span class="nv">$rbp</span>-0x32<span class="o">)</span>
-<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;Current value: %llx\n&quot;</span>,<span class="w"> </span><span class="nv">$local_variable</span>
-<span class="k">continue</span>
+<span class="w">    </span>silent
+<span class="w">    </span><span class="nb">set</span><span class="w"> </span><span class="nv">$local_variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>*<span class="o">(</span>unsigned<span class="w"> </span>long<span class="w"> </span>long*<span class="o">)(</span><span class="nv">$rbp</span>-0x18<span class="o">)</span>
+<span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;Current value: %llx\n&quot;</span>,<span class="w"> </span><span class="nv">$local_variable</span>
+<span class="w">    </span><span class="k">continue</span>
 end
 <span class="k">continue</span>
-</code></pre></div></p>
+</code></pre></div>
+<p>当然解法有很多，看disas后的结果，输入的数据被scanf保存到rbp-0x10处，与rbp-0x18比较。也可以在比较前直接修改寄存器让值相等。</p>
+<p><strong>Level 6</strong></p>
+<p>这一关才教怎么用set改寄存器，从而修改程序执行逻辑。是不是可以暗示直接拿flag？run后<code>set $rip=*main+715</code>，然后继续运行程序。</p>
+<p><strong>Level 7</strong></p>
+<p>？？？原来还可以这么玩？？</p>
+<p><strong>Level 8</strong></p>
+<p>直接调用<code>call (void)win()</code>，可以<code>disas *win</code>看一下win函数。</p>
+<div class="highlight"><pre><span></span><code>0x0000556609b49951 &lt;+0&gt;:     endbr64
+0x0000556609b49955 &lt;+4&gt;:     push   rbp
+0x0000556609b49956 &lt;+5&gt;:     mov    rbp,rsp
+0x0000556609b49959 &lt;+8&gt;:     sub    rsp,0x10
+0x0000556609b4995d &lt;+12&gt;:    mov    QWORD PTR [rbp-0x8],0x0
+0x0000556609b49965 &lt;+20&gt;:    mov    rax,QWORD PTR [rbp-0x8]
+0x0000556609b49969 &lt;+24&gt;:    mov    eax,DWORD PTR [rax]
+0x0000556609b4996b &lt;+26&gt;:    lea    edx,[rax+0x1]
+0x0000556609b4996e &lt;+29&gt;:    mov    rax,QWORD PTR [rbp-0x8]
+0x0000556609b49972 &lt;+33&gt;:    mov    DWORD PTR [rax],edx
+0x0000556609b49974 &lt;+35&gt;:    lea    rdi,[rip+0x73e]        # 0x556609b4a0b9
+0x0000556609b4997b &lt;+42&gt;:    call   0x556609b49180 &lt;puts@plt&gt;
+</code></pre></div>
+<p>可见在<code>0x0000556609b49969</code>处，从rax指向的地址读取4字节。但是此时rax在前两条语句已经被修改为0了，所以触发NULL指针解引用，引起SIGSEGV退出。所以试试直接跳过这段，进入win时修改rip寄存器即可。</p>
+<p>依次执行：<code>break *win</code>，<code>call (void)win()</code>，<code>set $rip=*win+35</code>，<code>c</code>即可。</p>
 
 
 

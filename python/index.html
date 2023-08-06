@@ -386,6 +386,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hexintelhex" class="md-nav__link">
+    二进制字节与hex互相转换：IntelHex
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     参考资料
   </a>
@@ -986,6 +993,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hexintelhex" class="md-nav__link">
+    二进制字节与hex互相转换：IntelHex
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     参考资料
   </a>
@@ -1210,6 +1224,71 @@
     <span class="kn">import</span> <span class="nn">traceback</span>
     <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
     <span class="n">status</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div>
+<h2 id="hexintelhex">二进制字节与hex互相转换：IntelHex</h2>
+<p>fuzzware里添加退出handler打印state（即模拟coredump）时，使用了IntelHex来保存中间结果。可以参考下面的例子，进行相互转化。IntelHex文件本身的格式，可以<a href="http://www.cbww.cn/news/37136.shtml">参考这里</a></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">intelhex</span> <span class="kn">import</span> <span class="n">IntelHex</span>
+<span class="n">ih</span> <span class="o">=</span> <span class="n">IntelHex</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mh">0x30000000</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00\x01\x02\x03\x04</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="mh">0x20002000</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x04\x05\x06\x07</span><span class="s1">&#39;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">base_addr</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">ih</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="n">base_addr</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.hex&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">ih</span><span class="o">.</span><span class="n">write_hex_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+
+<span class="c1"># 从已有的hex文件中读取数据</span>
+<span class="n">ih</span> <span class="o">=</span> <span class="n">IntelHex</span><span class="p">()</span>
+<span class="n">ih</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="s1">&#39;test.hex&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;hex&#39;</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;test.hex</span>
+<span class="sd">:020000042000DA</span>
+<span class="sd">:0420000004050607C6</span>
+<span class="sd">:020000043000CA</span>
+<span class="sd">:050000000001020304F1</span>
+<span class="sd">:00000001FF</span>
+
+<span class="sd">hex格式以冒号开头，随后1字节表示数据长度，紧接4字节表示地址，随后1字节为记录类型：</span>
+<span class="sd">00：表示数据</span>
+<span class="sd">01：表示文件结束</span>
+<span class="sd">02：表示扩展段地址。随后的2字节左移4位，作为段地址，在之后的计算中和地址相加作为最后地址</span>
+<span class="sd">03：表示起始段地址。随后的4字节中，前、后2字节分别表示CS、IP</span>
+<span class="sd">04：表示扩展线性地址。随后的2字节指定32地址的高16位</span>
+<span class="sd">05：表示起始线性地址。随后的4字节指定指令执行起始地址</span>
+<span class="sd">最后一字节表示校验码</span>
+
+<span class="sd">比如:020000042000DA，分为:02 0000 04 2000 DA</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># 获取解析后的数据，并合并连续的地址</span>
+<span class="n">restored_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">current_address</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">current_data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+
+<span class="k">for</span> <span class="n">address</span> <span class="ow">in</span> <span class="n">ih</span><span class="o">.</span><span class="n">addresses</span><span class="p">():</span>
+    <span class="c1"># Check if the address is consecutive with the current data</span>
+    <span class="k">if</span> <span class="n">current_address</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">address</span> <span class="o">==</span> <span class="n">current_address</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">current_address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">current_address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="n">current_data</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">ih</span><span class="p">[</span><span class="n">address</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Save the previous data and start a new block</span>
+        <span class="n">restored_data</span><span class="p">[</span><span class="n">current_address</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_data</span>
+        <span class="n">current_address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="n">current_data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">ih</span><span class="p">[</span><span class="n">address</span><span class="p">]])</span>
+
+<span class="c1"># Save the last block of data</span>
+<span class="k">if</span> <span class="n">current_address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">restored_data</span><span class="p">[</span><span class="n">current_address</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_data</span>
+
+<span class="c1"># 输出还原后的data字典</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">restored_data</span><span class="p">)</span>
+<span class="c1"># {536879104: b&#39;\x04\x05\x06\x07&#39;, 805306368: b&#39;\x00\x01\x02\x03\x04&#39;}</span>
 </code></pre></div>
 <h2 id="_4">参考资料</h2>
 <ul>
