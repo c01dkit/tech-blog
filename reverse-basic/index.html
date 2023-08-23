@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -924,6 +924,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1104,11 +1118,13 @@
 <p>静态库编译命令：<code>gcc -c xx.c -o xx.o</code>，<code>ar crs libxx.a xx.o</code>；动态库编译命令：<code>gcc xx.c -o libxx.so -shared -fPIC</code>其中-fPIC表示使用相对位置</p>
 <h2 id="gdb">gdb</h2>
 <p>添加多个符号表<code>add-symbol-file xxx addr</code>其中addr是代码段起始地址，xxx可以为sym文件，或elf文件等。变异时需要加上<code>-g</code>保留符号表(指定具体格式如<code>-g2 -gdwarf-2</code>)，可以逐个使用<code>add-symbol-file</code>，都添加进去。</p>
+<p>使用<code>ulimit -c unlimited</code>设置不限制coredump文件大小，然后root用户<code>echo "core-%e-%p" &gt; /proc/sys/kernel/core_pattern</code>设置保留程序名、pid，则对于编译时添加了<code>-g</code>选项的程序，其崩溃产生的coredump文件可以使用<code>gdb &lt;程序名&gt; &lt;coredump文件名&gt;</code>来寻找root cause。gdb内用where查看调用栈。</p>
 <h2 id="_7">推荐阅读</h2>
 <p><a href="https://blog.csdn.net/houxian1103/article/details/122272516">Linux 静态库 编译和使用</a>
 <a href="https://houxian1103.blog.csdn.net/article/details/122272862">Linux 动态库 编译和使用</a>
 <a href="https://dlonng.com/posts/makefile">Makefile入门</a>
-<a href="https://www.gnu.org/software/make/manual/make.html#Introduction">Makefile官方文档</a></p>
+<a href="https://www.gnu.org/software/make/manual/make.html#Introduction">Makefile官方文档</a>
+<a href="https://blog.51cto.com/u_16001762/6387467">coredump文件基础用法</a></p>
 
 
 

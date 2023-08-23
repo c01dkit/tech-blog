@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -896,6 +896,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1006,17 +1020,19 @@
 <span class="c1"># systemd users: don&#39;t forget to modify /lib/systemd/system/sslh.service</span>
 <span class="nv">DAEMON</span><span class="o">=</span>/usr/sbin/sslh
 <span class="nv">Run</span><span class="o">=</span>yes
-<span class="nv">DAEMON_OPTS</span><span class="o">=</span><span class="s2">&quot;--user sslh --listen 0.0.0.0:4684 --ssh 127.0.0.1:5752 --ssl 127.0.0.1:443 --http 127.0.0.1:1284 --pidfile /var/run/sslh/sslh.pid&quot;</span>
+<span class="nv">DAEMON_OPTS</span><span class="o">=</span><span class="s2">&quot;--user sslh --listen 0.0.0.0:4684 --ssh 127.0.0.1:5752 --tls 127.0.0.1:443 --http 127.0.0.1:1284 --pidfile /var/run/sslh/sslh.pid&quot;</span>
 </code></pre></div>
 <p>这里也可以<code>cat /lib/systemd/system/sslh.service</code>看一下service文件，其中有一行<code>ExecStart=/usr/sbin/sslh --foreground $DAEMON_OPTS</code>，可以看到在启动sslh时参数是DAEMON_OPTS。所以重点就在于配置好DAEMON_OPTS。</p>
 <p>解释一下几个参数的意思：</p>
 <ul>
 <li>--listen 0.0.0.0:4684 表示sslh运行在4684端口，将这个端口收到的数据包按规则转发到其他端口上</li>
 <li>--ssh 127.0.0.1:5752 表示将收到的ssh数据包转发到本地5752端口</li>
-<li>--ssl 127.0.0.1:443 表示将收到的ssl数据包转发到本地443端口</li>
+<li>--tls 127.0.0.1:443 表示将收到的tls数据包转发到本地443端口</li>
 <li>--http 127.0.0.1:1284 表示将收到的http请求转发到本地1284端口</li>
 </ul>
 <p>然后<code>systemctl enable sslh</code>、<code>systemctl start sslh</code>启动sslh，将本地4684端口收到的流量根据ssh、ssl、http的特征分别进行端口转发。</p>
+<p>比较有意思的是可以用<code>--anyprot</code>来设置默认的转发策略，配合<code>nc -lk</code>可以看自定义的数据包格式，再通过<code>-F</code>（或<code>--config</code>）指定config文件（比如/etc/sslh/sslh.cfg），实现利用正则表达式对数据包进行自定义转发。</p>
+<p>注意，如果使用config文件，那么文件的内容不要和命令行已有的内容重复。比如命令行已经指定了监听127.0.0.1端口的4684，那config文件里就不要再加上listen:(xxx)了。</p>
 <h3 id="ssh">ssh：提供远程连接</h3>
 <p>由于原本对外开放的22端口只用于接收ssh请求，如果想要提供更多服务，需要先把22端口的接收的数据都转发给sslh，让它来进行分类。那么ssh请求应该就不能再还给22端口了（不然可能又被转发给sslh？不确定），可以考虑再开一个端口监听ssh请求。这里ssh的设定开了本地22和5752端口，配置时修改<code>/etc/ssh/sshd_config</code>文件，加一行Port 5752即可。同时记得使用公钥认证登录，禁用密码登录。</p>
 <div class="highlight"><pre><span></span><code>Port<span class="w"> </span><span class="m">22</span>

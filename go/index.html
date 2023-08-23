@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -862,6 +862,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -930,8 +944,11 @@
 <h2 id="go_1">go环境配置</h2>
 <ol>
 <li>从<a href="https://go.dev/dl/">https://go.dev/dl/</a>下载Archive的包，解压缩，添加其中的bin目录到系统路径</li>
-<li>国内使用时设置代理<code>go env -w  GOPROXY=https://goproxy.cn</code></li>
+<li>国内使用时设置代理</li>
 </ol>
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>env<span class="w"> </span>-w<span class="w"> </span><span class="nv">GO111MODULE</span><span class="o">=</span>on
+go<span class="w"> </span>env<span class="w"> </span>-w<span class="w">  </span><span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn
+</code></pre></div>
 <h2 id="_1">快速入门</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>

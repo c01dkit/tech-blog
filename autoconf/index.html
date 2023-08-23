@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -862,6 +862,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -973,6 +987,9 @@
 <span class="nv">AM_CFLAGS</span><span class="o">=</span><span class="w"> </span>-DDEBUG<span class="w"> </span>-I<span class="w"> </span>../include
 
 <span class="nv">reverse_CPPFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-msse4.1
+
+<span class="c"># 使用LDFLAG会在gcc中部放-l，导致找不到第三方库。用LDADD可以添加到整个gcc指令的最后</span>
+<span class="nv">reverse_LDADD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-lcapstone
 
 <span class="nv">handlers_FILES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>handler_flag_manip.c<span class="w"> </span>handler_interrupt.c
 

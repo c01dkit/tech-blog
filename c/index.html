@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://tech.c01dkit.com/c/">
       
       
-        <link rel="prev" href="../linux-server/">
+        <link rel="prev" href="../readings/">
       
       
         <link rel="next" href="../go/">
@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -311,6 +311,13 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     根据结构体成员取结构体首地址
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    编译时确定链接库
   </a>
   
 </li>
@@ -855,6 +862,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -894,6 +915,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    编译时确定链接库
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -916,7 +944,10 @@
 <h2 id="_1">根据结构体成员取结构体首地址</h2>
 <div class="highlight"><pre><span></span><code><span class="n">member_address</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(((</span><span class="n">TYPE</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">member</span><span class="p">);</span>
 </code></pre></div>
-<p>后半部分看似会解引用0地址而crash，但编译器会优化为直接计算member的offset。</p>
+<p>后半部分看似会解引用0地址而crash，但编译器会优化为直接计算member的offset。参见kernel代码常用的container_of。</p>
+<h2 id="_2">编译时确定链接库</h2>
+<p>使用-l指定链接库，注意去掉库文件的lib开头和.so结尾。编译时，注意把库放在整个命令的结尾，否则可能提示库函数未定义。</p>
+<p>比如<code>gcc main.c -lcapstone</code>不会报错，<code>gcc -lcapstone main.c</code>会提示报错。（假设这里main.c调用了capstone的库函数）</p>
 
 
 

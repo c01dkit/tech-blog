@@ -231,8 +231,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../readings/" class="md-nav__link">
+        文章阅读
       </a>
     </li>
   
@@ -666,6 +666,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -906,6 +913,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        linux服务器运维
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -990,6 +1011,13 @@
         <li class="md-nav__item">
   <a href="#reverse-engineering-writeups" class="md-nav__link">
     Reverse Engineering Writeups
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    总结
   </a>
   
 </li>
@@ -1105,6 +1133,7 @@
 <li>使用<code>display/&lt;n&gt;&lt;u&gt;&lt;f&gt;</code>来在每一条操作结束后显示某些数值。nuf的用法和<code>x</code>打印内存地址一样</li>
 <li>有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数<code>-x xxx.gdb</code>，就可以在gdb启动后自动化运行脚本</li>
 <li><code>~/.gdbinit</code>在初始化gdb会话时自动运行</li>
+<li>使用<code>call</code>直接调用函数，比如<code>call (void)win()</code></li>
 <li>使用<code>set pagination off</code>关闭分页确认
 以下是个gdb脚本的例子，<code>silent</code>用于在遇到断点时减少输出信息，以及使用<code>set</code>和<code>printf</code>设置变量、打印值。</li>
 </ul>
@@ -1132,9 +1161,6 @@ commands
 end
 <span class="k">continue</span>
 </code></pre></div>
-<ul>
-<li>使用<code>call</code>直接调用函数，比如<code>call (void)win()</code></li>
-</ul>
 <h2 id="talking-web-writeups">Talking Web WriteUps</h2>
 <p>这个章节的题目是用curl、python和nc来实现发送各种http请求，先运行<code>/challenge/run</code>启动flask服务器，然后新开个终端用各种姿势连接本地127.0.0.1即可。</p>
 <p>这三种工具的大致思路：</p>
@@ -2577,6 +2603,44 @@ end
 </code></pre></div>
 <p>可见在<code>0x0000556609b49969</code>处，从rax指向的地址读取4字节。但是此时rax在前两条语句已经被修改为0了，所以触发NULL指针解引用，引起SIGSEGV退出。所以试试直接跳过这段，进入win时修改rip寄存器即可。</p>
 <p>依次执行：<code>break *win</code>，<code>call (void)win()</code>，<code>set $rip=*win+35</code>，<code>c</code>即可。</p>
+<p><strong>Level 1.0</strong></p>
+<p>Reverse engineer this challenge to find the correct license key.</p>
+<p>从此开始是一个证书验证程序，要求输入key来获取flag。第一题直接enter运行，会输出原始输入、处理后的输入以及正确答案。运行两次以后发现处理后的输入和原始输入是一样的，并且正确答案是固定的。</p>
+<p>直接python里运行下<code>[chr(i) for i in [0x75,0x62,0x61,0x6a,0x68]]</code>（可能需要修改0xXX的值），然后就得到key了。</p>
+<p><strong>Level 1.1</strong></p>
+<p>Reverse engineer this challenge to find the correct license key.</p>
+<p>这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候<code>ctrl+c</code>暂停程序，用<code>bt</code>查看调用栈，可以看到<code>__libc_start_main (main=0xXXXXX, argc=1, ....)</code>。然后查看main函数的汇编指令<code>x/80i 0xXXXX</code>，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用<code>x/5x &lt;address&gt;</code>查看密钥即可。</p>
+<p>注意最后输入密钥时要直接运行程序，不要在gdb里面输，会提示权限不够。</p>
+<p><strong>Level 2.0</strong></p>
+<p>Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.</p>
+<p>这道题目交换了输入字符串的index 1和index 4的字符。</p>
+<p><strong>Level 2.1</strong></p>
+<p>Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.</p>
+<p>这道题目在2.0的基础上隐去了输入输出结果的显示，因此需要gdb看一下做了什么操作。按照1.1的方法查看memcmp附近的函数，可见：</p>
+<div class="highlight"><pre><span></span><code><span class="err">0</span><span class="nl">x5584f463251f:</span><span class="w">      </span><span class="nf">lea</span><span class="w">    </span><span class="no">rax</span><span class="p">,[</span><span class="no">rbp-0xe</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f4632523:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">edx</span><span class="p">,</span><span class="mi">0x5</span>
+<span class="err">0</span><span class="nl">x5584f4632528:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">rsi</span><span class="p">,</span><span class="no">rax</span>
+<span class="err">0</span><span class="nl">x5584f463252b:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">edi</span><span class="p">,</span><span class="mi">0x0</span>
+<span class="err">0</span><span class="nl">x5584f4632530:</span><span class="w">      </span><span class="nf">call</span><span class="w">   </span><span class="mh">0x5584f46321a0</span> <span class="p">&lt;</span><span class="no">read@plt</span><span class="p">&gt;</span>
+<span class="err">0</span><span class="nl">x5584f4632535:</span><span class="w">      </span><span class="nf">movzx</span><span class="w">  </span><span class="no">eax</span><span class="p">,</span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xe</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f4632539:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0x10</span><span class="p">],</span><span class="no">al</span>
+<span class="err">0</span><span class="nl">x5584f463253c:</span><span class="w">      </span><span class="nf">movzx</span><span class="w">  </span><span class="no">eax</span><span class="p">,</span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xd</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f4632540:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xf</span><span class="p">],</span><span class="no">al</span>
+<span class="err">0</span><span class="nl">x5584f4632543:</span><span class="w">      </span><span class="nf">movzx</span><span class="w">  </span><span class="no">eax</span><span class="p">,</span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xf</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f4632547:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xe</span><span class="p">],</span><span class="no">al</span>
+<span class="err">0</span><span class="nl">x5584f463254a:</span><span class="w">      </span><span class="nf">movzx</span><span class="w">  </span><span class="no">eax</span><span class="p">,</span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0x10</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f463254e:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">BYTE</span><span class="w"> </span><span class="no">PTR</span><span class="w"> </span><span class="p">[</span><span class="no">rbp-0xd</span><span class="p">],</span><span class="no">al</span>
+<span class="err">0</span><span class="nl">x5584f4632551:</span><span class="w">      </span><span class="nf">lea</span><span class="w">    </span><span class="no">rdi</span><span class="p">,[</span><span class="no">rip</span><span class="err">+</span><span class="mi">0xdb0</span><span class="p">]</span><span class="w">        </span><span class="c1"># 0x5584f4633308</span>
+<span class="err">0</span><span class="nl">x5584f4632558:</span><span class="w">      </span><span class="nf">call</span><span class="w">   </span><span class="mh">0x5584f4632140</span> <span class="p">&lt;</span><span class="no">puts@plt</span><span class="p">&gt;</span>
+<span class="err">0</span><span class="nl">x5584f463255d:</span><span class="w">      </span><span class="nf">lea</span><span class="w">    </span><span class="no">rax</span><span class="p">,[</span><span class="no">rbp-0xe</span><span class="p">]</span>
+<span class="err">0</span><span class="nl">x5584f4632561:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">edx</span><span class="p">,</span><span class="mi">0x5</span>
+<span class="err">0</span><span class="nl">x5584f4632566:</span><span class="w">      </span><span class="nf">lea</span><span class="w">    </span><span class="no">rsi</span><span class="p">,[</span><span class="no">rip</span><span class="err">+</span><span class="mi">0x2aa3</span><span class="p">]</span><span class="w">        </span><span class="c1"># 0x5584f4635010</span>
+<span class="err">0</span><span class="nl">x5584f463256d:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">rdi</span><span class="p">,</span><span class="no">rax</span>
+<span class="err">0</span><span class="nl">x5584f4632570:</span><span class="w">      </span><span class="nf">call</span><span class="w">   </span><span class="mh">0x5584f46321b0</span> <span class="p">&lt;</span><span class="no">memcmp@plt</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容<code>x/5b 0x5584f4635010</code>得到对应的答案，交换前两个字符即可。</p>
+<h2 id="_1">总结</h2>
+<p>CSE 365还是属于比较入门的类型，打好基础！</p>
 
 
 
