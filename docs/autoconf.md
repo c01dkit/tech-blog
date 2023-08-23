@@ -66,6 +66,9 @@ AM_CFLAGS= -DDEBUG -I ../include
 
 reverse_CPPFLAGS = -msse4.1
 
+# 使用LDFLAG会在gcc中部放-l，导致找不到第三方库。用LDADD可以添加到整个gcc指令的最后
+reverse_LDADD = -lcapstone
+
 handlers_FILES = handler_flag_manip.c handler_interrupt.c
 
 #handler_interrupt.c

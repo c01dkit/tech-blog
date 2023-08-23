@@ -83,6 +83,7 @@ PE（Portable Execution）文件是Windows系统使用的可执行文件格式�
 
 添加多个符号表`add-symbol-file xxx addr`其中addr是代码段起始地址，xxx可以为sym文件，或elf文件等。变异时需要加上`-g`保留符号表(指定具体格式如`-g2 -gdwarf-2`)，可以逐个使用`add-symbol-file`，都添加进去。
 
+使用`ulimit -c unlimited`设置不限制coredump文件大小，然后root用户`echo "core-%e-%p" > /proc/sys/kernel/core_pattern`设置保留程序名、pid，则对于编译时添加了`-g`选项的程序，其崩溃产生的coredump文件可以使用`gdb <程序名> <coredump文件名>`来寻找root cause。gdb内用where查看调用栈。
 
 ## 推荐阅读
 
@@ -90,3 +91,4 @@ PE（Portable Execution）文件是Windows系统使用的可执行文件格式�
 [Linux 动态库 编译和使用](https://houxian1103.blog.csdn.net/article/details/122272862)
 [Makefile入门](https://dlonng.com/posts/makefile)
 [Makefile官方文档](https://www.gnu.org/software/make/manual/make.html#Introduction)
+[coredump文件基础用法](https://blog.51cto.com/u_16001762/6387467)

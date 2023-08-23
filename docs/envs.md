@@ -88,6 +88,10 @@ evel `ssh-agent`
 ssh-add <私钥文件>
 ```
 
+## Windows下安装make
+
+使用chocolatey包管理器。按[https://chocolatey.org/install#individual](https://chocolatey.org/install#individual)的说明即可，最后`choco install make`
+
 ## 参考文章
 
 * 安装rust[https://hosthum.com/p/install-rust-lang/](https://hosthum.com/p/install-rust-lang/)

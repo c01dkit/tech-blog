@@ -13,7 +13,7 @@ copyright: '2023 Content provided by c01dkit'
 
 nav:
   - 首页: index.md
-  - linux服务器运维: linux-server.md
+  - 文章阅读: readings.md
   - 编程语言:
     - C语言: c.md
     - Go: go.md
@@ -45,7 +45,7 @@ nav:
     - 服务器端口复用: porting.md
     - ChatGPT: try-chatgpt.md
     - 环境配置: envs.md
-    
+    - linux服务器运维: linux-server.md
 
     
 markdown_extensions:

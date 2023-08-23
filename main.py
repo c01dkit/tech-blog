@@ -88,7 +88,17 @@ def generate_index(nav, md_files, titles):
     return result
 result = [f"""# Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间{datetime.datetime.now().strftime('%Y-%m-%d')}
+目录为自动生成，可能有误。最近一次更新时间{datetime.datetime.now().strftime('%Y-%m-%d')}。
+          
+[欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
+
+最近一次更新内容：
+
+* 新增《文章阅读》版块，收录了一些文章链接
+* 新增了sslh项目的阅读笔记
+* 更新pwn-college CSE 365的部分wp
+* 一些其他页面的更新
+
 """]
 mds = get_md_files()
 nav = get_nav()

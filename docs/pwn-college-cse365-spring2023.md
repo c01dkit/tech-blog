@@ -106,6 +106,7 @@ close(tunnel)
 * 使用`display/<n><u><f>`来在每一条操作结束后显示某些数值。nuf的用法和`x`打印内存地址一样
 * 有关脚本编写，可以预先用gdb语法写好脚本文件xxx.gdb，然后启动gdb的时候加上参数`-x xxx.gdb`，就可以在gdb启动后自动化运行脚本
 * `~/.gdbinit`在初始化gdb会话时自动运行
+* 使用`call`直接调用函数，比如`call (void)win()`
 * 使用`set pagination off`关闭分页确认
 以下是个gdb脚本的例子，`silent`用于在遇到断点时减少输出信息，以及使用`set`和`printf`设置变量、打印值。
 
@@ -136,7 +137,7 @@ end
 continue
 ```
 
-* 使用`call`直接调用函数，比如`call (void)win()`
+
 
 
 ## Talking Web WriteUps
@@ -1863,3 +1864,63 @@ continue
 可见在`0x0000556609b49969`处，从rax指向的地址读取4字节。但是此时rax在前两条语句已经被修改为0了，所以触发NULL指针解引用，引起SIGSEGV退出。所以试试直接跳过这段，进入win时修改rip寄存器即可。
 
 依次执行：`break *win`，`call (void)win()`，`set $rip=*win+35`，`c`即可。
+
+**Level 1.0**
+
+Reverse engineer this challenge to find the correct license key.
+
+从此开始是一个证书验证程序，要求输入key来获取flag。第一题直接enter运行，会输出原始输入、处理后的输入以及正确答案。运行两次以后发现处理后的输入和原始输入是一样的，并且正确答案是固定的。
+
+直接python里运行下`[chr(i) for i in [0x75,0x62,0x61,0x6a,0x68]]`（可能需要修改0xXX的值），然后就得到key了。
+
+**Level 1.1**
+
+Reverse engineer this challenge to find the correct license key.
+
+这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候`ctrl+c`暂停程序，用`bt`查看调用栈，可以看到`__libc_start_main (main=0xXXXXX, argc=1, ....)`。然后查看main函数的汇编指令`x/80i 0xXXXX`，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用`x/5x <address>`查看密钥即可。
+
+注意最后输入密钥时要直接运行程序，不要在gdb里面输，会提示权限不够。
+
+
+**Level 2.0**
+
+Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.
+
+这道题目交换了输入字符串的index 1和index 4的字符。
+
+**Level 2.1**
+
+Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.
+
+这道题目在2.0的基础上隐去了输入输出结果的显示，因此需要gdb看一下做了什么操作。按照1.1的方法查看memcmp附近的函数，可见：
+
+```asm
+0x5584f463251f:      lea    rax,[rbp-0xe]
+0x5584f4632523:      mov    edx,0x5
+0x5584f4632528:      mov    rsi,rax
+0x5584f463252b:      mov    edi,0x0
+0x5584f4632530:      call   0x5584f46321a0 <read@plt>
+0x5584f4632535:      movzx  eax,BYTE PTR [rbp-0xe]
+0x5584f4632539:      mov    BYTE PTR [rbp-0x10],al
+0x5584f463253c:      movzx  eax,BYTE PTR [rbp-0xd]
+0x5584f4632540:      mov    BYTE PTR [rbp-0xf],al
+0x5584f4632543:      movzx  eax,BYTE PTR [rbp-0xf]
+0x5584f4632547:      mov    BYTE PTR [rbp-0xe],al
+0x5584f463254a:      movzx  eax,BYTE PTR [rbp-0x10]
+0x5584f463254e:      mov    BYTE PTR [rbp-0xd],al
+0x5584f4632551:      lea    rdi,[rip+0xdb0]        # 0x5584f4633308
+0x5584f4632558:      call   0x5584f4632140 <puts@plt>
+0x5584f463255d:      lea    rax,[rbp-0xe]
+0x5584f4632561:      mov    edx,0x5
+0x5584f4632566:      lea    rsi,[rip+0x2aa3]        # 0x5584f4635010
+0x5584f463256d:      mov    rdi,rax
+0x5584f4632570:      call   0x5584f46321b0 <memcmp@plt>
+```
+
+输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容`x/5b 0x5584f4635010`得到对应的答案，交换前两个字符即可。
+
+
+
+## 总结
+
+CSE 365还是属于比较入门的类型，打好基础！

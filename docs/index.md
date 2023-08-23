@@ -1,19 +1,27 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误，[欢迎提issue](https://github.com/c01dkit/tech-blog/issues)。最近一次更新时间2023-08-01
+目录为自动生成，可能有误。最近一次更新时间2023-08-23。
+          
+[欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
-## linux服务器运维
+最近一次更新内容：
 
-- [根据pid查询细节](./linux-server/#pid)
-- [在linux终端向程序输入字节](./linux-server/#linux_1)
-- [查询服务器显卡](./linux-server/#_1)
-- [统计服务器进程占用](./linux-server/#_2)
-- [统计磁盘用量](./linux-server/#_3)
-- [修改DNS](./linux-server/#dns)
+* 新增《文章阅读》版块，收录了一些文章链接
+* 新增了sslh项目的阅读笔记
+* 更新pwn-college CSE 365的部分wp
+* 一些其他页面的更新
+
+
+## 文章阅读
+
+- [软件供应链](./readings/#_2)
+- [大模型](./readings/#_3)
+- [Google](./readings/#google)
 
 ## 编程语言 / C语言
 
 - [根据结构体成员取结构体首地址](./c/#_1)
+- [编译时确定链接库](./c/#_2)
 
 ## 编程语言 / Go
 
@@ -29,6 +37,7 @@
 - [接口设计](./python/#_2)
 - [中间数据存储：capnp](./python/#capnp)
 - [计时终止程序](./python/#_3)
+- [二进制字节与hex互相转换：IntelHex](./python/#hexintelhex)
 - [参考资料](./python/#_4)
 
 ## 编程语言 / 优雅编程
@@ -114,8 +123,6 @@
 ## 学习笔记 / pwn-college / CSE 365 - spring 2023
 
 - [Talking Web 学习笔记](./pwn-college-cse365-spring2023/#talking-web)
-- [请求方法](./pwn-college-cse365-spring2023/#_1)
-- [urlencoding](./pwn-college-cse365-spring2023/#urlencoding)
 - [Assembly Crash Course 学习笔记](./pwn-college-cse365-spring2023/#assembly-crash-course)
 - [Building a Web Server 学习笔记](./pwn-college-cse365-spring2023/#building-a-web-server)
 - [Reverse Engineering 学习笔记](./pwn-college-cse365-spring2023/#reverse-engineering)
@@ -123,6 +130,7 @@
 - [Assembly Crash Course Writeups](./pwn-college-cse365-spring2023/#assembly-crash-course-writeups)
 - [Building a Web Server Writeups](./pwn-college-cse365-spring2023/#building-a-web-server-writeups)
 - [Reverse Engineering Writeups](./pwn-college-cse365-spring2023/#reverse-engineering-writeups)
+- [总结](./pwn-college-cse365-spring2023/#_1)
 
 ## 科研生活 / 科研心得
 
@@ -148,6 +156,10 @@
 ## 其他杂项 / 服务器端口复用
 
 - [端口复用方法](./porting/#_2)
+- [sslh：根据流量特征转发数据包](./porting/#sslh)
+- [ssh：提供远程连接](./porting/#ssh)
+- [nginx：提供http/https服务](./porting/#nginxhttphttps)
+- [iptables：转发外部访问到sslh](./porting/#iptablessslh)
 - [https证书](./porting/#https)
 
 ## 其他杂项 / ChatGPT
@@ -165,4 +177,14 @@
 - [git设置全局代理](./envs/#git)
 - [perf 安装(ubuntu)](./envs/#perf-ubuntu)
 - [选择ssh密钥](./envs/#ssh)
+- [Windows下安装make](./envs/#windowsmake)
 - [参考文章](./envs/#_3)
+
+## 其他杂项 / linux服务器运维
+
+- [根据pid查询细节](./linux-server/#pid)
+- [在linux终端向程序输入字节](./linux-server/#linux_1)
+- [查询服务器显卡](./linux-server/#_1)
+- [统计服务器进程占用](./linux-server/#_2)
+- [统计磁盘用量](./linux-server/#_3)
+- [修改DNS](./linux-server/#dns)
