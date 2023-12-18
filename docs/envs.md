@@ -7,10 +7,14 @@ sudo apt update
 sudo apt install curl build-essential gcc make -y
 ```
 
-## 安装rust
+## rust安装与更新
 
 ```shell
 curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh
+```
+
+```shell
+rustup update
 ```
 
 国内使用时crates.io可能登不上，试试修改安装目录下的config文件(比如$HOME/.cargo/config)

@@ -1877,7 +1877,7 @@ Reverse engineer this challenge to find the correct license key.
 
 Reverse engineer this challenge to find the correct license key.
 
-这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候`ctrl+c`暂停程序，用`bt`查看调用栈，可以看到`__libc_start_main (main=0xXXXXX, argc=1, ....)`。然后查看main函数的汇编指令`x/80i 0xXXXX`，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用`x/5x <address>`查看密钥即可。
+这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候`ctrl+c`暂停程序，用`bt`查看调用栈，可以看到`__libc_start_main (main=0xXXXXX, argc=1, ....)`。然后查看main函数的汇编指令`x/80i 0xXXXX`，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用`x/5c <address>`查看密钥即可。
 
 注意最后输入密钥时要直接运行程序，不要在gdb里面输，会提示权限不够。
 
@@ -1889,8 +1889,6 @@ Reverse engineer this challenge to find the correct license key, but your input 
 这道题目交换了输入字符串的index 1和index 4的字符。
 
 **Level 2.1**
-
-Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.
 
 这道题目在2.0的基础上隐去了输入输出结果的显示，因此需要gdb看一下做了什么操作。按照1.1的方法查看memcmp附近的函数，可见：
 
@@ -1917,8 +1915,86 @@ Reverse engineer this challenge to find the correct license key, but your input 
 0x5584f4632570:      call   0x5584f46321b0 <memcmp@plt>
 ```
 
-输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容`x/5b 0x5584f4635010`得到对应的答案，交换前两个字符即可。
+输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容`x/5c 0x5584f4635010`得到对应的答案，交换前两个字符即可。
 
+**Level 3.0-3.1**
+
+运行程序，随便输几个数。显式告诉了规则是逆序，又把正确答案打印出来了。
+
+3.1猜测和3.0一样也是逆序。直接按2.1的方法看一下[rbp-0xe]处的值然后逆序输入就行。
+
+**Level 4.0-4.1**
+
+规则是进行递增排序。这下只需要包含这些字母就行。（这不是更简单了……）
+
+**Level 5.0-5.1**
+
+这道题是对输入字符进行异或。简单写了个python，在控制台交互时运行下：
+
+```python
+tx = lambda x:int(x,16)
+''.join([chr(i^0xb8) for i in [tx(a) for a in 'd6 d5 d6 cf da'.split() ]])
+```
+
+5.1和5.0类似，仿照之前的方法可以看到异或用的是0x1c。
+
+**Level 6.0**
+
+这道题结合了交换、异或、逆序三种操作，干脆写个脚本处理下吧。
+
+```python
+def do_reverse(li):
+    return li[::-1]
+
+def do_swap(li, idx1, idx2):
+    li[idx1], li[idx2] = li[idx2], li[idx1]
+    return li
+
+def do_xor(li, key):
+    xor_li = []
+    while key > 0:
+        xor_li.insert(0, key & 0xff)
+        key >>= 8
+    for i in range(len(li)):
+        li[i] ^= xor_li[i % len(xor_li)]
+    return li
+
+def do_sort(li):
+    li.sort()
+    return li
+
+def sanitize(s):
+    if type(s) is str:
+        f = lambda tx: int(tx,16)
+        return [f(i) for i in s.split()]
+    if type(s) is list:
+        return ''.join([chr(i) for i in s])
+
+print(sanitize(do_swap(do_xor(do_reverse(sanitize('51 90 52 86 58 98 4d 81 4b 84 4f 9a 57 8c 51 91 56')),0x3ef5),5,6)))
+```
+
+6.1有点奇怪，看汇编好像是先逆序一遍，再逆序一遍，再逐字节与0xbb异或。好像和5.0的置换-异或-逆序不一样的？可能是随机选择策略吧。
+
+**Level 7.0-7.1**
+
+7.0用上一个脚本即可。
+
+```python
+print(sanitize(do_swap(do_sort(do_xor(do_swap(do_xor(sanitize(' 16 34 42 00 13 31 46 0d 1c 3b 4e 15 05 22 52 10 04 22 54 1c 0f 2e 59 1d 0e 2f 5b'),0x85a4d396),13,16),0xf2)),7,10)))
+
+```
+
+7.1是先和0x15ca异或，然后逆序，然后再逆序，然后再逆序，然后再递增排序
+
+```python
+print(sanitize(do_xor(sanitize('60 61 64 66 67 6c 70 70 71 74 77 7c 7c 7d 7f a5 a5 a5 a8 ab ab af b0 b3 b8 b9 ba bb'),0x15ca)))
+print(sanitize(do_xor(sanitize('60 61 64 66 67 6c 70 70 71 74 77 7c 7c 7d 7f a5 a5 a5 a8 ab ab af b0 b3 b8 b9 ba bb'),0xca15)))
+
+#u«q¬r¦eºd¾b¶i·jo°o½a¾e¥y­s¯q
+#ªt®s­yºe»a½i¶hµ°o°b¾aºz¦r¬p®
+#然后把两个结果中字母排起来
+#utqsryeedabiihjooobaaezyrspq
+```
 
 
 ## 总结

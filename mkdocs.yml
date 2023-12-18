@@ -14,6 +14,9 @@ copyright: '2023 Content provided by c01dkit'
 nav:
   - 首页: index.md
   - 文章阅读: readings.md
+  - CTF笔记:
+    - pwn-college:
+      - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
   - 编程语言:
     - C语言: c.md
     - Go: go.md
@@ -26,27 +29,25 @@ nav:
     - 逆向基础: reverse-basic.md
     - 逆向高阶: reverse-advanced.md
   - 学习笔记:
-    - Git: git.md
-    - Docker: docker.md
-    - 根因分析: rca.md
     - autoconf: autoconf.md
-    - pwn-college:
-      - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
+    - ChatGPT: try-chatgpt.md
+    - Docker: docker.md
+    - Ubuntu服务器运维: linux-server.md
+    - Git: git.md
+    - sslh: tech-sslh.md
+    - 端口复用: porting.md
+    - 环境配置: envs.md
+    - 代理转发: proxy.md
   - 科研生活: 
-    - 科研心得: sci-thoughts.md
     - latex基础: latex.md
+    - 科研心得: sci-thoughts.md
     - 词汇学习: word-learning.md
     - 文句摘录: picking-ups.md
     - 情景模板: sentence-templates.md
     - 四大调查: investigations.md
     - 有趣文章: interesting-articles.md
-  - 其他杂项:
     - 模糊测试: fuzzing.md
-    - 服务器端口复用: porting.md
-    - ChatGPT: try-chatgpt.md
-    - 环境配置: envs.md
-    - linux服务器运维: linux-server.md
-
+    - 根因分析: rca.md
     
 markdown_extensions:
   - attr_list
@@ -57,3 +58,10 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+
+extra_css:
+  - stylesheets/mystyle.css
+
+
+extra_javascript:
+  - javascripts/myjs.js

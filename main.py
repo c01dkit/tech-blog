@@ -94,10 +94,7 @@ result = [f"""# Welcome to c01dkit's tech blog
 
 最近一次更新内容：
 
-* 新增《文章阅读》版块，收录了一些文章链接
-* 新增了sslh项目的阅读笔记
-* 更新pwn-college CSE 365的部分wp
-* 一些其他页面的更新
+* 单独把ctf题目wp分成一个新的类
 
 """]
 mds = get_md_files()

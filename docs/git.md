@@ -69,8 +69,6 @@ Host github.com
 
 如果希望添加某个仓库作为子模块，使用`git submodule add <repo url>`来下载子模块并更新.gitmodules文件
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b1b1f440149d442485b22683b9351e98.png#pic_center)
-
 ## 自己的项目需要对其他项目进行修改
 
 如果自己的项目用到别的项目，需要对其中一些代码进行修改，而不需要把在上传github时把整个项目全部放到自己的项目下，可以先用submodule添加子模块，然后直接修改代码，并在其项目下用`git diff <commit id> > <file.patch>`生成一个diff文件。把diff文件放到自己的项目里，再上传到github上。其中commit id是第三方项目的commit，也就是这个submodule下载时的commit id，可以通过`git log`找到。

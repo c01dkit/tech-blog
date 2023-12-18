@@ -1,58 +1,73 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误。最近一次更新时间2023-08-23。
+目录为自动生成，可能有误。最近一次更新时间2023-12-18。
           
 [欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
 最近一次更新内容：
 
-* 新增《文章阅读》版块，收录了一些文章链接
-* 新增了sslh项目的阅读笔记
-* 更新pwn-college CSE 365的部分wp
-* 一些其他页面的更新
+* 单独把ctf题目wp分成一个新的类
 
 
 ## 文章阅读
 
-- [软件供应链](./readings/#_2)
-- [大模型](./readings/#_3)
+- [综合性知识学习](./readings/#_2)
+- [会议总结](./readings/#_3)
+- [软件供应链](./readings/#_4)
+- [大模型](./readings/#_5)
 - [Google](./readings/#google)
+- [编程语言](./readings/#_6)
+
+## CTF笔记 / pwn-college / CSE 365 - spring 2023
+
+- [Talking Web 学习笔记](./pwn-college-cse365-spring2023/#talking-web)
+- [Assembly Crash Course 学习笔记](./pwn-college-cse365-spring2023/#assembly-crash-course)
+- [Building a Web Server 学习笔记](./pwn-college-cse365-spring2023/#building-a-web-server)
+- [Reverse Engineering 学习笔记](./pwn-college-cse365-spring2023/#reverse-engineering)
+- [Talking Web WriteUps](./pwn-college-cse365-spring2023/#talking-web-writeups)
+- [Assembly Crash Course Writeups](./pwn-college-cse365-spring2023/#assembly-crash-course-writeups)
+- [Building a Web Server Writeups](./pwn-college-cse365-spring2023/#building-a-web-server-writeups)
+- [Reverse Engineering Writeups](./pwn-college-cse365-spring2023/#reverse-engineering-writeups)
+- [总结](./pwn-college-cse365-spring2023/#_1)
 
 ## 编程语言 / C语言
 
 - [根据结构体成员取结构体首地址](./c/#_1)
-- [编译时确定链接库](./c/#_2)
+- [动态链接库](./c/#_2)
 
 ## 编程语言 / Go
 
 - [go环境配置](./go/#go_1)
-- [快速入门](./go/#_1)
+- [创建工程](./go/#_1)
+- [快速入门](./go/#_2)
 
 ## 编程语言 / Python
 
-- [获取未知对象的所有属性](./python/#_1)
+- [一些小点](./python/#_1)
+- [获取未知对象的所有属性](./python/#_2)
 - [参数解析：argparse](./python/#argparse)
 - [配置读取：yaml](./python/#yaml)
 - [输出日志：logging](./python/#logging)
-- [接口设计](./python/#_2)
+- [接口设计](./python/#_3)
 - [中间数据存储：capnp](./python/#capnp)
-- [计时终止程序](./python/#_3)
+- [计时终止程序](./python/#_4)
 - [二进制字节与hex互相转换：IntelHex](./python/#hexintelhex)
-- [参考资料](./python/#_4)
+- [参考资料](./python/#_5)
 
 ## 编程语言 / 优雅编程
 
-- [程序优化方法](./code-gracely/#_2)
-- [利用短路与哨兵](./code-gracely/#_3)
-- [优化计算效率](./code-gracely/#_4)
-- [使用低级语言重写代码](./code-gracely/#_5)
-- [设计恰当的执行控制流](./code-gracely/#_6)
-- [循环](./code-gracely/#_7)
-- [建表，以提高代码质量](./code-gracely/#_8)
+- [程序变量](./code-gracely/#_2)
+- [程序优化方法](./code-gracely/#_3)
+- [利用短路与哨兵](./code-gracely/#_4)
+- [优化计算效率](./code-gracely/#_5)
+- [使用低级语言重写代码](./code-gracely/#_6)
+- [设计恰当的执行控制流](./code-gracely/#_7)
+- [循环](./code-gracely/#_8)
+- [建表，以提高代码质量](./code-gracely/#_9)
 - [用查表法替换繁琐的if-else判断](./code-gracely/#if-else)
-- [用索引表替换数据表](./code-gracely/#_9)
-- [用结果表替换数学计算结果](./code-gracely/#_10)
-- [一些小小的语法特性](./code-gracely/#_11)
+- [用索引表替换数据表](./code-gracely/#_10)
+- [用结果表替换数学计算结果](./code-gracely/#_11)
+- [一些小小的语法特性](./code-gracely/#_12)
 - [C](./code-gracely/#c)
 
 ## 编程应用 / python爬虫
@@ -84,6 +99,38 @@
 
 - [Windows逆向技术概念](./reverse-advanced/#windows)
 
+## 学习笔记 / autoconf
+
+- [不分目录结构](./autoconf/#_1)
+- [区分目录结构](./autoconf/#_2)
+
+## 学习笔记 / ChatGPT
+
+- [网络站点打包下载](./try-chatgpt/#_1)
+- [比较Go、Python、Rust的关系](./try-chatgpt/#gopythonrust)
+- [计算机安全资源学习](./try-chatgpt/#_2)
+
+## 学习笔记 / Docker
+
+- [安装docker](./docker/#docker_1)
+- [指定镜像保存位置](./docker/#_1)
+- [从镜像创建容器并挂载目录](./docker/#_2)
+- [新容器初始化](./docker/#_3)
+- [退出初次创建的容器](./docker/#_4)
+- [进入已有的容器](./docker/#_5)
+
+## 学习笔记 / Ubuntu服务器运维
+
+- [根据pid查询细节](./linux-server/#pid)
+- [在终端向程序输入字节](./linux-server/#_1)
+- [查询服务器显卡](./linux-server/#_2)
+- [统计服务器进程占用](./linux-server/#_3)
+- [统计磁盘用量](./linux-server/#_4)
+- [修改DNS](./linux-server/#dns)
+- [系统服务](./linux-server/#_5)
+- [定时服务](./linux-server/#_6)
+- [参考资料](./linux-server/#_7)
+
 ## 学习笔记 / Git
 
 - [将本地已有仓库推送至Github的新建仓库中](./git/#github)
@@ -98,44 +145,39 @@
 - [Github debug合集](./git/#github-debug)
 - [Git clone报错gnutls_handshake() failed: The TLS connection was non-properly terminated.](./git/#git-clonegnutls_handshake-failed-the-tls-connection-was-non-properly-terminated)
 
-## 学习笔记 / Docker
+## 学习笔记 / sslh
 
-- [安装docker](./docker/#docker_1)
-- [指定镜像保存位置](./docker/#_1)
-- [从镜像创建容器并挂载目录](./docker/#_2)
-- [新容器初始化](./docker/#_3)
-- [退出初次创建的容器](./docker/#_4)
-- [进入已有的容器](./docker/#_5)
+- [便捷上手](./tech-sslh/#_1)
+- [sslh程序启动入口与初始化](./tech-sslh/#sslh_1)
+- [协议识别](./tech-sslh/#_2)
+- [TLS协议中使用的ALPN、SNI简介](./tech-sslh/#tlsalpnsni)
 
-## 学习笔记 / 根因分析
+## 学习笔记 / 端口复用
 
-- [不同的分析粒度的优势](./rca/#_2)
-- [分析时间开销](./rca/#_3)
-- [一些想法](./rca/#_4)
-- [相关论文的一些发现（疑问）](./rca/#_5)
-- [参考文献](./rca/#_6)
+- [端口复用方法](./porting/#_2)
+- [sslh：根据流量特征转发数据包](./porting/#sslh)
+- [ssh：提供远程连接](./porting/#ssh)
+- [nginx：提供http/https服务](./porting/#nginxhttphttps)
+- [iptables：转发外部访问到sslh](./porting/#iptablessslh)
+- [https证书](./porting/#https)
 
-## 学习笔记 / autoconf
+## 学习笔记 / 环境配置
 
-- [不分目录结构](./autoconf/#_1)
-- [区分目录结构](./autoconf/#_2)
+- [更新基本环境](./envs/#_2)
+- [rust安装与更新](./envs/#rust)
+- [设置golang代理](./envs/#golang)
+- [安装ohmyzsh](./envs/#ohmyzsh)
+- [git设置全局代理](./envs/#git)
+- [perf 安装(ubuntu)](./envs/#perf-ubuntu)
+- [选择ssh密钥](./envs/#ssh)
+- [Windows下安装make](./envs/#windowsmake)
+- [参考文章](./envs/#_3)
 
-## 学习笔记 / pwn-college / CSE 365 - spring 2023
+## 学习笔记 / 代理转发
 
-- [Talking Web 学习笔记](./pwn-college-cse365-spring2023/#talking-web)
-- [Assembly Crash Course 学习笔记](./pwn-college-cse365-spring2023/#assembly-crash-course)
-- [Building a Web Server 学习笔记](./pwn-college-cse365-spring2023/#building-a-web-server)
-- [Reverse Engineering 学习笔记](./pwn-college-cse365-spring2023/#reverse-engineering)
-- [Talking Web WriteUps](./pwn-college-cse365-spring2023/#talking-web-writeups)
-- [Assembly Crash Course Writeups](./pwn-college-cse365-spring2023/#assembly-crash-course-writeups)
-- [Building a Web Server Writeups](./pwn-college-cse365-spring2023/#building-a-web-server-writeups)
-- [Reverse Engineering Writeups](./pwn-college-cse365-spring2023/#reverse-engineering-writeups)
-- [总结](./pwn-college-cse365-spring2023/#_1)
-
-## 科研生活 / 科研心得
-
-- [养成习惯](./sci-thoughts/#_2)
-- [科研写作](./sci-thoughts/#_3)
+- [多台电脑组局域网](./proxy/#_2)
+- [内网穿透](./proxy/#_3)
+- [子网转发](./proxy/#_4)
 
 ## 科研生活 / latex基础
 
@@ -143,7 +185,12 @@
 - [英文latex](./latex/#latex_1)
 - [中文latex](./latex/#latex_2)
 
-## 其他杂项 / 模糊测试
+## 科研生活 / 科研心得
+
+- [养成习惯](./sci-thoughts/#_2)
+- [科研写作](./sci-thoughts/#_3)
+
+## 科研生活 / 模糊测试
 
 - [针对网络协议的模糊测试](./fuzzing/#_2)
 - [AFLNET](./fuzzing/#aflnet)
@@ -153,38 +200,10 @@
 - [数据流指导的模糊测试](./fuzzing/#_3)
 - [DATAFLOW](./fuzzing/#dataflow)
 
-## 其他杂项 / 服务器端口复用
+## 科研生活 / 根因分析
 
-- [端口复用方法](./porting/#_2)
-- [sslh：根据流量特征转发数据包](./porting/#sslh)
-- [ssh：提供远程连接](./porting/#ssh)
-- [nginx：提供http/https服务](./porting/#nginxhttphttps)
-- [iptables：转发外部访问到sslh](./porting/#iptablessslh)
-- [https证书](./porting/#https)
-
-## 其他杂项 / ChatGPT
-
-- [网络站点打包下载](./try-chatgpt/#_1)
-- [比较Go、Python、Rust的关系](./try-chatgpt/#gopythonrust)
-- [计算机安全资源学习](./try-chatgpt/#_2)
-
-## 其他杂项 / 环境配置
-
-- [更新基本环境](./envs/#_2)
-- [安装rust](./envs/#rust)
-- [设置golang代理](./envs/#golang)
-- [安装ohmyzsh](./envs/#ohmyzsh)
-- [git设置全局代理](./envs/#git)
-- [perf 安装(ubuntu)](./envs/#perf-ubuntu)
-- [选择ssh密钥](./envs/#ssh)
-- [Windows下安装make](./envs/#windowsmake)
-- [参考文章](./envs/#_3)
-
-## 其他杂项 / linux服务器运维
-
-- [根据pid查询细节](./linux-server/#pid)
-- [在linux终端向程序输入字节](./linux-server/#linux_1)
-- [查询服务器显卡](./linux-server/#_1)
-- [统计服务器进程占用](./linux-server/#_2)
-- [统计磁盘用量](./linux-server/#_3)
-- [修改DNS](./linux-server/#dns)
+- [不同的分析粒度的优势](./rca/#_2)
+- [分析时间开销](./rca/#_3)
+- [一些想法](./rca/#_4)
+- [相关论文的一些发现（疑问）](./rca/#_5)
+- [参考文献](./rca/#_6)

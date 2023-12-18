@@ -17,23 +17,37 @@
 # systemd users: don't forget to modify /lib/systemd/system/sslh.service
 DAEMON=/usr/sbin/sslh
 Run=yes
-DAEMON_OPTS="--user sslh --listen 0.0.0.0:4684 --ssh 127.0.0.1:5752 --tls 127.0.0.1:443 --http 127.0.0.1:1284 --pidfile /var/run/sslh/sslh.pid"
+DAEMON_OPTS="--user sslh --listen 0.0.0.0:4684 --ssh 127.0.0.1:5752 --tls 127.0.0.1:443 --http 127.0.0.1:1284 --anyprot 127.0.0.1:2008 -F /etc/sslh/sslh.cfg --pidfile /var/run/sslh/sslh.pid"
 ```
 
 这里也可以`cat /lib/systemd/system/sslh.service`看一下service文件，其中有一行`ExecStart=/usr/sbin/sslh --foreground $DAEMON_OPTS`，可以看到在启动sslh时参数是DAEMON_OPTS。所以重点就在于配置好DAEMON_OPTS。
 
 解释一下几个参数的意思：
 
-* --listen 0.0.0.0:4684 表示sslh运行在4684端口，将这个端口收到的数据包按规则转发到其他端口上
-* --ssh 127.0.0.1:5752 表示将收到的ssh数据包转发到本地5752端口
-* --tls 127.0.0.1:443 表示将收到的tls数据包转发到本地443端口
-* --http 127.0.0.1:1284 表示将收到的http请求转发到本地1284端口
+* `--listen 0.0.0.0:4684` 表示sslh运行在4684端口，将这个端口收到的数据包按规则转发到其他端口上
+* `--ssh 127.0.0.1:5752` 表示将收到的ssh数据包转发到本地5752端口
+* `--tls 127.0.0.1:443` 表示将收到的tls数据包转发到本地443端口
+* `--http 127.0.0.1:1284` 表示将收到的http请求转发到本地1284端口
+* `--anyprot 127.0.0.1:2008` 表示将匹配都不符合的包发送到本地2008端口
+* `-F /etc/sslh/sslh.cfg` 表示使用sslh.cfg这个文件中的设定进行更丰富的配置
 
 然后`systemctl enable sslh`、`systemctl start sslh`启动sslh，将本地4684端口收到的流量根据ssh、ssl、http的特征分别进行端口转发。
 
 比较有意思的是可以用`--anyprot`来设置默认的转发策略，配合`nc -lk`可以看自定义的数据包格式，再通过`-F`（或`--config`）指定config文件（比如/etc/sslh/sslh.cfg），实现利用正则表达式对数据包进行自定义转发。
 
 注意，如果使用config文件，那么文件的内容不要和命令行已有的内容重复。比如命令行已经指定了监听127.0.0.1端口的4684，那config文件里就不要再加上listen:(xxx)了。
+
+config文件指定匹配规则的例子如下所示（片段）
+
+```c
+protocols:
+(
+    { name: "http"; host: "127.0.0.1"; port: "808"; },
+    { name: "tls"; host: "127.0.0.1"; port: "443"; sni_hostnames: [ "remote.c01dkit.com" ]; tfo_ok: true },
+    { name: "tls"; host: "127.0.0.1"; port: "7000"; sni_hostnames: [ "project-frp" ]; tfo_ok: true },
+    { name: "regex"; host: "127.0.0.1"; port: "60000"; regex_patterns: [ "^SSH-2.0-Go\x0d$", "^SSH-2.0-OpenSSH\x0d$" ]; },
+);
+```
 
 ### ssh：提供远程连接
 
@@ -181,3 +195,5 @@ exit 0
 ```
 
 然后在两分钟之内，把xxx.txt里CERTBOT_VALIDATION对应的哈希值手动更新在DNS记录里即可。
+
+此外，新找到一个可以方便地在web端配置新证书的网站：[https://xiangyuecn.github.io/ACME-HTML-Web-Browser-Client/ACME-HTML-Web-Browser-Client.html](https://xiangyuecn.github.io/ACME-HTML-Web-Browser-Client/ACME-HTML-Web-Browser-Client.html)
