@@ -13,10 +13,10 @@
         <link rel="canonical" href="https://tech.c01dkit.com/pwn-college-cse365-spring2023/">
       
       
-        <link rel="prev" href="../autoconf/">
+        <link rel="prev" href="../readings/">
       
       
-        <link rel="next" href="../sci-thoughts/">
+        <link rel="next" href="../c/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
@@ -45,6 +45,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../stylesheets/mystyle.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -244,303 +246,30 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
         <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          编程语言
+          CTF笔记
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          编程语言
+          CTF笔记
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../c/" class="md-nav__link">
-        C语言
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../go/" class="md-nav__link">
-        Go
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
-        Python
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../code-gracely/" class="md-nav__link">
-        优雅编程
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-          编程应用
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          编程应用
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../crawler/" class="md-nav__link">
-        python爬虫
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-          程序逆向
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          程序逆向
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../IDA/" class="md-nav__link">
-        IDA基础
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reverse-basic/" class="md-nav__link">
-        逆向基础
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reverse-advanced/" class="md-nav__link">
-        逆向高阶
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          学习笔记
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          学习笔记
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../git/" class="md-nav__link">
-        Git
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../docker/" class="md-nav__link">
-        Docker
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../rca/" class="md-nav__link">
-        根因分析
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../autoconf/" class="md-nav__link">
-        autoconf
-      </a>
-    </li>
-  
-
-            
           
             
               
@@ -555,17 +284,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
           pwn-college
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_6_5">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           pwn-college
         </label>
@@ -708,19 +437,19 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-          科研生活
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          编程语言
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
-          科研生活
+          编程语言
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -730,8 +459,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../sci-thoughts/" class="md-nav__link">
-        科研心得
+      <a href="../c/" class="md-nav__link">
+        C语言
       </a>
     </li>
   
@@ -744,8 +473,386 @@
   
   
     <li class="md-nav__item">
+      <a href="../go/" class="md-nav__link">
+        Go
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
+        优雅编程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          编程应用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          编程应用
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawler/" class="md-nav__link">
+        python爬虫
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          程序逆向
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          程序逆向
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDA/" class="md-nav__link">
+        IDA基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-basic/" class="md-nav__link">
+        逆向基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-advanced/" class="md-nav__link">
+        逆向高阶
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoconf/" class="md-nav__link">
+        autoconf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../try-chatgpt/" class="md-nav__link">
+        ChatGPT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        Ubuntu服务器运维
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tech-sslh/" class="md-nav__link">
+        sslh
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        端口复用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../envs/" class="md-nav__link">
+        环境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy/" class="md-nav__link">
+        代理转发
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          科研生活
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          科研生活
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../latex/" class="md-nav__link">
         latex基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sci-thoughts/" class="md-nav__link">
+        科研心得
       </a>
     </li>
   
@@ -822,41 +929,6 @@
 
             
           
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          其他杂项
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          其他杂项
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
             
               
   
@@ -877,50 +949,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../porting/" class="md-nav__link">
-        服务器端口复用
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../try-chatgpt/" class="md-nav__link">
-        ChatGPT
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../envs/" class="md-nav__link">
-        环境配置
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../linux-server/" class="md-nav__link">
-        linux服务器运维
+      <a href="../rca/" class="md-nav__link">
+        根因分析
       </a>
     </li>
   
@@ -2609,13 +2639,12 @@ end
 <p>直接python里运行下<code>[chr(i) for i in [0x75,0x62,0x61,0x6a,0x68]]</code>（可能需要修改0xXX的值），然后就得到key了。</p>
 <p><strong>Level 1.1</strong></p>
 <p>Reverse engineer this challenge to find the correct license key.</p>
-<p>这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候<code>ctrl+c</code>暂停程序，用<code>bt</code>查看调用栈，可以看到<code>__libc_start_main (main=0xXXXXX, argc=1, ....)</code>。然后查看main函数的汇编指令<code>x/80i 0xXXXX</code>，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用<code>x/5x &lt;address&gt;</code>查看密钥即可。</p>
+<p>这一题没有直接把正确答案列出来。一种方案是先gdb启动程序，然后在要求输入密钥的时候<code>ctrl+c</code>暂停程序，用<code>bt</code>查看调用栈，可以看到<code>__libc_start_main (main=0xXXXXX, argc=1, ....)</code>。然后查看main函数的汇编指令<code>x/80i 0xXXXX</code>，可以看到其中的memcmp@plt函数所使用的的rsi来自[rip+0x2abf]。指令后面的#注释提示了对应的地址，直接用<code>x/5c &lt;address&gt;</code>查看密钥即可。</p>
 <p>注意最后输入密钥时要直接运行程序，不要在gdb里面输，会提示权限不够。</p>
 <p><strong>Level 2.0</strong></p>
 <p>Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.</p>
 <p>这道题目交换了输入字符串的index 1和index 4的字符。</p>
 <p><strong>Level 2.1</strong></p>
-<p>Reverse engineer this challenge to find the correct license key, but your input will be modified somehow before being compared to the correct key.</p>
 <p>这道题目在2.0的基础上隐去了输入输出结果的显示，因此需要gdb看一下做了什么操作。按照1.1的方法查看memcmp附近的函数，可见：</p>
 <div class="highlight"><pre><span></span><code><span class="err">0</span><span class="nl">x5584f463251f:</span><span class="w">      </span><span class="nf">lea</span><span class="w">    </span><span class="no">rax</span><span class="p">,[</span><span class="no">rbp-0xe</span><span class="p">]</span>
 <span class="err">0</span><span class="nl">x5584f4632523:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">edx</span><span class="p">,</span><span class="mi">0x5</span>
@@ -2638,7 +2667,63 @@ end
 <span class="err">0</span><span class="nl">x5584f463256d:</span><span class="w">      </span><span class="nf">mov</span><span class="w">    </span><span class="no">rdi</span><span class="p">,</span><span class="no">rax</span>
 <span class="err">0</span><span class="nl">x5584f4632570:</span><span class="w">      </span><span class="nf">call</span><span class="w">   </span><span class="mh">0x5584f46321b0</span> <span class="p">&lt;</span><span class="no">memcmp@plt</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容<code>x/5b 0x5584f4635010</code>得到对应的答案，交换前两个字符即可。</p>
+<p>输入的字符串被保存在[rbp-0xe]处，且进行了[rbp-0xe]和[rbp-0xd]的交换。也就是说输入字符串的前两个字符被交换了。查看memcmp加载到rsi的地址内容<code>x/5c 0x5584f4635010</code>得到对应的答案，交换前两个字符即可。</p>
+<p><strong>Level 3.0-3.1</strong></p>
+<p>运行程序，随便输几个数。显式告诉了规则是逆序，又把正确答案打印出来了。</p>
+<p>3.1猜测和3.0一样也是逆序。直接按2.1的方法看一下[rbp-0xe]处的值然后逆序输入就行。</p>
+<p><strong>Level 4.0-4.1</strong></p>
+<p>规则是进行递增排序。这下只需要包含这些字母就行。（这不是更简单了……）</p>
+<p><strong>Level 5.0-5.1</strong></p>
+<p>这道题是对输入字符进行异或。简单写了个python，在控制台交互时运行下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">tx</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+<span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="o">^</span><span class="mh">0xb8</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">tx</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="s1">&#39;d6 d5 d6 cf da&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="p">]])</span>
+</code></pre></div>
+<p>5.1和5.0类似，仿照之前的方法可以看到异或用的是0x1c。</p>
+<p><strong>Level 6.0</strong></p>
+<p>这道题结合了交换、异或、逆序三种操作，干脆写个脚本处理下吧。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_reverse</span><span class="p">(</span><span class="n">li</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">li</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">do_swap</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">idx1</span><span class="p">,</span> <span class="n">idx2</span><span class="p">):</span>
+    <span class="n">li</span><span class="p">[</span><span class="n">idx1</span><span class="p">],</span> <span class="n">li</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span> <span class="o">=</span> <span class="n">li</span><span class="p">[</span><span class="n">idx2</span><span class="p">],</span> <span class="n">li</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">li</span>
+
+<span class="k">def</span> <span class="nf">do_xor</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">xor_li</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">key</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">xor_li</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">key</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">&gt;&gt;=</span> <span class="mi">8</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">li</span><span class="p">)):</span>
+        <span class="n">li</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^=</span> <span class="n">xor_li</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">xor_li</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">li</span>
+
+<span class="k">def</span> <span class="nf">do_sort</span><span class="p">(</span><span class="n">li</span><span class="p">):</span>
+    <span class="n">li</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">li</span>
+
+<span class="k">def</span> <span class="nf">sanitize</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">tx</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="n">do_swap</span><span class="p">(</span><span class="n">do_xor</span><span class="p">(</span><span class="n">do_reverse</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="s1">&#39;51 90 52 86 58 98 4d 81 4b 84 4f 9a 57 8c 51 91 56&#39;</span><span class="p">)),</span><span class="mh">0x3ef5</span><span class="p">),</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)))</span>
+</code></pre></div>
+<p>6.1有点奇怪，看汇编好像是先逆序一遍，再逆序一遍，再逐字节与0xbb异或。好像和5.0的置换-异或-逆序不一样的？可能是随机选择策略吧。</p>
+<p><strong>Level 7.0-7.1</strong></p>
+<p>7.0用上一个脚本即可。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="n">do_swap</span><span class="p">(</span><span class="n">do_sort</span><span class="p">(</span><span class="n">do_xor</span><span class="p">(</span><span class="n">do_swap</span><span class="p">(</span><span class="n">do_xor</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="s1">&#39; 16 34 42 00 13 31 46 0d 1c 3b 4e 15 05 22 52 10 04 22 54 1c 0f 2e 59 1d 0e 2f 5b&#39;</span><span class="p">),</span><span class="mh">0x85a4d396</span><span class="p">),</span><span class="mi">13</span><span class="p">,</span><span class="mi">16</span><span class="p">),</span><span class="mh">0xf2</span><span class="p">)),</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
+</code></pre></div>
+<p>7.1是先和0x15ca异或，然后逆序，然后再逆序，然后再逆序，然后再递增排序</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="n">do_xor</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="s1">&#39;60 61 64 66 67 6c 70 70 71 74 77 7c 7c 7d 7f a5 a5 a5 a8 ab ab af b0 b3 b8 b9 ba bb&#39;</span><span class="p">),</span><span class="mh">0x15ca</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="n">do_xor</span><span class="p">(</span><span class="n">sanitize</span><span class="p">(</span><span class="s1">&#39;60 61 64 66 67 6c 70 70 71 74 77 7c 7c 7d 7f a5 a5 a5 a8 ab ab af b0 b3 b8 b9 ba bb&#39;</span><span class="p">),</span><span class="mh">0xca15</span><span class="p">)))</span>
+
+<span class="c1">#u«q¬r¦eºd¾b¶i·jo°o½a¾e¥y­s¯q</span>
+<span class="c1">#ªt®s­yºe»a½i¶hµ°o°b¾aºz¦r¬p®</span>
+<span class="c1">#然后把两个结果中字母排起来</span>
+<span class="c1">#utqsryeedabiihjooobaaezyrspq</span>
+</code></pre></div>
 <h2 id="_1">总结</h2>
 <p>CSE 365还是属于比较入门的类型，打好基础！</p>
 
@@ -2686,6 +2771,8 @@ end
     
     
       <script src="../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+        <script src="../javascripts/myjs.js"></script>
       
     
   </body>

@@ -10,20 +10,20 @@
         <meta name="author" content="c01dkit">
       
       
-        <link rel="canonical" href="https://tech.c01dkit.com/linux-server/">
+        <link rel="canonical" href="https://tech.c01dkit.com/proxy/">
       
       
-        <link rel="prev" href="../docker/">
+        <link rel="prev" href="../envs/">
       
       
-        <link rel="next" href="../git/">
+        <link rel="next" href="../latex/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
     
     
       
-        <title>Ubuntu服务器运维 - c01dkit's tech blog</title>
+        <title>代理转发 - c01dkit's tech blog</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ubuntu" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ubuntu服务器运维
+              代理转发
             
           </span>
         </div>
@@ -617,108 +617,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Ubuntu服务器运维
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
         Ubuntu服务器运维
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#pid" class="md-nav__link">
-    根据pid查询细节
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    在终端向程序输入字节
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    查询服务器显卡
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    统计服务器进程占用
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    统计磁盘用量
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dns" class="md-nav__link">
-    修改DNS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    系统服务
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    定时服务
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    参考资料
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -784,11 +687,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../proxy/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          代理转发
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         代理转发
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    多台电脑组局域网
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    内网穿透
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    子网转发
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -988,64 +946,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pid" class="md-nav__link">
-    根据pid查询细节
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    在终端向程序输入字节
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    查询服务器显卡
+    多台电脑组局域网
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    统计服务器进程占用
+    内网穿透
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    统计磁盘用量
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dns" class="md-nav__link">
-    修改DNS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    系统服务
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    定时服务
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    参考资料
+    子网转发
   </a>
   
 </li>
@@ -1068,121 +984,16 @@
   
 
 
-<h1 id="ubuntu">Ubuntu服务器运维</h1>
-<h2 id="pid">根据pid查询细节</h2>
-<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ls<span class="w"> </span>-lah<span class="w"> </span>/proc/&lt;pid&gt;
-</code></pre></div>
-然后根据其中的cwd找到运行目录，exe找到运行程序</p>
-<h2 id="_1">在终端向程序输入字节</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># 输入raw bytes</span>
-<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x31\x32&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>program
-
-<span class="c1"># 不带echo自动加的换行</span>
-<span class="nb">echo</span><span class="w"> </span>-en<span class="w"> </span><span class="s1">&#39;\x31\x32&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>program
-
-<span class="c1"># 输入raw binary</span>
-<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;\x31\x32&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="p">|</span><span class="w"> </span>program<span class="w"> </span>
-</code></pre></div>
-<h2 id="_2">查询服务器显卡</h2>
-<p>查询物理槽显卡连接</p>
-<div class="highlight"><pre><span></span><code>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>VGA
-</code></pre></div>
-<p>查询活跃情况（需要安装显卡驱动，可以<a href="https://developer.nvidia.com/cuda-toolkit-archive">直接安装CUDA runfile</a>，自带驱动）</p>
-<div class="highlight"><pre><span></span><code>nvidia-smi
-</code></pre></div>
-<h2 id="_3">统计服务器进程占用</h2>
-<div class="highlight"><pre><span></span><code>htop<span class="w"> </span><span class="c1"># 观察内存、各进程、CPU占用</span>
-sudo<span class="w"> </span>ls<span class="w"> </span>-lah<span class="w"> </span>/proc/&lt;pid&gt;/cwd<span class="w"> </span><span class="c1"># 观察运行的命令，判断谁的程序</span>
-</code></pre></div>
-<h2 id="_4">统计磁盘用量</h2>
-<div class="highlight"><pre><span></span><code>ncdu<span class="w"> </span><span class="c1"># 统计当前目录下各个文件夹占用，可以进入、删除文件夹或目录</span>
-</code></pre></div>
-<h2 id="dns">修改DNS</h2>
-<p>有时候连不上网是因为DNS的问题，修改/etc/resolve.conf即可。不过这个软连接修改完了以后可能会被系统改掉，可以试试删掉以后直接创建个/etc/resolve.conf文件，再<code>chattr +i /etc/resovle.conf</code>防止修改。</p>
-<h2 id="_5">系统服务</h2>
-<p><code>systemctl status xxx</code>检查某些服务运行状态，可以<code>ls -lah /etc/systemd/system</code>、<code>ls -lah /lib/systemd/system</code>查询有哪些服务。警惕奇怪的数字service，可能是病毒。</p>
-<p>添加系统服务时，创建<code>/etc/systemd/system/xxx.service</code>文件，然后编辑内容，比如下面的socat.service：</p>
-<div class="highlight"><pre><span></span><code>[Unit]
-Description=port forward 4320
-# 启动顺序（多个服务中间用空格隔开）
-After=network.target[当前服务在指定服务之后启动]
-Before=[当前服务在指定服务之前启动]
-
-# 依赖关系
-Wants=[弱依赖关系服务，指定服务发生异常不影响当前服务]
-Requires=[强依赖关系服务，指定服务发生异常，当前服务必须退出]
-
-[Service]
-User=nobody
-ExecStart=/usr/bin/socat TCP4-LISTEN:4320,fork TCP4:10.244.55.25:80
-ExecReload=[重启服务时执行的命令]
-ExecStop=[停止服务时执行的命令]
-ExecStartPre=[启动服务之前执行的命令]
-ExecStartPost=[启动服务之后执行的命令]
-ExecStopPost=[停止服务之后执行的命令]
-
-# 启动类型
-# simple（默认值）：ExecStart字段启动的进程为主进程
-# forking：ExecStart字段将以fork()方式启动，此时父进程将会退出，子进程将成为主进程
-# oneshot：类似于simple，但只执行一次，Systemd 会等它执行完，才启动其他服务
-# dbus：类似于simple，但会等待 D-Bus 信号后启动
-# notify：类似于simple，启动结束后会发出通知信号，然后 Systemd 再启动其他服务
-# idle：类似于simple，但是要等到其他任务都执行完，才会启动该服务。一种使用场合是为让该服务的输出，不与其他服务的输出相混合
-Type=[启动类型]
-
-# 如何停止服务
-# control-group（默认值）：当前控制组里面的所有子进程，都会被杀掉
-# process：只杀主进程
-# mixed：主进程将收到 SIGTERM 信号，子进程收到 SIGKILL 信号
-# none：没有进程会被杀掉，只是执行服务的 stop 命令。
-KillMode=[如何停止服务]
-
-# 重启方式
-# no（默认值）：退出后不会重启
-# on-success：只有正常退出时（退出状态码为0），才会重启
-# on-failure：非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启
-# on-abnormal：只有被信号终止和超时，才会重启
-# on-abort：只有在收到没有捕捉到的信号终止时，才会重启
-# on-watchdog：超时退出，才会重启
-# always：不管是什么退出原因，总是重启
-Restart=[服务退出后，Systemd 的重启方式]
-
-RestartSec=[表示 Systemd 重启服务之前，需要等待的秒数]
-
-[Install]
-WantedBy=multi-user.target
-# 执行 sytemctl enable **.service命令时，**.service的一个符号链接，就会放在/etc/systemd/system/multi-user.target.wants子目录中
-# 执行systemctl get-default命令，获取默认启动Target
-# multi-user.target组中的服务都将开机启动
-# 常用Target，1. multi-user.target-多用户命令行；2. graphical.target-图形界面模式
-WantedBy=[表示该服务所在的Target]
-</code></pre></div>
-<ul>
-<li>启动<code>systemctl start **</code></li>
-<li>关闭<code>systemctl stop **</code></li>
-<li>重启<code>systemctl restart **</code></li>
-<li>查看运行状态<code>systemctl status **</code><ul>
-<li>Loaded行：配置文件的位置，是否设为开机启动；</li>
-<li>Active行：表示正在运行；</li>
-<li>Main行：主进程PID；</li>
-<li>Status行：由应用本身提供的软件当前状态；</li>
-<li>CGroup行：应用的所有子进程</li>
-<li>日志块：应用的日志</li>
-</ul>
-</li>
-<li>设置开机自启<code>systemctl enable **</code> enable命令相当于在目录里添加了一个符号链接。开机时，Systemd会执行/etc/systemd/system/目录里面的配置文件</li>
-<li>结束服务进程<code>systemctl kill **</code></li>
-<li>查看配置文件<code>systemctl cat **</code></li>
-<li>查看multi-user.target 包含的所有服务<code>systemctl list-dependencies multi-user.target</code></li>
-<li>切换到另一个 target <code>systemctl isolate graphical.target</code></li>
-<li>重新加载配置文件<code>systemctl daemon-reload</code></li>
-</ul>
-<h2 id="_6">定时服务</h2>
-<p>定时程序执行失败的原因是多样的，可能是因为定时服务没启动，需要<code>systemctl restart cron.service</code>，或者是cron服务坏掉了，先<code>apt install cron --reinstall</code>强制重新安装下，再重启服务，或者是安装了别的依赖库但是没有重启cron导致运行失败，试试<code>/etc/init.d/cron restart</code>。</p>
-<h2 id="_7">参考资料</h2>
-<ol>
-<li><a href="https://zhuanlan.zhihu.com/p/415469149">systemd相关资料</a></li>
-</ol>
+<h1 id="_1">代理转发</h1>
+<h2 id="_2">多台电脑组局域网</h2>
+<p>可以使用<a href="https://www.zerotier.com/">zerotier</a>，登录以后创建一个网络。然后需要组局域网的设备下载zerotier以后join上就行了。</p>
+<h2 id="_3">内网穿透</h2>
+<p>需要公网服务器，可以在阿里云租一个</p>
+<p>一种方法是frp</p>
+<p>另一种方法是ssh正向连接配合反向连接：</p>
+<p>首先内网服务器开个screen运行<code>ssh -R 127.0.0.1:1234:127.0.0.1:22 user@ip -p port</code>连接到云服务器上。这样的话服务器访问127.0.0.1:1234就相当于访问内网的127.0.0.1:22。然后需要连接内网的主机也开个screen运行<code>ssh -L 127.0.0.1:2345:127.0.0.1:1234 user@ip -p port</code>，这样的话该主机访问自己127.0.0.1:2345就相当于访问云服务器的127.0.0.1:1234。然后该主机再开一个终端，<code>ssh user@127.0.0.1 -p 2345</code>即可。</p>
+<h2 id="_4">子网转发</h2>
+<p>希望将某端口收到的消息转发到其他主机的某一端口，可以试试socat，比如<code>socat TCP4-LISTEN:4320,fork TCP4:10.244.55.25:80</code>，可以把4320端口收到的TCP4数据包转发到子网10.244.55.25的80端口，配合zerotier可以实现内网对外开放端口。</p>
 
 
 
