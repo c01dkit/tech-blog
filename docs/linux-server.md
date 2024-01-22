@@ -135,6 +135,12 @@ WantedBy=[表示该服务所在的Target]
 
 定时程序执行失败的原因是多样的，可能是因为定时服务没启动，需要`systemctl restart cron.service`，或者是cron服务坏掉了，先`apt install cron --reinstall`强制重新安装下，再重启服务，或者是安装了别的依赖库但是没有重启cron导致运行失败，试试`/etc/init.d/cron restart`。
 
+
+## 打开文件数
+
+https://www.baeldung.com/linux/list-open-file-descriptors
+
+Linux默认最多同时打开1024个文件，可以通过`ulimit -n`查看。fuzzing等要注意关闭文件描述符，否则可能导致服务器故障（比如ssh连不上）。/proc/<pid>/fd里列出了pid锁打开的文件。
 ## 参考资料
 
 1. [systemd相关资料](https://zhuanlan.zhihu.com/p/415469149)

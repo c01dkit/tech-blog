@@ -27,3 +27,9 @@
 * Python多进程并发最佳解决方案
   * [多进程](https://superfastpython.com/multiprocessing-best-practices/)
   * [进程池](https://superfastpython.com/multiprocessing-pool-best-practices/)
+
+## 磨刀不误砍柴工
+
+* [Teach Yourself Programming in Ten Years](https://norvig.com/21-days.html)
+* [The Key To Accelerating Your Coding Skills](https://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/)
+* [What are some of the most basic things every programmer should know?](https://www.quora.com/What-are-some-of-the-most-basic-things-every-programmer-should-know)
