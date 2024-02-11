@@ -1,6 +1,6 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误。最近一次更新时间2023-12-18。
+目录为自动生成，可能有误。最近一次更新时间2024-02-11。
           
 [欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
@@ -17,6 +17,7 @@
 - [大模型](./readings/#_5)
 - [Google](./readings/#google)
 - [编程语言](./readings/#_6)
+- [磨刀不误砍柴工](./readings/#_7)
 
 ## CTF笔记 / pwn-college / CSE 365 - spring 2023
 
@@ -129,7 +130,8 @@
 - [修改DNS](./linux-server/#dns)
 - [系统服务](./linux-server/#_5)
 - [定时服务](./linux-server/#_6)
-- [参考资料](./linux-server/#_7)
+- [打开文件数](./linux-server/#_7)
+- [参考资料](./linux-server/#_8)
 
 ## 学习笔记 / Git
 
