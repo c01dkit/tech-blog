@@ -1,12 +1,12 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误。最近一次更新时间2024-02-11。
+目录为自动生成，可能有误。最近一次更新时间2024-04-15。
           
 [欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
 最近一次更新内容：
 
-* 单独把ctf题目wp分成一个新的类
+* proxy相关设定
 
 
 ## 文章阅读
@@ -114,6 +114,7 @@
 ## 学习笔记 / Docker
 
 - [安装docker](./docker/#docker_1)
+- [设置docker使用镜像仓库](./docker/#docker_2)
 - [指定镜像保存位置](./docker/#_1)
 - [从镜像创建容器并挂载目录](./docker/#_2)
 - [新容器初始化](./docker/#_3)
@@ -165,7 +166,7 @@
 
 ## 学习笔记 / 环境配置
 
-- [更新基本环境](./envs/#_2)
+- [Ubuntu更新基本环境](./envs/#ubuntu)
 - [rust安装与更新](./envs/#rust)
 - [设置golang代理](./envs/#golang)
 - [安装ohmyzsh](./envs/#ohmyzsh)
@@ -173,7 +174,10 @@
 - [perf 安装(ubuntu)](./envs/#perf-ubuntu)
 - [选择ssh密钥](./envs/#ssh)
 - [Windows下安装make](./envs/#windowsmake)
-- [参考文章](./envs/#_3)
+- [更改WSL2镜像位置](./envs/#wsl2)
+- [nodejs配置](./envs/#nodejs)
+- [快速部署发布vue站点](./envs/#vue)
+- [参考文章](./envs/#_2)
 
 ## 学习笔记 / 代理转发
 

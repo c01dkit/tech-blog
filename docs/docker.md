@@ -4,6 +4,12 @@
 
 按照[https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)的说明安装即可
 
+也可以按`curl -fsSL https://get.docker.com -o get-docker.sh`、`sudo sh get-docker.sh`来安装。
+
+## 设置docker使用镜像仓库
+
+docker默认从官网拉取镜像，可能由于墙而拉不到。可以考虑使用阿里提供的镜像服务，参考[https://zhuanlan.zhihu.com/p/347643668](https://zhuanlan.zhihu.com/p/347643668)。
+
 ## 指定镜像保存位置
 
 默认使用的位置是`/var/lib/docker`，在根目录下容易占满。可以通过修改配置文件`/lib/systemd/system/docker.service`的-g参数来指定位置。可以通过`docker info`查看保存的位置Docker Root Dir。
@@ -21,11 +27,11 @@
 随后重载一下配置：
 
 ```shell
-sudo cp -r /var/lib/docker /home/docker
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-sudo systemctl status docker
 ```
+
+还有一种做法，适用于已经使用过一段时间的docker，关闭docker后mv原来的`/var/lib/docker`到新目录（比如/data/docker）然后再`ln -s /data/docker /var/lib/docker`建立软链接。
 
 ## 从镜像创建容器并挂载目录
 

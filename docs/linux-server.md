@@ -114,6 +114,9 @@ WantedBy=multi-user.target
 WantedBy=[表示该服务所在的Target]
 ```
 
+
+
+
 * 启动`systemctl start **`
 * 关闭`systemctl stop **`
 * 重启`systemctl restart **`

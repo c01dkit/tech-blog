@@ -94,7 +94,7 @@ result = [f"""# Welcome to c01dkit's tech blog
 
 最近一次更新内容：
 
-* 单独把ctf题目wp分成一个新的类
+* proxy相关设定
 
 """]
 mds = get_md_files()
