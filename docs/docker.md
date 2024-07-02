@@ -8,7 +8,20 @@
 
 ## 设置docker使用镜像仓库
 
-docker默认从官网拉取镜像，可能由于墙而拉不到。可以考虑使用阿里提供的镜像服务，参考[https://zhuanlan.zhihu.com/p/347643668](https://zhuanlan.zhihu.com/p/347643668)。
+~~docker默认从官网拉取镜像，可能由于墙而拉不到。可以考虑使用阿里提供的镜像服务，参考[https://zhuanlan.zhihu.com/p/347643668](https://zhuanlan.zhihu.com/p/347643668)。~~
+
+考虑到国内似乎把docker镜像下架了，还是直接修改docker代理吧。
+
+先创建目录`mkdir /etc/systemd/system/docker.service.d`，再创建文件`/etc/systemd/system/docker.service.d/http-proxy.conf`，再往里面添加代理：
+
+```shell
+[Service]
+Environment="HTTP_PROXY=http://proxy.example.com:80/"
+Environment="HTTPS_PROXY=http://proxy.example.com:80/"
+Environment="NO_PROXY=localhost,127.0.0.0/8,docker-registry.somecorporation.com" #可选。如果使用本地镜像仓库。
+```
+
+然后更新配置`sudo systemctl daemon-reload`，并重启docker：`sudo systemctl restart docker`
 
 ## 指定镜像保存位置
 

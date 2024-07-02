@@ -1,6 +1,6 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误。最近一次更新时间2024-04-15。
+目录为自动生成，可能有误。最近一次更新时间2024-07-02。
           
 [欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
@@ -167,6 +167,7 @@
 ## 学习笔记 / 环境配置
 
 - [Ubuntu更新基本环境](./envs/#ubuntu)
+- [安装docker](./envs/#docker)
 - [rust安装与更新](./envs/#rust)
 - [设置golang代理](./envs/#golang)
 - [安装ohmyzsh](./envs/#ohmyzsh)

@@ -1,11 +1,18 @@
 # 环境配置
 
+经常遇到新系统快速配置的环境（wsl、新服务器），特此总结一下
+
 ## Ubuntu更新基本环境
 
 ```shell
 sudo apt update
 sudo apt install curl build-essential gcc make -y
 ```
+## 安装docker
+
+按照[https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)的说明安装即可
+
+也可以按`curl -fsSL https://get.docker.com -o get-docker.sh`、`sudo sh get-docker.sh`来安装。
 
 ## rust安装与更新
 
@@ -71,6 +78,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 ```
 
+个人觉得jonathan的主题比较好看，可以配置下~/.zshrc的ZSH_THEME。
+
 ## git设置全局代理
 
 需要根据本地实际的情况修改目标ip和端口
@@ -102,9 +111,9 @@ ssh-add <私钥文件>
 
 * 【查询】 `wsl -l --all -v`
 * 【关闭系统】 `wsl --shutdown <镜像名>`
-* 【导出系统备份】 `wsl --export <镜像名> <保存位置.tar>`
+* 【导出系统备份】 `wsl --export <镜像名> <备份保存位置.tar>`
 * 【取消注册】 `wsl --unregister <镜像名>`
-* 【导入系统备份】 `wsl --import <镜像名> <保存位置.tar> --version 2`
+* 【导入系统备份】 `wsl --import <镜像名> <导出路径> <备份保存位置.tar> --version 2`
 
 ## nodejs配置
 
