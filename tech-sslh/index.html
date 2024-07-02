@@ -1,0 +1,1473 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="c01dkit">
+      
+      
+        <link rel="canonical" href="https://tech.c01dkit.com/tech-sslh/">
+      
+      
+        <link rel="prev" href="../git/">
+      
+      
+        <link rel="next" href="../porting/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>sslh - c01dkit's tech blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/mystyle.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sslh" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-header__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            c01dkit's tech blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sslh
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-nav__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    c01dkit's tech blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文章阅读
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CTF笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CTF笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    pwn-college
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            pwn-college
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE 365 - spring 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    编程语言
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            编程语言
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优雅编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    编程应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            编程应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python爬虫
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    程序逆向
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            程序逆向
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDA基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逆向基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-advanced/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逆向高阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    学习笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            学习笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoconf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    autoconf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../try-chatgpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ChatGPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ubuntu服务器运维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    sslh
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    sslh
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      便捷上手
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sslh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      sslh程序启动入口与初始化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      协议识别
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tlsalpnsni" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLS协议中使用的ALPN、SNI简介
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    端口复用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代理转发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    科研生活
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            科研生活
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    latex基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sci-thoughts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    科研心得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../word-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    词汇学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../picking-ups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文句摘录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentence-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    情景模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../investigations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    四大调查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interesting-articles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    有趣文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fuzzing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模糊测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rca/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    根因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      便捷上手
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sslh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      sslh程序启动入口与初始化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      协议识别
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tlsalpnsni" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLS协议中使用的ALPN、SNI简介
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="sslh">sslh 阅读笔记</h1>
+<p>最近在读sslh的源码，感觉还是比较有意思的。之前在<a href="https://tech.c01dkit.com/porting/">端口复用</a>里面简单提了下sslh的用法，但是在实践中踩了不少坑，所以把<a href="https://github.com/yrutschle/sslh">源码</a>拿来读一读，看看内部的结构。</p>
+<p>sslh似乎是使用第一个数据包保存的协议信息，为客户端与服务器对应服务建立连接。后续数据包不再需要检查协议了。</p>
+<h2 id="_1">便捷上手</h2>
+<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>sslh<span class="w"> </span><span class="c1"># 但最好还是从源码make install，用最新版本；参考仓库的INSTALL安装对应的C库</span>
+vi<span class="w"> </span>/etc/default/sslh
+systemctl<span class="w"> </span>start<span class="w"> </span>sslh
+</code></pre></div>
+<p>似乎cfg文件里和command line会有冲突。所以commandline用<code>-F /etc/sslh/sslh.cfg</code>（没有则新建一个）指定的配置文件中，不要有和command重复的内容。只放protocols差不多就得了。比较好用的是正则和tls中根据alpn和sni来匹配。</p>
+<p>下面是<strong>完整的配置文件</strong>的一个例子，如果数据包包含"OK1"或者"OK2"，则会被转发到127.0.0.1:1234。其中的name字段表示这条协议在sslh启动后怎么配置，常见的比如<code>regex</code>、<code>ssh</code>、<code>tls</code>、<code>http</code>。</p>
+<p>注意，最后一条协议的分号后面不加逗号。</p>
+<div class="highlight"><pre><span></span><code><span class="nl">protocols</span><span class="p">:</span>
+<span class="p">(</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;regex&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">host</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">port</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;1234&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">regex_patterns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s">&quot;OK1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;OK2&quot;</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div>
+<h2 id="sslh_1">sslh程序启动入口与初始化</h2>
+<p>默认最简单的启动方式的入口在<code>sslh-main.c</code>的main函数，也即程序的主体逻辑。一些关键步骤：</p>
+<ol>
+<li>调用<code>sslhcfg_cl_parse</code>函数，根据命令行参数和配置文件，做一个缓冲</li>
+<li>调用<code>config_protocols</code>完成转发规则的初始化，内部调用的<code>get_probe</code>是给加载了协议的配置规则</li>
+<li>调用<code>start_listen_sockets</code>开始监听sockets</li>
+<li>调用<code>main_loop</code>进入主循环，默认为sslh-fork的main_loop函数</li>
+</ol>
+<p>默认使用tcp。main_loop函数中，对监听的每个sockets进行fork，每个子进程执行<code>tcp_listener</code>，在这些子进程中<code>accept</code>对应的连接。这些子进程将继续fork出子进程，执行<code>start_shoveler</code>，实现真正的功能。</p>
+<h2 id="_2">协议识别</h2>
+<p>子进程通过<code>probe_client_protocol</code>来确定数据包是什么协议，并根据对应的规则实现端口转发。这一函数不断进行调用，最后在<code>probe_buffer</code>函数中遍历之前配置的每个协议规范（找到匹配则停止，所以配置顺序也蛮关键的），通过<code>p-&gt;probe(buf, len, p)</code>这个函数指针来间接调用识别协议的相关函数。</p>
+<p>这里的协议包括以下内置协议：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Table of protocols that have a built-in probe</span>
+<span class="cm"> */</span>
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">protocol_probe_desc</span><span class="w"> </span><span class="n">builtins</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* description  probe  */</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;ssh&quot;</span><span class="p">,</span><span class="w">        </span><span class="n">is_ssh_protocol</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;openvpn&quot;</span><span class="p">,</span><span class="w">    </span><span class="n">is_openvpn_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;wireguard&quot;</span><span class="p">,</span><span class="w">  </span><span class="n">is_wireguard_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;tinc&quot;</span><span class="p">,</span><span class="w">       </span><span class="n">is_tinc_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;xmpp&quot;</span><span class="p">,</span><span class="w">       </span><span class="n">is_xmpp_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;http&quot;</span><span class="p">,</span><span class="w">       </span><span class="n">is_http_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;tls&quot;</span><span class="p">,</span><span class="w">        </span><span class="n">is_tls_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;adb&quot;</span><span class="p">,</span><span class="w">        </span><span class="n">is_adb_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;socks5&quot;</span><span class="p">,</span><span class="w">     </span><span class="n">is_socks5_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;syslog&quot;</span><span class="p">,</span><span class="w">     </span><span class="n">is_syslog_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;teamspeak&quot;</span><span class="p">,</span><span class="w">  </span><span class="n">is_teamspeak_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;msrdp&quot;</span><span class="p">,</span><span class="w">      </span><span class="n">is_msrdp_protocol</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;anyprot&quot;</span><span class="p">,</span><span class="w">    </span><span class="n">is_true</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>内置协议内置了一些匹配规则，即上面提到的<code>is_ssh_protocol</code>、<code>is_http_protocol</code>等等。可以看一个ssh规则的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Is the buffer the beginning of an SSH connection? */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">is_ssh_protocol</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sslhcfg_protocols_item</span><span class="o">*</span><span class="w"> </span><span class="n">proto</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">PROBE_AGAIN</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SSH-&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可见，如果第一个数据包长度不低于4且以"SSH-"开头，则会被认为是ssh请求。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Is the buffer the beginning of an HTTP connection?  */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">is_http_protocol</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sslhcfg_protocols_item</span><span class="o">*</span><span class="w"> </span><span class="n">proto</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* If it&#39;s got HTTP in the request (HTTP/1.1) then it&#39;s HTTP */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">memmem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;HTTP&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">PROBE_MATCH</span><span class="p">;</span>
+
+<span class="cp">#define PROBE_HTTP_METHOD(opt) if ((res = probe_http_method(p, len, opt)) != PROBE_NEXT) return res</span>
+
+<span class="w">    </span><span class="cm">/* Otherwise it could be HTTP/1.0 without version: check if it&#39;s got an</span>
+<span class="cm">     * HTTP method (RFC2616 5.1.1) */</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;OPTIONS&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;HEAD&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;PUT&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;DELETE&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;TRACE&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PROBE_HTTP_METHOD</span><span class="p">(</span><span class="s">&quot;CONNECT&quot;</span><span class="p">);</span>
+
+<span class="cp">#undef PROBE_HTTP_METHOD</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">PROBE_NEXT</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>http也比较简单，检查"HTTP"字符串。</p>
+<p>另外有两种特殊的协议，timeout默认会选择初始化后的第一个协议（即ssh），regex支持正则匹配数据包的固有字符串，就连初始化时都是单独初始化的：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* Returns the probe for specified protocol:</span>
+<span class="cm"> * parameter is the description in builtins[], or &quot;regex&quot; </span>
+<span class="cm"> * */</span>
+<span class="n">T_PROBE</span><span class="o">*</span><span class="w"> </span><span class="nf">get_probe</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">description</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">builtins</span><span class="p">);</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">builtins</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">builtins</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">probe</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* Special case of &quot;regex&quot; probe (we don&#39;t want to set it in builtins</span>
+<span class="cm">     * because builtins is also used to build the command-line options and</span>
+<span class="cm">     * regexp is not legal on the command line)*/</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;regex&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">regex_probe</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* Special case of &quot;timeout&quot; is allowed as a probe name in the</span>
+<span class="cm">     * configuration file even though it&#39;s not really a probe */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;timeout&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">is_true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>is_true</code>始终返回true，不进行别的判断了。</p>
+<p><code>regex_probe</code>内部用pre2实现了一套正则匹配的机制。配置config的方法可以见上文。</p>
+<h2 id="tlsalpnsni">TLS协议中使用的ALPN、SNI简介</h2>
+<p>tls为tcp提供了加密服务，是很多服务不可或缺的一环。由于数据包是加密的、很多服务都使用tls（比如https），所以没法通过regex的方法来区分不同的服务。好在sslh为tls提供了两种分辨方法，即sni_hostnames与alpn_protocols。在config里写的一条规则如果两者都用了，则只有同时满足两者的tls数据包才匹配得上对应的规则。</p>
+<p>比如example.cfg给出的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># match BOTH ALPN/SNI</span>
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;5223&quot;</span><span class="p">;</span><span class="w"> </span>alpn_protocols:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;xmpp-client&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span>sni_hostnames:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;im.somethingelse.net&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+
+<span class="c1"># just match ALPN</span>
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;443&quot;</span><span class="p">;</span><span class="w"> </span>alpn_protocols:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;h2&quot;</span>,<span class="w"> </span><span class="s2">&quot;http/1.1&quot;</span>,<span class="w"> </span><span class="s2">&quot;spdy/1&quot;</span>,<span class="w"> </span><span class="s2">&quot;spdy/2&quot;</span>,<span class="w"> </span><span class="s2">&quot;spdy/3&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w">  </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;xmpp-client&quot;</span><span class="p">;</span><span class="w"> </span>alpn_protocols:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;xmpp-client&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w">  </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+
+<span class="c1"># just match SNI</span>
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;993&quot;</span><span class="p">;</span><span class="w"> </span>sni_hostnames:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;mail.rutschle.net&quot;</span>,<span class="w"> </span><span class="s2">&quot;mail.englishintoulouse.com&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w">  </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;xmpp-client&quot;</span><span class="p">;</span><span class="w"> </span>sni_hostnames:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;im.rutschle.net&quot;</span>,<span class="w"> </span><span class="s2">&quot;im.englishintoulouse.com&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w">  </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+
+<span class="c1"># Let&#39;s Encrypt (tls-alpn-* challenges)</span>
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;letsencrypt-client&quot;</span><span class="p">;</span><span class="w"> </span>alpn_protocols:<span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;acme-tls/1&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span>log_level:<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="o">}</span>,
+
+<span class="c1"># catch anything else TLS</span>
+<span class="w">     </span><span class="o">{</span><span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;tls&quot;</span><span class="p">;</span><span class="w"> </span>host:<span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">;</span><span class="w"> </span>port:<span class="w"> </span><span class="s2">&quot;443&quot;</span><span class="p">;</span><span class="w">  </span>tfo_ok:<span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">}</span>,
+</code></pre></div>
+<p>alpn_protocols即使用应用层协议协商编号：TLS Application-Layer Protocol Negotiation (ALPN) Protocol ID。可以在<a href="https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids">这里</a>看到完整的格式。打个比方，如果说数据包是饺子，tls是饺子皮，ALPN就是表示里面是什么馅的。</p>
+<p>sni_hostnames即使用服务器名称指示：Server Name Indication（SNI），类似于服务器端的域名。打个比方，虽然在学校快递（数据包）都会送到菜鸟驿站（服务器），但这些包裹最终是流向不同的宿舍的（SNI）。SNI帮助在tls握手期间就确定ssl证书，而不是在http建立连接后。FQDN指的是Fully Qualified Domain Name，即完整域名，可以看<a href="https://www.hostinger.com/tutorials/fqdn#Examples_of_an_FQDN">这里</a>的介绍。</p>
+<p>sni_hostname和alpn_protocols，属于tls扩展内容，并非强制保留其中。发包的时候注意添加，不然sslh可能识别不到。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2023 Content provided by c01dkit
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../javascripts/myjs.js"></script>
+      
+    
+  </body>
+</html>

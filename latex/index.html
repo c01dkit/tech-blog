@@ -1,0 +1,1514 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="c01dkit">
+      
+      
+        <link rel="canonical" href="https://tech.c01dkit.com/latex/">
+      
+      
+        <link rel="prev" href="../proxy/">
+      
+      
+        <link rel="next" href="../sci-thoughts/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>latex基础 - c01dkit's tech blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/mystyle.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#latex" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-header__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            c01dkit's tech blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              latex基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="c01dkit&#39;s tech blog" class="md-nav__button md-logo" aria-label="c01dkit's tech blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    c01dkit's tech blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/c01dkit/tech-blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文章阅读
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CTF笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CTF笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    pwn-college
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            pwn-college
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pwn-college-cse365-spring2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE 365 - spring 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    编程语言
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            编程语言
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-gracely/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优雅编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    编程应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            编程应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    python爬虫
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    程序逆向
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            程序逆向
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDA基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逆向基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse-advanced/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    逆向高阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    学习笔记
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            学习笔记
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autoconf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    autoconf
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../try-chatgpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ChatGPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ubuntu服务器运维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tech-sslh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sslh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    端口复用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代理转发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    科研生活
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            科研生活
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    latex基础
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    latex基础
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐工具
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      英文latex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中文latex
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sci-thoughts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    科研心得
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../word-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    词汇学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../picking-ups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文句摘录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentence-templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    情景模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../investigations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    四大调查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interesting-articles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    有趣文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fuzzing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模糊测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rca/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    根因分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐工具
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      英文latex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      中文latex
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="latex">latex基础</h1>
+<h2 id="_1">推荐工具</h2>
+<p>使用<a href="https://www.tablesgenerator.com/#">Table Generator</a>绘制表格</p>
+<h2 id="latex_1">英文latex</h2>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[conference,11pt]</span><span class="nb">{</span>IEEEtran<span class="nb">}</span>
+<span class="k">\IEEEoverridecommandlockouts</span>
+<span class="c">% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.</span>
+<span class="k">\usepackage</span><span class="nb">{</span>cite<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsmath,amssymb,amsfonts<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>textcomp<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>xcolor<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>caption<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>url<span class="nb">}</span>
+<span class="k">\def\UrlBreaks</span><span class="nb">{</span><span class="k">\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J</span>
+<span class="k">\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V</span>
+<span class="k">\do\W\do\X\do\Y\do\Z\do</span><span class="sb">\[</span><span class="nv">\do\\\do</span><span class="s">\]</span><span class="k">\do\^\do\_\do\`\do\a\do\b</span>
+<span class="k">\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n</span>
+<span class="k">\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z</span>
+<span class="k">\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\&gt;\do\]\do\)\do\,</span>
+<span class="k">\do\?\do\&#39;\do</span>+<span class="k">\do\=\do\#</span><span class="nb">}</span>
+<span class="k">\def\BibTeX</span><span class="nb">{{</span><span class="k">\rm</span> B<span class="k">\kern</span>-.05em<span class="nb">{</span><span class="k">\sc</span> i<span class="k">\kern</span>-.025em b<span class="nb">}</span><span class="k">\kern</span>-.08em
+    T<span class="k">\kern</span>-.1667em<span class="k">\lower</span>.7ex<span class="k">\hbox</span><span class="nb">{</span>E<span class="nb">}</span><span class="k">\kern</span>-.125emX<span class="nb">}}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>lscape, latexsym, amssymb, algorithmic, multirow<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="na">[linesnumbered, vlined, ruled]</span><span class="nb">{</span>algorithm2e<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>mathtools, bbm, color<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>booktabs<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>amsthm,mathrsfs,amsfonts,dsfont<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>listings<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegray<span class="nb">}{</span>rgb<span class="nb">}{</span>0.5,0.5,0.5<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codepurple<span class="nb">}{</span>rgb<span class="nb">}{</span>0.58,0,0.82<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.95<span class="nb">}</span>
+<span class="k">\lstdefinestyle</span><span class="nb">{</span>mystyle<span class="nb">}{</span>
+ <span class="c">% backgroundcolor=\color{backcolour},   </span>
+ commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+ keywordstyle=<span class="k">\color</span><span class="nb">{</span>magenta<span class="nb">}</span>,
+ numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>codegray<span class="nb">}</span>,
+ stringstyle=<span class="k">\color</span><span class="nb">{</span>codepurple<span class="nb">}</span>,
+ <span class="c">% basicstyle=\footnotesize\ttfamily,</span>
+ basicstyle=<span class="k">\footnotesize\scriptsize</span>,
+ breakatwhitespace=false,         
+ breaklines=true,                 
+ captionpos=b,                    
+ keepspaces=true,
+ numbers=left,  <span class="c">%% 行号 </span>
+ <span class="c">% numbersep=2pt,                  </span>
+ showspaces=false,                
+ showstringspaces=false,
+ showtabs=false,                  
+ tabsize=1,
+ xleftmargin=<span class="k">\parindent</span>,
+<span class="nb">}</span>
+<span class="k">\lstset</span><span class="nb">{</span>style=mystyle<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+
+<span class="k">\title</span><span class="nb">{</span>xxxx<span class="nb">}</span>
+
+<span class="k">\author</span><span class="nb">{</span>xxxx<span class="nb">}</span>
+
+<span class="k">\maketitle</span>
+
+<span class="k">\begin</span><span class="nb">{</span>abstract<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>abstract<span class="nb">}</span>
+
+
+<span class="k">\begin</span><span class="nb">{</span>IEEEkeywords<span class="nb">}</span>
+xxx,xxx
+<span class="k">\end</span><span class="nb">{</span>IEEEkeywords<span class="nb">}</span>
+
+<span class="k">\bibliographystyle</span><span class="nb">{</span>IEEEtran<span class="nb">}</span>
+<span class="nb">{</span>
+<span class="k">\begingroup</span>
+<span class="k">\bibliography</span><span class="nb">{</span>ref<span class="nb">}</span>
+<span class="k">\endgroup</span>
+<span class="nb">}</span>
+
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</code></pre></div>
+<h2 id="latex_2">中文latex</h2>
+<div class="highlight"><pre><span></span><code><span class="k">\documentclass</span><span class="na">[12pt]</span><span class="nb">{</span>article<span class="nb">}</span>
+
+<span class="k">\usepackage</span><span class="nb">{</span>cite<span class="nb">}</span> <span class="c">% 引用参考文献</span>
+<span class="k">\usepackage</span><span class="nb">{</span>ctex<span class="nb">}</span> <span class="c">% 中文支持</span>
+<span class="k">\usepackage</span><span class="nb">{</span>times<span class="nb">}</span><span class="c">% 英文使用Times New Roman</span>
+<span class="k">\usepackage</span><span class="nb">{</span>url,hyperref<span class="nb">}</span> <span class="c">% 超链接</span>
+<span class="k">\usepackage</span><span class="nb">{</span>xspace<span class="nb">}</span> <span class="c">% 无标点自动空格</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx<span class="nb">}</span> <span class="c">% 插入图片用</span>
+<span class="k">\usepackage</span><span class="nb">{</span>geometry<span class="nb">}</span> <span class="c">% 设置页边距</span>
+<span class="k">\usepackage</span><span class="nb">{</span>listings<span class="nb">}</span> <span class="c">% 插入代码块</span>
+<span class="k">\usepackage</span><span class="nb">{</span>color<span class="nb">}</span> <span class="c">% 定义颜色，用于控制代码高亮</span>
+<span class="k">\usepackage</span><span class="nb">{</span>subcaption<span class="nb">}</span> <span class="c">% 画子图</span>
+<span class="k">\usepackage</span><span class="nb">{</span>tikz<span class="nb">}</span> <span class="c">% 后续画圆圈</span>
+<span class="k">\usepackage</span><span class="nb">{</span>multirow<span class="nb">}</span> <span class="c">% 表格多行文本</span>
+<span class="c">% \usepackage{tabu}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>longtable<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>float<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>tabu<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>booktabs<span class="nb">}</span> <span class="c">% 画表格</span>
+
+<span class="k">\usepackage</span><span class="na">[linesnumbered, vlined, ruled]</span><span class="nb">{</span>algorithm2e<span class="nb">}</span> <span class="c">% 算法列表</span>
+
+<span class="c">% 使用 ctex 宏包设置中文图题</span>
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\figurename</span><span class="nb">}{</span>图<span class="nb">}</span>
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\tablename</span><span class="nb">}{</span>表<span class="nb">}</span>
+
+<span class="c">% 设置页边距</span>
+<span class="k">\geometry</span><span class="nb">{</span>a4paper,left=2cm,right=2cm,top=2cm,bottom=3cm<span class="nb">}</span> 
+
+
+<span class="c">% 设置字体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\song</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>song<span class="nb">}}</span>    <span class="c">% 宋体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\fs</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>fs<span class="nb">}}</span>             <span class="c">% 仿宋体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\kai</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>kai<span class="nb">}}</span>          <span class="c">% 楷体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\hei</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>hei<span class="nb">}}</span>         <span class="c">% 黑体</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\li</span><span class="nb">}{</span><span class="k">\CJKfamily</span><span class="nb">{</span>li<span class="nb">}}</span>               <span class="c">% 隶书</span>
+
+<span class="c">% 设置字号</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\yihao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>26pt<span class="nb">}{</span>36pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>           <span class="c">% 一号, 1.4 倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\erhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>22pt<span class="nb">}{</span>28pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>          <span class="c">% 二号, 1.25倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaoer</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>18pt<span class="nb">}{</span>18pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>          <span class="c">% 小二, 单倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\sanhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>16pt<span class="nb">}{</span>24pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>        <span class="c">% 三号, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaosan</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>15pt<span class="nb">}{</span>22pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>        <span class="c">% 小三, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\sihao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>14pt<span class="nb">}{</span>21pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>            <span class="c">% 四号, 1.5 倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\banxiaosi</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>13pt<span class="nb">}{</span>19.5pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>    <span class="c">% 半小四, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\xiaosi</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>12pt<span class="nb">}{</span>18pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>            <span class="c">% 小四, 1.5倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\dawuhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>11pt<span class="nb">}{</span>11pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>       <span class="c">% 大五号, 单倍行距</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\wuhao</span><span class="nb">}{</span><span class="k">\fontsize</span><span class="nb">{</span>10.5pt<span class="nb">}{</span>15.75pt<span class="nb">}</span><span class="k">\selectfont</span><span class="nb">}</span>    <span class="c">% 五号, 单倍行距</span>
+
+<span class="c">% 定义代码样式</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegray<span class="nb">}{</span>rgb<span class="nb">}{</span>0.5,0.5,0.5<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codepurple<span class="nb">}{</span>rgb<span class="nb">}{</span>0.58,0,0.82<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.95<span class="nb">}</span>
+<span class="k">\lstdefinestyle</span><span class="nb">{</span>mystyle<span class="nb">}{</span>
+ <span class="c">% backgroundcolor=\color{backcolour},   </span>
+ commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+ keywordstyle=<span class="k">\color</span><span class="nb">{</span>magenta<span class="nb">}</span>,
+ numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>codegray<span class="nb">}</span>,
+ stringstyle=<span class="k">\color</span><span class="nb">{</span>codepurple<span class="nb">}</span>,
+ <span class="c">% basicstyle=\footnotesize\ttfamily,</span>
+ basicstyle=<span class="k">\footnotesize\scriptsize</span>,
+ breakatwhitespace=false,         
+ breaklines=true,                 
+ captionpos=b,                    
+ keepspaces=true,
+ numbers=left,  <span class="c">%% 行号 </span>
+ <span class="c">% numbersep=2pt,                  </span>
+ showspaces=false,                
+ showstringspaces=false,
+ showtabs=false,                  
+ tabsize=1,
+ xleftmargin=<span class="k">\parindent</span>,
+<span class="nb">}</span>
+<span class="k">\lstset</span><span class="nb">{</span>style=mystyle<span class="nb">}</span>
+
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\abstractname</span><span class="nb">}{</span><span class="k">\textbf</span><span class="nb">{</span>摘<span class="k">\quad</span> 要<span class="nb">}}</span> <span class="c">% 更改摘要二字的样式</span>
+
+<span class="c">% use these commands to consistently refer to stuff</span>
+
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bugCount</span><span class="nb">}{</span>xx<span class="nb">}</span>  
+
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\tabincell</span><span class="nb">}</span>[2]<span class="nb">{</span><span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>@<span class="nb">{}</span>#1@<span class="nb">{}}</span>#2<span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}}</span>
+
+<span class="k">\newcommand*\emptcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="k">\tikz\draw</span> (0,0) circle (#1);<span class="nb">}</span> 
+<span class="k">\newcommand*\halfcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="c">%</span>
+    <span class="k">\begin</span><span class="nb">{</span>tikzpicture<span class="nb">}</span>
+    <span class="k">\draw</span><span class="na">[fill]</span> (0,0)-- (90:#1) arc (90:270:#1) -- cycle ;
+    <span class="k">\draw</span> (0,0) circle (#1);
+    <span class="k">\end</span><span class="nb">{</span>tikzpicture<span class="nb">}}</span>
+<span class="k">\newcommand*\fullcirc</span><span class="na">[1][1ex]</span><span class="nb">{</span><span class="k">\tikz\fill</span> (0,0) circle (#1);<span class="nb">}</span> 
+
+<span class="k">\def\BibTeX</span><span class="nb">{{</span><span class="k">\rm</span> B<span class="k">\kern</span>-.05em<span class="nb">{</span><span class="k">\sc</span> i<span class="k">\kern</span>-.025em b<span class="nb">}</span><span class="k">\kern</span>-.08em
+    T<span class="k">\kern</span>-.1667em<span class="k">\lower</span>.7ex<span class="k">\hbox</span><span class="nb">{</span>E<span class="nb">}</span><span class="k">\kern</span>-.125emX<span class="nb">}}</span>
+
+<span class="k">\title</span><span class="nb">{</span><span class="k">\fontsize</span><span class="nb">{</span>18pt<span class="nb">}{</span>27pt<span class="nb">}</span><span class="k">\selectfont</span> <span class="k">\textbf</span><span class="nb">{</span>xxxx<span class="nb">}}</span>
+<span class="k">\author</span><span class="nb">{</span><span class="k">\fontsize</span><span class="nb">{</span>14pt<span class="nb">}{</span>21pt<span class="nb">}</span><span class="k">\selectfont</span> <span class="k">\textbf</span><span class="nb">{</span>xxxx<span class="nb">}}</span>
+<span class="k">\date</span><span class="nb">{}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>sloppypar<span class="nb">}</span> <span class="c">% 防止长单词出界</span>
+<span class="k">\maketitle</span>
+
+<span class="k">\begin</span><span class="nb">{</span>abstract<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>abstract<span class="nb">}</span>
+
+<span class="k">\section</span><span class="nb">{</span>背景<span class="nb">}</span>
+
+<span class="k">\subsection</span><span class="nb">{</span>可信执行环境<span class="nb">}</span>
+<span class="k">\bibliographystyle</span><span class="nb">{</span>plain<span class="nb">}</span>
+<span class="k">\bibliography</span><span class="nb">{</span>Ref<span class="nb">}</span>
+
+<span class="k">\end</span><span class="nb">{</span>sloppypar<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2023 Content provided by c01dkit
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../javascripts/myjs.js"></script>
+      
+    
+  </body>
+</html>
