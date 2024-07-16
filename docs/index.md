@@ -1,6 +1,6 @@
 # Welcome to c01dkit's tech blog
 
-目录为自动生成，可能有误。最近一次更新时间2024-07-02。
+目录为自动生成，可能有误。最近一次更新时间2024-07-16。
           
 [欢迎提issue以指错、交流](https://github.com/c01dkit/tech-blog/issues)！
 
@@ -191,6 +191,11 @@
 - [推荐工具](./latex/#_1)
 - [英文latex](./latex/#latex_1)
 - [中文latex](./latex/#latex_2)
+
+## 科研生活 / zotero配置
+
+- [Zotfile 插件配置](./zotero/#zotfile)
+- [Zotero Style 插件配置](./zotero/#zotero-style)
 
 ## 科研生活 / 科研心得
 
