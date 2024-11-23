@@ -1,6 +1,6 @@
 const txt = [
-  "欢迎来到 oh-my-mkdocs 的官方网站，希望本网站能对您有一定的帮助！",
-  "Welcome to the official website of oh-my-mkdocs, I hope this website can be of some help to you!",
+  "欢迎来到 c01dkit 的技术笔记，希望本网站能对您有一定的帮助！",
+  "Welcome to the official website of c01dkit's tech book, I hope this website can be of some help to you!",
 ];
 
 var index = 0;

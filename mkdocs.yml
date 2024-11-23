@@ -195,13 +195,13 @@ extra: # 额外设定
   version:
     provider: mike
     alias: true
-  alternate:
-    - name: 简体中文
-      link: /
-      lang: zh
-    - name: English
-      link: ./en/
-      lang: en
+  # alternate:
+  #   - name: 简体中文
+  #     link: /
+  #     lang: zh
+  #   - name: English
+  #     link: ./en/
+  #     lang: en
   status: # 元信息状态标识
     new: 最近添加
     deprecated: 已废弃
@@ -211,19 +211,19 @@ extra: # 额外设定
     json: [.s2]
   social: # 社交联系方式（页面右下角内容）
     - icon: fontawesome/brands/github
-      link: https://github.com/c01dkit/tech-blog
+      link: https://github.com/c01dkit/tech-blog/
       name: GitHub 存储库
-  consent:
-    actions:
-      - accept
-      - reject
-      - manage
-    title: Cookie 设置
-    description: >-
-      我们使用 cookies 来识别您的重复访问和偏好，以及衡量我们文档的有效性和用户是否找
-      到他们正在搜索的内容。<br/>
-      在您的同意下，您将帮助我们改进我们的文档。<br/>
-      （您稍后仍可以在网页左下角重新修改 cookies 设置）
+  # consent:
+  #   actions:
+  #     - accept
+  #     - reject
+  #     - manage
+  #   title: Cookie 设置
+  #   description: >-
+  #     我们使用 cookies 来识别您的重复访问和偏好，以及衡量我们文档的有效性和用户是否找
+  #     到他们正在搜索的内容。<br/>
+  #     在您的同意下，您将帮助我们改进我们的文档。<br/>
+  #     （您稍后仍可以在网页左下角重新修改 cookies 设置）
   # analytics: # 谷歌统计
   #   provider: google
   #   property: G-YX3K09DH4F
@@ -245,11 +245,12 @@ extra: # 额外设定
 
 extra_javascript:
   - js/shortcuts.js # 绑定左右键换页的键盘快捷键
-  # - js/click-colorful.js # 鼠标点击效果
+  - js/click-colorful.js # 鼠标点击烟花效果
+  - js/typing.js # 打字机效果
   - js/mathjax.js # 数学表达式
   - js/tablesort.js # 表格排序功能
-  - js/canvas-nest.js # 背景图
-  - js/background.js # 背景图
+  # - js/canvas-nest.js # 背景图
+  # - js/background.js # 背景图
   - https://unpkg.com/mathjax@latest/es5/tex-mml-chtml.js # 数学表达式运行环境
   - https://unpkg.com/tablesort@latest/dist/tablesort.min.js # 表格排序功能运行环境（默认文本类型）
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.date.min.js # 表格排序功能（日期类型）
@@ -257,7 +258,7 @@ extra_javascript:
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.filesize.min.js # 表格排序功能（文件大小类型）
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.monthname.min.js # 表格排序功能（月份名称类型）
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.number.min.js # 表格排序功能（数字类型）
-  - https://unpkg.com/oh-my-live2d@latest
+  # - https://unpkg.com/oh-my-live2d@latest
   # - js/oml2d.js # 看板娘配置
 
 extra_css:
@@ -270,7 +271,9 @@ extra_css:
 plugins:
   - search
   - mike
-  - statistics
+  - statistics:
+      codelines_per_minute: 10
+      words_per_minute: 300
   - glightbox:
       background: none
       auto_themed: true
