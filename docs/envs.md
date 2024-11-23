@@ -130,6 +130,30 @@ npm设置国内源： `npm config set registry="http://r.cnpmjs.org"`
 
 可以在外部访问一下，如果看到的网站是nginx默认页面，可以docker exec到nginx容器里检查下`/etc/nginx/conf.d/default.conf`（或相似的其他conf路径，根据nginx版本有所区别），看看root到底是用哪个目录作为站点的。
 
+## 安装Chrome浏览器
+
+有时候需要用ssh的X11 Forward功能，连接服务器上的浏览器。
+
+```shell
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >>   /etc/apt/sources.list
+sudo apt-get update 
+sudo apt-get install google-chrome-stable
+
+```
+
+安装好后，用非root用户，ssh -X连接服务器，再运行chrome-google即可打开浏览器。
+
+## 安装简中字体
+
+```shell
+apt install ttf-wqy-zenhei
+apt install fonts-wqy-microhei # 安装一个就行
+fc-cache # 刷新缓存
+fc-list # 检查列表
+```
+
 ## 参考文章
 
 * 安装rust[https://hosthum.com/p/install-rust-lang/](https://hosthum.com/p/install-rust-lang/)

@@ -25,11 +25,11 @@ Environment="NO_PROXY=localhost,127.0.0.0/8,docker-registry.somecorporation.com"
 
 ## 指定镜像保存位置
 
-默认使用的位置是`/var/lib/docker`，在根目录下容易占满。可以通过修改配置文件`/lib/systemd/system/docker.service`的-g参数来指定位置。可以通过`docker info`查看保存的位置Docker Root Dir。
+默认使用的位置是`/var/lib/docker`，在根目录下容易占满。可以通过`docker info`查看保存的位置Docker Root Dir。
 
 配置文件可以通过`systemctl status docker`并查看Load使用的配置文件是哪个。
 
-另一种指定镜像保存位置的方法：修改/etc/docker/daemon.json，设置为
+一种指定镜像保存位置的方法：修改/etc/docker/daemon.json，设置为
 
 ```json
 {
@@ -53,6 +53,7 @@ sudo systemctl restart docker
 ```shell
 docker run -it --name=<container_name> --user=<user_id>:<group_id> --hostname=xxxx --workdir=xxxx  -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro --mount type=bind,source=<宿主机目录>,target=<容器目录> <镜像名>:<tag> /bin/bash
 ```
+
 以上命令可以完成对指定镜像创建一个比较完备的容器，指定了容器名称、用户名称和组别、主机名、用户工作目录，并挂载了主机的一些目录。指定passwd和group文件的只读挂载可以避免--user使用用户(组)id进行新建容器时引发的找不到用户名和组名的问题。并且避免了默认root用户导致的主机端无法访问容器新建文件的问题。
 
 注意这样创建的用户没有root权限。如果需要，则不使用user参数，但存在容器创建文件是root，宿主机无法修改的问题。
