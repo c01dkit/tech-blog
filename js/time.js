@@ -1,6 +1,6 @@
 var now = new Date();
 function createtime() {
-  var grt = new Date("2024-08-16 21:47:40+08:00"); /*初始时间*/
+  var grt = new Date("2023-05-12 13:35:12+08:00"); /*初始时间*/
   now.setTime(now.getTime() + 250);
   days = (now - grt) / 1000 / 60 / 60 / 24;
   dnum = Math.floor(days);
