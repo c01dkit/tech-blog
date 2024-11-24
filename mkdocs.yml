@@ -296,7 +296,8 @@ nav:
     - pwn-college:
       - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
   - 编程语言:
-    - C语言: c.md
+    - C: c.md
+    - C++: cpp.md
     - Go: go.md
     # - Java: java.md
     - Python: python.md
