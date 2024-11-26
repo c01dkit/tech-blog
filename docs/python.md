@@ -11,7 +11,8 @@ obj.\_\_dir\_\_() 或者dir(obj)
 
 * 解析命令行参数：argparse
 * 日志输出：logging
-* 解析yml配置文件：yaml
+* 处理配置文件：yaml、json
+* 进度条输出：tqdm
 * python调用C库：ctypes.cdll.LoadLibrary
 * 设定计时信号：signal.alarm
 
@@ -83,6 +84,26 @@ matters:
 ```python
 {'item': {'test1': 1, 'test2': 2, 'test2.1': True, 'test2.2': True, 'test2.3': True}, 'matters': {'test3': 3, 3: 333, 'test4': 4, 'test5': '${item.test1}', 'test6': 'a b c d', 'test7': None}}
 
+```
+
+## 配置读取：json
+
+除了yaml以外，用json也可以很方便地处理配置。而且不需要额外下载什么包。
+
+```python
+import json
+
+config = json.load(open('config.json','r',encoding='utf8')) # 直接拿到了字典格式的config
+json.dump(config, open('config.json', 'w',encoding='utf8'), indent=4, ensure_ascii=False)
+
+```
+
+## 进度条输出：tqdm
+
+```python
+from tqdm import tqdm  # 用于显示进度条
+with tqdm(total=total_num, desc="Sample progress bar", unit="file") as pbar:
+    pbar.update(1)
 ```
 
 ## 输出日志：logging

@@ -142,7 +142,7 @@ theme: # 此项各个设定因主题而异
   language: zh # 主题语言
   features:
     # - header.autohide # 顶栏自动隐藏
-    - announce.dismiss # 公告栏可以被关闭
+    # - announce.dismiss # 公告栏可以被关闭
     - search.share # 搜索栏分享按钮
     - search.suggest # 搜索栏内容建议
     - search.highlight # 搜索栏内容高亮
@@ -192,9 +192,9 @@ theme: # 此项各个设定因主题而异
     view: material/file-eye # 页面查看源代码的图标
 
 extra: # 额外设定
-  version:
-    provider: mike
-    alias: true
+  # version:
+  #   provider: mike
+  #   alias: true
   # alternate:
   #   - name: 简体中文
   #     link: /
@@ -270,20 +270,41 @@ extra_css:
 
 plugins:
   - search
-  - mike
+  # - mike
   - statistics:
       codelines_per_minute: 10
       words_per_minute: 300
   - glightbox:
-      background: none
-      auto_themed: true
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+      background: white
+      shadow: true
+      manual: false
   - git-revision-date-localized:
       enable_creation_date: true
-      type: timeago
-  # - git-committers:
-  #     repository: oh-my-mkdocs/oh-my-mkdocs
-  #     branch: main
-  #     token: !ENV GH_TOKEN # 需要自行在终端中设置临时环境变量，强烈不建议显式地在此处设置 token
+      type: iso_datetime # date / datetime / iso_date /iso_datetime / timeago / custom (with custom_format)
+      timezone: Asia/Shanghai
+      locale: zh
+      fallback_to_build_date: false
+      exclude:
+          - index.md
+      enable_git_follow: true
+      enabled: true
+      strict: true
+  - git-committers:
+      repository: c01dkit/tech-blog
+      branch: main
+      token: !ENV GH_TOKEN # 需要自行在终端中设置临时环境变量，强烈不建议显式地在此处设置 token
   - minify:
       minify_html: true
       htmlmin_opts:
@@ -292,34 +313,54 @@ plugins:
 nav:
   - 首页: index.md
   - 文章阅读: readings.md
-  - CTF笔记:
-    - pwn-college:
-      - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
   - 编程语言:
     - C: c.md
     - C++: cpp.md
     - Go: go.md
-    # - Java: java.md
-    - Python: python.md
+    - Java: java.md
+    - Python: 
+      - 编程技巧: python.md
+      - python爬虫: crawler.md
     - 优雅编程: code-gracely.md
-  - 编程应用:
-    - python爬虫: crawler.md
-  - 程序逆向:
-    - IDA基础: IDA.md
-    - 逆向基础: reverse-basic.md
-    - 逆向高阶: reverse-advanced.md
+  - 算法结构:
+    - 数组: dsa/array.md
+    - 堆栈: dsa/stack.md
+    - 队列: dsa/queue.md
+    - 链表: dsa/linkedlist.md
+    - 树: dsa/tree.md
+    - 图: dsa/graph.md
+    - 算法:
+      - 贪心算法: dsa/greedy-algo.md
+      - 动态规划: dsa/dynamic-algo.md
+      - 图算法: dsa/graph-algo.md
+      - 分支定界算法: dsa/branch-and-bound-algo.md
+  - 软件安全:
+    - 程序逆向:
+      - IDA基础: IDA.md
+      - 逆向基础: reverse-basic.md
+      - 逆向高阶: reverse-advanced.md
+    - CTF笔记:
+      - pwn-college:
+        - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
+    - 程序分析:
+      - LLVM: 
+        - 编译与配置: llvm.md
   - 学习笔记:
-    - autoconf: autoconf.md
-    - ChatGPT: try-chatgpt.md
-    - Docker: docker.md
-    - Ubuntu服务器运维: linux-server.md
-    - Git: git.md
-    - sslh: tech-sslh.md
-    - 端口复用: porting.md
-    - 环境配置: envs.md
-    - 代理转发: proxy.md
+    - 工具包:
+      - autoconf: autoconf.md
+      - Docker: docker.md
+      - Git: git.md
+      - openssh: openssh.md
+      - sslh: tech-sslh.md
+      - ChatGPT: try-chatgpt.md
+    - Ubuntu环境配置:
+      - 基础配置: envs.md
+      - 服务器运维: linux-server.md
+      - 端口复用: porting.md
+      - 代理转发: proxy.md
   - 科研生活: 
     - latex基础: latex.md
+    - linux内核编译: linux-kernel.md
     - 科研心得: sci-thoughts.md
     - 词汇学习: word-learning.md
     - 文句摘录: picking-ups.md
@@ -328,18 +369,7 @@ nav:
     - 有趣文章: interesting-articles.md
     - 模糊测试: fuzzing.md
     - 根因分析: rca.md
-  # - 数据结构与算法:
-  #   - 数组: dsa/array.md
-  #   - 堆栈: dsa/stack.md
-  #   - 队列: dsa/queue.md
-  #   - 链表: dsa/linkedlist.md
-  #   - 树: dsa/tree.md
-  #   - 图: dsa/graph.md
-  #   - 算法:
-  #     - 贪心算法: dsa/greedy-algo.md
-  #     - 动态规划: dsa/dynamic-algo.md
-  #     - 图算法: dsa/graph-algo.md
-  #     - 分支定界算法: dsa/branch-and-bound-algo.md
+  
 
 
 

@@ -83,3 +83,36 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
 .bc -> .ll: llvm-dis a.bc -o a.ll
 .bc -> .s: llc a.bc -o a.s
 ```
+
+## 项目例子
+
+利用LLVM构建静态分析框架时，考虑用cmake来组织整个项目的编译。假设需要构建一个程序，它接收一个bc文件名作为参数，然后用两个pass来进行处理，打印出bc文件所包含的函数名，以及函数的参数个数，可以这么来组织项目：
+
+=== "Makefile"
+    ```makefile
+    --8<-- "docs/llvm/Makefile"
+    ```
+=== "src/CMakeLists.txt"
+    ```makefile
+    --8<-- "docs/llvm/src/CMakeLists.txt"
+    ```
+=== "src/main.cpp"
+    ```cpp
+    --8<-- "docs/llvm/src/main.cpp"
+    ```
+=== "src/PrintFunctionArgsPass.cpp"
+    ```cpp
+    --8<-- "docs/llvm/src/PrintFunctionArgsPass.cpp"
+    ```
+=== "src/PrintFunctionArgsPass.hpp"
+    ```cpp
+    --8<-- "docs/llvm/src/PrintFunctionArgsPass.hpp"
+    ```
+=== "src/PrintFunctionNamesPass.cpp"
+    ```cpp
+    --8<-- "docs/llvm/src/PrintFunctionNamesPass.cpp"
+    ```
+=== "src/PrintFunctionNamesPass.hpp"
+    ```cpp
+    --8<-- "docs/llvm/src/PrintFunctionNamesPass.hpp"
+    ```

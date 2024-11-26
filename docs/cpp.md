@@ -95,6 +95,23 @@ local_val;
 ```
 ## 输入与输出
 
+使用iostream头文件引入输入输出。
+
+* cin 标准输入流
+* cout 标准输出流
+* cerr 非缓冲标准错误流
+* clog 缓冲标准错误流
+
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+    char a[10];
+    cin >> a;
+    cout << a;
+}
+
+```
 ## 基本数据类型与变量
 
 ## 常量与类型推导
@@ -105,6 +122,85 @@ local_val;
 
 
 ## 类与对象
+
+### 类成员函数
+
+类成员函数可以在类定义的内部进行定义，此时成员函数即为内联函数。也可以在类定义的外部进行定义，一般使用`返回值类型 类名::函数名(参数列表) {函数体}`的形式。
+
+```cpp
+class Sample {
+    public:
+    int sample1() {return 1;} // 在类内部定义函数实现
+    int sample2(); // 在类外部定义函数实现
+}
+
+// 需要使用范围解析运算符::来指定哪个类
+int Sample::sample2() {return 2;}
+```
+
+### 构造函数、拷贝构造函数、析构函数
+
+类的构造函数在创建新的类对象是执行，名称与类名相同，没有返回值。一般用于为成员变量设置初始值。
+构造函数中，使用初始化列表来对类成员进行赋值时，在构造函数定义的大括号前加上`: X(a)`，其中X是内部成员，a是构造函数的参数，实现将a赋给X。计算顺序是按类内的成员定义顺序，而不是按初始化列表的顺序来进行赋值。
+拷贝构造函数一般用于根据已有的类对象，生成新的类对象，比如复制。如果类不包含指针或动态内存分配，可以不写，编译器会帮助生成；否则必须自己实现。
+析构函数类似于构造函数，但函数名前加了~符号。它不能带有参数，也没有返回值，一般用于释放对象时进行资源释放。
+这些构造、析构函数都不需要显式调用。
+
+```cpp
+#include<iostream>
+class Sample {
+    public:
+    void setData(int i);
+    Sample(); // 构造函数
+    Sample(int i); // 带参构造函数
+    Sample(const Sample & obj); // 拷贝构造函数
+    ~Sample(); // 析构函数
+    private:
+    int * data;
+}
+
+// 在类声明外部实现函数，则为非内联
+Sample::Sample() {
+    std::cout << "Construction" << std::endl;
+    data = new int;
+    *data = 0;
+}
+
+// 带初始化列表的构造函数
+Sample::Sample(int i): data(i) {
+    std::cout << "Construction with initial list" << std::endl;
+    data = new int;
+    *data = i;
+}
+
+// 拷贝构造函数定义
+Sample::Sample(const Sample & obj) {
+    std::cout << "Construction with another object" << std::endl;
+    data = new int;
+    *data = *obj.data;
+}
+
+// 析构函数定义
+Sample::~Sample() {
+    std::cout << "Deletion" << std::endl;
+    delete data;
+}
+
+void Sample::setData(int i) {
+    data = i;
+}
+
+int main () {
+    Sample sample1;
+    sample1.setData(1);
+    Sample sample2(2);
+    Sample sample3(sample1);
+    Sample sample4 = sample3;
+}
+```
+
+创建类的对象时，可以直接以`类名 对象名`的形式构建一个默认对象，或者`类名 对象名(参数列表)`构建一个带参数的对象，或者`类名 对象名=已有对象`、`类名 对象名(已有对象)`来用拷贝构造函数。注意不要直接调用构造函数本身，它没有返回值。
+
 
 ## 封装
 
