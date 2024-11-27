@@ -161,7 +161,7 @@ theme: # 此项各个设定因主题而异
     - navigation.tabs # 页面顶部导航栏
     # - navigation.tabs.sticky # 导航栏标题栏位置固定
     # - navigation.sections # 左侧边栏节点是否保持展开
-    # - navigation.expand # 左侧边栏节点默认全部展开（与 navigation.prune 不兼容）
+    - navigation.expand # 左侧边栏节点默认全部展开（与 navigation.prune 不兼容）
     # - navigation.prune # 左侧栏节点至多展开一个，以此来减小站点的构建大小（对于页数100+的网站很有用，与 navigation.expand 不兼容）
     # - toc.integrate # 右边侧栏是否集成到左侧边栏（与 navigation.indexes 不兼容）
     - toc.follow # 锚点关注，侧边栏自动滚动，使锚点总是可见
@@ -225,23 +225,23 @@ extra: # 额外设定
   #     在您的同意下，您将帮助我们改进我们的文档。<br/>
   #     （您稍后仍可以在网页左下角重新修改 cookies 设置）
   # analytics: # 谷歌统计
-  #   provider: google
-  #   property: G-YX3K09DH4F
-  #   feedback:
-  #     title: 该页面对你有帮助吗？
-  #     ratings:
-  #       - icon: material/emoticon-happy-outline
-  #         name: 有帮助
-  #         data: 1
-  #         note: 感谢您的反馈！
-  #       - icon: material/emoticon-neutral-outline
-  #         name: 一般般
-  #         data: 0
-  #         note: 感谢您的反馈！
-  #       - icon: material/emoticon-sad-outline
-  #         name: 有待改进
-  #         data: -1
-  #         note: 感谢您的反馈！
+    # provider: google
+    # property: G-KBGFE4EPJ0
+    # feedback:
+    #   title: 该页面对你有帮助吗？
+    #   ratings:
+    #     - icon: material/emoticon-happy-outline
+    #       name: 有帮助
+    #       data: 1
+    #       note: 感谢您的反馈！
+    #     - icon: material/emoticon-neutral-outline
+    #       name: 一般般
+    #       data: 0
+    #       note: 感谢您的反馈！
+    #     - icon: material/emoticon-sad-outline
+    #       name: 有待改进
+    #       data: -1
+    #       note: 感谢您的反馈！
 
 extra_javascript:
   - js/shortcuts.js # 绑定左右键换页的键盘快捷键
