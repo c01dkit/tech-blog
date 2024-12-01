@@ -34,3 +34,47 @@ gcc <source C file> -shared -fPIC -o lib<source>.so
 2. 在环境变量`LD_LIBRARY_PATH`指定的目录中搜索
 3. 在`/etc/ld.so.conf`给出的目录中搜索
 4. 在默认的搜索路径`/lib`、`/lib64`、`/usrlib`、`/usrlib64`等搜索
+
+## 赋值
+
+
+初始化数组，可以连续赋值
+
+```C
+int arr[10] = {
+    [0]       = 1,
+    [1 ... 4] = 2,
+    [5 ... 7] = 4,
+};
+```
+
+数组在定义的同时进行部分初始化时，未被赋值的元素都会按照静态变量进行处理，即默认置零，即便`int a[10] = {};`没有显式初始化任何值。
+
+初始化结构体或联合，可以一起赋值
+
+
+```C
+
+struct test {
+    int a;
+    int b;
+    int c;
+    int d;
+};
+
+int main(
+    int argc, 
+    char const *argv[]
+    )
+{
+    struct test t = {
+        .a = 1,
+        .b = 2,
+        .c = 3,
+        .d = 4,
+    };
+
+    return 0;
+}
+
+```

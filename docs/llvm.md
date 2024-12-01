@@ -1,6 +1,6 @@
 # LLVM 学习
 
-## 环境配置
+## 快速上手
 
 ### 源码编译
 
@@ -49,7 +49,7 @@ clang --version
 ```
 
 
-## 快速上手
+### 教学项目
 
 接下来推荐这个github项目https://github.com/banach-space/llvm-tutor，按HelloWorld: Your First Pass章节继续操作即可。
 
@@ -68,11 +68,7 @@ clang -O1 -S -emit-llvm <source/dir/llvm/tutor>/inputs/input_for_hello.c -o inpu
 opt -load-pass-plugin ./libHelloWorld.so -passes=hello-world -disable-output input_for_hello.ll
 ```
 
-## 补充解释
-
 opt是一个命令行工具，用于在LLVM IR层面上进行代码优化。 它可以应用各种各样的优化策略，如死代码消除、常量折叠等，以提高生成代码的效率。
-
-## 中间文件
 
 LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便于人工阅读）和bc（字节码）两种形式。源码、IR、汇编代码的互相转化方法如下所示：
 
@@ -84,7 +80,7 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
 .bc -> .s: llc a.bc -o a.s
 ```
 
-## 项目例子
+### 项目例子
 
 利用LLVM构建静态分析框架时，考虑用cmake来组织整个项目的编译。假设需要构建一个程序，它接收一个bc文件名作为参数，然后用两个pass来进行处理，打印出bc文件所包含的函数名，以及函数的参数个数，可以这么来组织项目：
 
@@ -116,3 +112,136 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
     ```cpp
     --8<-- "docs/llvm/src/PrintFunctionNamesPass.hpp"
     ```
+
+
+## LLVM API学习
+
+### 头文件架构
+
+关注之前下载的llvm-project-xx.x.x.src目录下的llvm/include/llvm文件夹，里面包含`ADT`、`IR`、`IRReader`等各种头文件，从中可以了解如何调API。以15.0.7版本为例，目录架构如下：
+
+```shell title="tree ./llvm-project-15.0.7.src/llvm/include/llvm -LF 1"
+./
+├── ADT/
+├── Analysis/
+├── AsmParser/
+├── BinaryFormat/
+├── Bitcode/
+├── Bitstream/
+├── CMakeLists.txt
+├── CodeGen/
+├── Config/
+├── DebugInfo/
+├── Debuginfod/
+├── Demangle/
+├── DWARFLinker/
+├── DWP/
+├── ExecutionEngine/
+├── FileCheck/
+├── Frontend/
+├── FuzzMutate/
+├── InitializePasses.h
+├── InterfaceStub/
+├── IR/
+├── IRReader/
+├── LineEditor/
+├── LinkAllIR.h
+├── LinkAllPasses.h
+├── Linker/
+├── LTO/
+├── MC/
+├── MCA/
+├── module.extern.modulemap
+├── module.install.modulemap
+├── module.modulemap
+├── module.modulemap.build
+├── ObjCopy/
+├── Object/
+├── ObjectYAML/
+├── Option/
+├── PassAnalysisSupport.h
+├── Passes/
+├── Pass.h
+├── PassInfo.h
+├── PassRegistry.h
+├── PassSupport.h
+├── ProfileData/
+├── Remarks/
+├── Support/
+├── TableGen/
+├── Target/
+├── Testing/
+├── TextAPI/
+├── ToolDrivers/
+├── Transforms/
+├── WindowsDriver/
+├── WindowsManifest/
+├── WindowsResource/
+└── XRay/
+
+43 directories, 13 files
+
+```
+
+#### Pass.h
+
+LLVM Pass的基础是一个个pass，比如自己写一个类继承`llvm::ModulePass`，在内部覆写`runOnModule`函数。而ModulePass又是继承自`llvm::Pass`的，也就是直接来自头文件目录下的`Pass.h`文件。这个头文件大致结构如下：
+
+```cpp title="Pass.h"
+#ifndef LLVM_PASS_H
+#define LLVM_PASS_H
+#include <string>
+
+namespace llvm {
+
+class AnalysisResolver;
+class AnalysisUsage;
+class Function;
+//   ...
+
+// AnalysisID - Use the PassInfo to identify a pass...
+using AnalysisID = const void *;
+
+/// Different types of internal pass managers.
+enum PassManagerType {
+//   ...
+};
+
+// Different types of passes.
+enum PassKind {
+//   ...
+};
+
+/// This enumerates the LLVM full LTO or ThinLTO optimization phases.
+enum class ThinOrFullLTOPhase {
+//   ...
+};
+
+class Pass {
+// ...
+};
+
+class ModulePass : public Pass {
+// ...
+};
+
+class ImmutablePass : public ModulePass {
+// ...
+};
+
+class FunctionPass : public Pass {
+// ...
+};
+
+} // end namespace llvm
+
+// Include support files that contain important APIs commonly used by Passes,
+// but that we want to separate out to make it easier to read the header files.
+#include "llvm/PassAnalysisSupport.h"
+#include "llvm/PassSupport.h"
+
+#endif // LLVM_PASS_H
+
+```
+
+可见，从Pass类直接继承了ModulePass和FunctionPass两个类。
