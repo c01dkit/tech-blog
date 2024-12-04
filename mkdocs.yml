@@ -1,4 +1,70 @@
-# 以下nav之前的配置，均参考 Xiaokang2022 https://github.com/oh-my-mkdocs/oh-my-mkdocs/blob/main/mkdocs.yml
+nav:
+  - 首页: index.md
+  - 文章阅读: readings.md
+  - 编程语言:
+    - C: c.md
+    - C++: cpp.md
+    - Go: go.md
+    - Java: java.md
+    - Python: 
+      - 编程技巧: python.md
+      - python爬虫: crawler.md
+    - 优雅编程: code-gracely.md
+  - 算法结构:
+    - 数组: dsa/array.md
+    - 堆栈: dsa/stack.md
+    - 队列: dsa/queue.md
+    - 链表: dsa/linkedlist.md
+    - 树: dsa/tree.md
+    - 图: dsa/graph.md
+    - 算法:
+      - 贪心算法: dsa/greedy-algo.md
+      - 动态规划: dsa/dynamic-algo.md
+      - 图算法: dsa/graph-algo.md
+      - 分支定界算法: dsa/branch-and-bound-algo.md
+  - 软件安全:
+    - 程序逆向:
+      - IDA基础: IDA.md
+      - 逆向基础: reverse-basic.md
+      - 逆向高阶: reverse-advanced.md
+    - CTF笔记:
+      - pwn-college:
+        - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
+    - 程序分析:
+      - LLVM: 
+        - 编译与配置: llvm.md
+  - 学习笔记:
+    - 工具包:
+      - autoconf: autoconf.md
+      - Docker: docker.md
+      - Git: git.md
+      - openssh: openssh.md
+      - sslh: tech-sslh.md
+      - ChatGPT: try-chatgpt.md
+    - Ubuntu环境配置:
+      - 基础配置: envs.md
+      - 服务器运维: linux-server.md
+      - 端口复用: porting.md
+      - 代理转发: proxy.md
+  - 科研生活: 
+    - latex基础: latex.md
+    - linux内核编译: linux-kernel.md
+    - 科研心得: sci-thoughts.md
+    - 词汇学习: word-learning.md
+    - 文句摘录: picking-ups.md
+    - 情景模板: sentence-templates.md
+    - 四大调查: investigations.md
+    - 有趣文章: interesting-articles.md
+    - 模糊测试: fuzzing.md
+    - 根因分析: rca.md
+  
+
+
+
+
+
+
+# 以下配置，均参考 Xiaokang2022 https://github.com/oh-my-mkdocs/oh-my-mkdocs/blob/main/mkdocs.yml
 
 site_name: c01dkit's tech blog # 站点名称
 site_url: https://tech.c01dkit.com # 站点链接
@@ -13,7 +79,7 @@ remote_branch: gh-pages # GitHub Pages 远程分支名称（默认值）
 remote_name: origin # 远程名称（默认值）
 docs_dir: docs # 文档目录（默认值）
 site_dir: site # 网站目录（默认值）
-dev_addr: 127.0.0.1:8000 # 预览模式地址（默认值）
+dev_addr: 127.0.0.1:8088 # 预览模式地址（默认值）
 use_directory_urls: true # URL 使用目录名还是文件名（默认值）
 strict: false # 警告级别（默认值），出现警告就终止程序
 
@@ -205,7 +271,7 @@ extra: # 额外设定
   status: # 元信息状态标识
     new: 最近添加
     deprecated: 已废弃
-  generator: false # 页面底部不显示生成信息
+  generator: true # 页面底部不显示生成信息
   homepage: . # 左上角徽标链接的地址
   annotate: # 允许代码块非注释内的提示，貌似是可以在代码里面加悬浮提示框，而不只是在注释中（感觉这样不好，虽然我不用，但不能没有）
     json: [.s2]
@@ -258,6 +324,7 @@ extra_javascript:
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.filesize.min.js # 表格排序功能（文件大小类型）
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.monthname.min.js # 表格排序功能（月份名称类型）
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.number.min.js # 表格排序功能（数字类型）
+  - //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js # 卜蒜子站点访问统计
   # - https://unpkg.com/oh-my-live2d@latest
   # - js/oml2d.js # 看板娘配置
 
@@ -309,68 +376,4 @@ plugins:
       minify_html: true
       htmlmin_opts:
         remove_comments: true
-
-nav:
-  - 首页: index.md
-  - 文章阅读: readings.md
-  - 编程语言:
-    - C: c.md
-    - C++: cpp.md
-    - Go: go.md
-    - Java: java.md
-    - Python: 
-      - 编程技巧: python.md
-      - python爬虫: crawler.md
-    - 优雅编程: code-gracely.md
-  - 算法结构:
-    - 数组: dsa/array.md
-    - 堆栈: dsa/stack.md
-    - 队列: dsa/queue.md
-    - 链表: dsa/linkedlist.md
-    - 树: dsa/tree.md
-    - 图: dsa/graph.md
-    - 算法:
-      - 贪心算法: dsa/greedy-algo.md
-      - 动态规划: dsa/dynamic-algo.md
-      - 图算法: dsa/graph-algo.md
-      - 分支定界算法: dsa/branch-and-bound-algo.md
-  - 软件安全:
-    - 程序逆向:
-      - IDA基础: IDA.md
-      - 逆向基础: reverse-basic.md
-      - 逆向高阶: reverse-advanced.md
-    - CTF笔记:
-      - pwn-college:
-        - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
-    - 程序分析:
-      - LLVM: 
-        - 编译与配置: llvm.md
-  - 学习笔记:
-    - 工具包:
-      - autoconf: autoconf.md
-      - Docker: docker.md
-      - Git: git.md
-      - openssh: openssh.md
-      - sslh: tech-sslh.md
-      - ChatGPT: try-chatgpt.md
-    - Ubuntu环境配置:
-      - 基础配置: envs.md
-      - 服务器运维: linux-server.md
-      - 端口复用: porting.md
-      - 代理转发: proxy.md
-  - 科研生活: 
-    - latex基础: latex.md
-    - linux内核编译: linux-kernel.md
-    - 科研心得: sci-thoughts.md
-    - 词汇学习: word-learning.md
-    - 文句摘录: picking-ups.md
-    - 情景模板: sentence-templates.md
-    - 四大调查: investigations.md
-    - 有趣文章: interesting-articles.md
-    - 模糊测试: fuzzing.md
-    - 根因分析: rca.md
-  
-
-
-
 

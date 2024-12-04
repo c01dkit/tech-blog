@@ -113,8 +113,38 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
     --8<-- "docs/llvm/src/PrintFunctionNamesPass.hpp"
     ```
 
+## LLVM IR
 
-## LLVM API学习
+### opaque pointer
+
+不透明指针即不关心具体的指针类型，而使用`ptr`来取代之前的具体类型比如`i32*`。不透明指针在LLVM 15成为默认选项，并在LLVM 17移除透明指针。对于允许禁用不透明指针的LLVM版本而言，在命令行编译时，可以添加`-Xclang -no-opaque-pointers`来保留显式类型。cmake可以使用`-DCLANG_ENABLE_OPAQUE_POINTERS=OFF`。
+
+在启用不透明指针的情况下，可以在编译时启用`-g`参数，使得可以从编译器生成的调试信息中恢复出指针的类型信息。
+
+=== "sample1.c"
+    ```c
+    --8<-- "docs/llvm/testsuite/sample1.c"
+    ```
+=== "原始IR"
+    ```llvm
+    --8<-- "docs/llvm/testsuite/sample1.ll"
+    ```
+=== "-Xclang -no-opaque-pointers"
+    ```llvm
+    --8<-- "docs/llvm/testsuite/sample1-no-opaque-pointer.ll"
+    ```
+=== "-g"
+    ```llvm
+    --8<-- "docs/llvm/testsuite/sample1-g.ll"
+    ```
+=== "-Xclang -no-opaque-pointers -g"
+    ```llvm
+    --8<-- "docs/llvm/testsuite/sample1-g-no-opaque-pointer.ll"
+    ```
+
+结合调试元数据（如 DILocalVariable 和 DIType）以及高层接口（如函数签名）可以恢复指针类型。但如果没有调试信息，恢复类型会变得困难，只能通过间接手段推断指针类型。
+
+## LLVM API
 
 ### 头文件架构
 
@@ -244,4 +274,4 @@ class FunctionPass : public Pass {
 
 ```
 
-可见，从Pass类直接继承了ModulePass和FunctionPass两个类。
+可见，ModulePass和FunctionPass两个类直接继承了Pass。ImmutablePass直接继承了ModulePass
