@@ -1,5 +1,8 @@
 # LLVM 学习
 
+!!! note "叠个甲"
+    本文内容是结合ChatGPT-4o-Latest模型、LLVM 15.0.7，在刚接触llvm的时候边学边写下的笔记，可能会出现纰漏。欢迎评论斧正！
+
 ## 快速上手
 
 ### 源码编译
@@ -274,4 +277,36 @@ class FunctionPass : public Pass {
 
 ```
 
-可见，ModulePass和FunctionPass两个类直接继承了Pass。ImmutablePass直接继承了ModulePass
+可见，ModulePass和FunctionPass两个类直接继承了Pass。ImmutablePass直接继承了ModulePass。
+
+### bc文件读取与解析
+
+通过`#include "llvm/IRReader/IRReader.h"`使用`std::unique_ptr<Module> parseIRFile(StringRef Filename, SMDiagnostic &Err, LLVMContext &Context)`来获取bc文件的指针，随后可以在自定义方法如`myParseFunc(const Module &Mod)`中遍历指针内容（即解引用），得到llvm::Module下一层的llvm::Function。类似地，对llvm::Function进一步遍历可以获取llvm::BasicBlock，再进一步遍历可以获取llvm::Instruction，每一级可以调用相关API函数。
+
+### 四大关键程序对象
+
+根据LLVM分析的程序对象不同，可以按从大到小的顺序分为Module、Function、BasicBlock、Instruction四个等级。可以直接采用for循环遍历高等级对象的方法，获取其中的下一级对象。可见前文的项目例子。
+
+#### llvm::Module
+
+可以理解为对整个bc文件进行分析得到的结果，其中包含多个Function。
+
+#### llvm::Function
+
+#### llvm::BasicBlock
+
+#### llvm::Instruction
+
+```cpp
+const llvm::Instruction I;
+I.getOpcodeName(); // 获取操作符的字符串名称
+I.getNumOperands(); // 获取操作数个数
+I.getOperand(i); // 获取第i个操作数，返回llvm::Value*
+
+I.hasMetaData(); // 检查当前指令是否附有metadata，比如调试信息
+I.getMetaData("dbg"); // 获取当前指令的dbg调试信息
+```
+
+### 调试信息分析
+
+[前文提到](#opaque-pointer)，在编译程序时添加`-g`选项，可以生成类似
