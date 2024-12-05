@@ -1,66 +1,70 @@
 nav:
   - 首页: index.md
-  - 文章阅读: readings.md
   - 编程语言:
-    - C: c.md
-    - C++: cpp.md
-    - Go: go.md
-    - Java: java.md
+    - programming-languages/index.md
+    - C: programming-languages/c.md
+    - C++: programming-languages/cpp.md
+    - Go: programming-languages/go.md
+    - Java: programming-languages/java.md
     - Python: 
-      - 编程技巧: python.md
-      - python爬虫: crawler.md
-    - 优雅编程: code-gracely.md
+      - 编程技巧: programming-languages/python.md
+      - python爬虫: programming-languages/crawler.md
+    - 优雅编程: programming-languages/code-gracely.md
   - 算法结构:
-    - 数组: dsa/array.md
-    - 堆栈: dsa/stack.md
-    - 队列: dsa/queue.md
-    - 链表: dsa/linkedlist.md
-    - 树: dsa/tree.md
-    - 图: dsa/graph.md
+    - algorithm-and-data-structure/index.md
     - 算法:
-      - 贪心算法: dsa/greedy-algo.md
-      - 动态规划: dsa/dynamic-algo.md
-      - 图算法: dsa/graph-algo.md
-      - 分支定界算法: dsa/branch-and-bound-algo.md
+      - algorithm-and-data-structure/algorithm/index.md
+      - 贪心算法: algorithm-and-data-structure/algorithm/greedy-algo.md
+      - 动态规划: algorithm-and-data-structure/algorithm/dynamic-algo.md
+      - 图算法: algorithm-and-data-structure/algorithm/graph-algo.md
+      - 分支定界算法: algorithm-and-data-structure/algorithm/branch-and-bound-algo.md
+    - 数据结构:
+      - algorithm-and-data-structure/data-structure/index.md
+      - 数组: algorithm-and-data-structure/data-structure/array.md
+      - 堆栈: algorithm-and-data-structure/data-structure/stack.md
+      - 队列: algorithm-and-data-structure/data-structure/queue.md
+      - 链表: algorithm-and-data-structure/data-structure/linkedlist.md
+      - 树: algorithm-and-data-structure/data-structure/tree.md
+      - 图: algorithm-and-data-structure/data-structure/graph.md
   - 软件安全:
+    - software-security/index.md
     - 程序逆向:
-      - IDA基础: IDA.md
-      - 逆向基础: reverse-basic.md
-      - 逆向高阶: reverse-advanced.md
+      - IDA基础: software-security/reverse/IDA.md
+      - 逆向基础: software-security/reverse/reverse-basic.md
+      - 逆向高阶: software-security/reverse/reverse-advanced.md
     - CTF笔记:
       - pwn-college:
-        - CSE 365 - spring 2023: pwn-college-cse365-spring2023.md
+        - CSE 365 - spring 2023: software-security/ctf/pwn-college-cse365-spring2023.md
     - 程序分析:
       - LLVM: 
-        - 编译与配置: llvm.md
-  - 学习笔记:
-    - 工具包:
-      - autoconf: autoconf.md
-      - Docker: docker.md
-      - Git: git.md
-      - openssh: openssh.md
-      - sslh: tech-sslh.md
-      - ChatGPT: try-chatgpt.md
-    - Ubuntu环境配置:
-      - 基础配置: envs.md
-      - 服务器运维: linux-server.md
-      - 端口复用: porting.md
-      - 代理转发: proxy.md
+        - 编译与配置: software-security/program-analysis/llvm.md
   - 科研生活: 
-    - latex基础: latex.md
-    - linux内核编译: linux-kernel.md
-    - 科研心得: sci-thoughts.md
-    - 词汇学习: word-learning.md
-    - 文句摘录: picking-ups.md
-    - 情景模板: sentence-templates.md
-    - 四大调查: investigations.md
-    - 有趣文章: interesting-articles.md
-    - 模糊测试: fuzzing.md
-    - 根因分析: rca.md
-  
-
-
-
+    - researching-is-living/index.md
+    - latex基础: researching-is-living/general/latex.md
+    - linux内核编译: researching-is-living/related/linux-kernel.md
+    - 科研心得: researching-is-living/general/sci-thoughts.md
+    - 词汇学习: researching-is-living/general/word-learning.md
+    - 文句摘录: researching-is-living/general/picking-ups.md
+    - 情景模板: researching-is-living/general/sentence-templates.md
+    - 四大调查: researching-is-living/general/investigations.md
+    - 有趣文章: researching-is-living/general/interesting-articles.md
+    - 模糊测试: researching-is-living/related/fuzzing.md
+    - 根因分析: researching-is-living/related/rca.md
+    - 短文阅读: researching-is-living/general/readings.md
+  - 其他笔记:
+    - misc-notes/index.md
+    - 工具包:
+      - autoconf: misc-notes/software-kits/autoconf.md
+      - Docker: misc-notes/software-kits/docker.md
+      - Git: misc-notes/software-kits/git.md
+      - openssh: misc-notes/software-kits/openssh.md
+      - sslh: misc-notes/software-kits/tech-sslh.md
+      - ChatGPT: misc-notes/software-kits/try-chatgpt.md
+    - Ubuntu环境配置:
+      - 基础配置: misc-notes/environments/envs.md
+      - 服务器运维: misc-notes/environments/linux-server.md
+      - 端口复用: misc-notes/environments/porting.md
+      - 代理转发: misc-notes/environments/proxy.md
 
 
 
@@ -329,6 +333,7 @@ extra_javascript:
   # - js/oml2d.js # 看板娘配置
 
 extra_css:
+  - css/counter.css # 章节数字编号
   - css/extra.css # 加载自定义的样式
   - css/background.css # 背景图
   - css/blur-code-block.css # 代码块模糊效果
