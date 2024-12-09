@@ -319,6 +319,7 @@ extra_javascript:
   - js/typing.js # 打字机效果
   - js/mathjax.js # 数学表达式
   - js/tablesort.js # 表格排序功能
+  # - js/toc.js
   # - js/canvas-nest.js # 背景图
   # - js/background.js # 背景图
   - https://unpkg.com/mathjax@latest/es5/tex-mml-chtml.js # 数学表达式运行环境
@@ -330,7 +331,7 @@ extra_javascript:
   - https://unpkg.com/tablesort@latest/dist/sorts/tablesort.number.min.js # 表格排序功能（数字类型）
   - //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js # 卜蒜子站点访问统计
   # - https://unpkg.com/oh-my-live2d@latest
-  # - js/oml2d.js # 看板娘配置
+  # - js/oml2d.js # 看板娘配置 
 
 extra_css:
   - css/counter.css # 章节数字编号
@@ -373,10 +374,10 @@ plugins:
       enable_git_follow: true
       enabled: true
       strict: true
-  - git-committers:
-      repository: c01dkit/tech-blog
-      branch: main
-      token: !ENV GH_TOKEN # 需要自行在终端中设置临时环境变量，强烈不建议显式地在此处设置 token
+  # - git-committers:
+  #     repository: c01dkit/tech-blog
+  #     branch: main
+  #     token: !ENV GH_TOKEN # 需要自行在终端中设置临时环境变量，强烈不建议显式地在此处设置 token
   - minify:
       minify_html: true
       htmlmin_opts:

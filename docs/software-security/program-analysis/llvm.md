@@ -295,6 +295,13 @@ class FunctionPass : public Pass {
 
 #### llvm::BasicBlock
 
+```cpp
+const llvm::BasicBlock BB;
+BB.getTerminator(); // 获取基本块最后一条指令
+
+```
+
+
 #### llvm::Instruction
 
 ```cpp

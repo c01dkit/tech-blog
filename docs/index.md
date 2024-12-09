@@ -16,8 +16,8 @@ statistics: true
     - <span id="busuanzi_container_site_pv">总访问次数：<span id="busuanzi_value_site_pv">若干</span>次
 
 !!! example "推荐阅读"
-    - [根因分析](https://tech.c01dkit.com/rca/)
-    - [LLVM初学笔记](https://tech.c01dkit.com/llvm/)
-    - [C++回火](https://tech.c01dkit.com/cpp/)
-    - [Python爬虫编写](https://tech.c01dkit.com/crawler/)
-    - [Linux服务器端口复用](https://tech.c01dkit.com/porting/)
+    - [根因分析](https://tech.c01dkit.com/researching-is-living/related/rca/)
+    - [LLVM初学笔记](https://tech.c01dkit.com/software-security/program-analysis/llvm/)
+    - [C++回火](https://tech.c01dkit.com/programming-languages/cpp/)
+    - [Python爬虫编写](https://tech.c01dkit.com/programming-languages/crawler/)
+    - [Linux服务器端口复用](https://tech.c01dkit.com/misc-notes/environments/porting/)
