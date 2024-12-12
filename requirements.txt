@@ -6,3 +6,4 @@ mkdocs-git-revision-date-localized-plugin
 mkdocs-statistics-plugin
 mkdocs-minify-plugin
 mike
+pyyaml

@@ -83,6 +83,10 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
 .bc -> .s: llc a.bc -o a.s
 ```
 
+### 可视化
+
+`opt -p dot-cfg xxx.ll`可以将ll文件生成.dot文件，进一步用Graphviz的`dot xxx.dot -Tpng -o xxx.png`生成CFG图片。
+
 ### 项目例子
 
 利用LLVM构建静态分析框架时，考虑用cmake来组织整个项目的编译。假设需要构建一个程序，它接收一个bc文件名作为参数，然后用两个pass来进行处理，打印出bc文件所包含的函数名，以及函数的参数个数，可以这么来组织项目：
@@ -116,7 +120,145 @@ LLVM Pass工作在LLVM IR文件的基础之上。IR包括ll（文本格式，便
     --8<-- "docs/assets/llvm/src/PrintFunctionNamesPass.hpp"
     ```
 
+
+### 前端分析
+
+`clang -Xclang -ast-dump -fsyntax-only sample.c`将源码解析为语法树。
+
 ## LLVM IR
+
+### 基础指令
+
+```c title="sample.c"
+#include<stdio.h>
+
+int main() {
+    int a = 1, b = 2;
+    if (a < b)
+    {
+        a = 1;
+    } else {
+        a = 2;
+    }
+
+    return 0;
+}
+```
+
+运行`clang -S -emit-llvm -O0 test.c -o test.ll`后，上述代码生成下列ll文件：
+
+```llvm
+; ModuleID = 'test.c'
+source_filename = "test.c"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-gnu"
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local i32 @main() #0 {
+  %1 = alloca i32, align 4
+  %2 = alloca i32, align 4
+  %3 = alloca i32, align 4
+  store i32 0, ptr %1, align 4
+  store i32 1, ptr %2, align 4
+  store i32 2, ptr %3, align 4
+  %4 = load i32, ptr %2, align 4
+  %5 = load i32, ptr %3, align 4
+  %6 = icmp slt i32 %4, %5
+  br i1 %6, label %7, label %8
+
+7:                                                ; preds = %0
+  store i32 1, ptr %2, align 4
+  br label %9
+
+8:                                                ; preds = %0
+  store i32 2, ptr %2, align 4
+  br label %9
+
+9:                                                ; preds = %8, %7
+  ret i32 0
+}
+
+attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+
+!llvm.module.flags = !{!0, !1, !2, !3, !4}
+!llvm.ident = !{!5}
+
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 7, !"PIC Level", i32 2}
+!2 = !{i32 7, !"PIE Level", i32 2}
+!3 = !{i32 7, !"uwtable", i32 2}
+!4 = !{i32 7, !"frame-pointer", i32 2}
+!5 = !{!"clang version 15.0.7"}
+```
+target datalayout即[目标数据布局](https://llvm.org/docs/LangRef.html#data-layout)，指定了大小端、符号表命名格式、整型对齐格式等信息。
+target triple即目标三元组，依次指定了CPU-vendor-OS，决定了生成目标程序的平台。
+dso_local即[运行时抢占性修饰符](https://llvm.org/docs/LangRef.html#runtime-preemption-specifiers)，在生成动态链接库的时候直接调用对应函数，不在PLT表中进行搜索，可以提高运行效率。
+
+* 使用`%xx`来指定引用变量，使用`@xx`来引用全局变量
+* 使用`@name = global type value`定义全局变量，使用`@name = global constant type value`定义全局只读变量
+* `value = alloca type, align n`声明栈上变量value指针，n字节对齐
+* `store type value1, ptr value2, align n`将value1保存到value2的地址中，n字节对齐
+* `value1 = load type, ptr value2, align n`从value2地址加载type类型数据到value1中，n字节对齐
+* `value1 = icmp cmp type value2, value3`比较type类型的数据value2和value3的关系，将比较结果保存在value1中，这里的cmp可以包括eq、ne（相等与不相等），ugt、uge、ult、ule的无符号数比较，以及sgt、sge、slt、sle的有符号数比较
+* `br i1 value1, label value2, label value3`检查bool类型的value1是否为真，若是则跳转到value2对应的位置，否则跳转至value3对应的位置
+* `value1 = trunc type1 value2 to type2`将type1类型的value2截断成type2类型的value1
+* `value1 = zext type1 value2 to type2`将type1类型的value2零扩展成type2类型的value1，零扩展即高位补0
+* `value1 = sext type1 value2 to type2`将type1类型的value2符号扩展成type2类型的value1，符号扩展即高位补符号位
+* `value1 = ptrtoint ptr value2 to i64`将指针类型的value2转化成整数，保存在value1中
+* `value1 = inttoptr i64 value2 to ptr`将整数类型的value2转化成指针，保存在value1中
+* `value = alloca [n x type]`定义一个数组，包含n个type类型的元素，注意这里是x不是*
+* `value = type { type1, type2 }`定义一个结构体，注意这里的type是关键字
+* `value1 = getelementptr typevalue, ptr value2, i64 index1, i32 index2`从typevalue类型的value2中，取下标index1的元素（若为0就表示直接使用指针本身进行索引）的第index2的成员（从0开始计数），保存到value1里。如果value1本身还是个数组，可以继续在getelementptr后面追加`i64 index3`来继续索引
+* `value1 = extractvalue typevalue value2, index`假如聚合类型value2本身不是指针，则不使用getelementptr，而是extractvalue。从类型为typevalue的value2中取第index的字段赋值给value1（从0开始计数）
+* `value1 = insertvalue typevalue value2, type value3, index`将typevalue类型的value2值的第index的成员（从0开始计数） 
+* `value1 = select i1 value2, type1 value3, type2 value4`如果value2为真，将value3赋值给value1；否则将value4赋值给value1，类似三目运算
+* `value1 = phi type [value2, block1], [value3, block2]`如果前一个block是block1，则给value1赋值type value2；如果前一个block是block2，则给value1赋值type类型的value3。这些block数量可以一直往后加，实现多分支赋值的功能
+
+### LLVM IR 内置函数
+
+#### Memory Use Markers
+
+```llvm
+; llvm.lifetime.start 声明了内存对象声明周期的开始，第一个参数是一个常量整数，表示对象的大小；如果对象大小可变，则为 -1。第二个参数是指向该对象的指针。
+declare void @llvm.lifetime.start(i64 <size>, ptr nocapture <ptr>)
+```
+
+```llvm
+; llvm.objectsize 内在函数旨在向优化器提供信息，以确定 a) 操作（如 memcpy）是否会溢出与对象对应的缓冲区，或 b) 不需要运行时检查溢出。此上下文中的对象意味着特定类、结构、数组或其他对象的分配。四个参数分别表示：对象指针；对象大小未知时函数应当返回0（若为true）还是-1（若为false）；NULL用作指针参数时函数应当返回0字节（若为false）或大小未知（若为true）；是否应在运行时评估该值。
+declare i32 @llvm.objectsize.i32(ptr <object>, i1 <min>, i1 <nullunknown>, i1 <dynamic>)
+declare i64 @llvm.objectsize.i64(ptr <object>, i1 <min>, i1 <nullunknown>, i1 <dynamic>)
+
+
+```
+
+### 抢占性
+
+对于C比较常用的extern、static，假如有以下定义：
+
+=== "C源代码变量定义"
+    ```c
+    int a; // 当前文件的全局变量
+    extern int b; // 外部文件的全局变量
+    static int c; // 仅限当前文件的全局变量
+    void d(void); // 外部文件函数
+    void e(void) {} // 当前文件函数
+    static void f(void) {} // 仅限当前文件的函数
+    ```
+=== "LLVM IR表现形式"
+    ```llvm
+    @a = dso_local global i32 0, align 4
+    @b = external global i32, align 4
+    @c = internal global i32 0, align 4
+    declare void @d()
+    define dso_local void @e() {
+    ret void
+    }
+    define internal void @f() {
+    ret void
+    }
+    ```
+
+
 
 ### opaque pointer
 
@@ -283,7 +425,7 @@ class FunctionPass : public Pass {
 
 通过`#include "llvm/IRReader/IRReader.h"`使用`std::unique_ptr<Module> parseIRFile(StringRef Filename, SMDiagnostic &Err, LLVMContext &Context)`来获取bc文件的指针，随后可以在自定义方法如`myParseFunc(const Module &Mod)`中遍历指针内容（即解引用），得到llvm::Module下一层的llvm::Function。类似地，对llvm::Function进一步遍历可以获取llvm::BasicBlock，再进一步遍历可以获取llvm::Instruction，每一级可以调用相关API函数。
 
-### 四大关键程序对象
+### 关键程序对象
 
 根据LLVM分析的程序对象不同，可以按从大到小的顺序分为Module、Function、BasicBlock、Instruction四个等级。可以直接采用for循环遍历高等级对象的方法，获取其中的下一级对象。可见前文的项目例子。
 
@@ -298,7 +440,7 @@ class FunctionPass : public Pass {
 ```cpp
 const llvm::BasicBlock BB;
 BB.getTerminator(); // 获取基本块最后一条指令
-
+BB.printfAsOperand(errs()); // 获取label %num 即BB的编号
 ```
 
 
@@ -306,14 +448,28 @@ BB.getTerminator(); // 获取基本块最后一条指令
 
 ```cpp
 const llvm::Instruction I;
+I.printAsOperand(errs()); // 将指令作为操作数打印，即打印返回值
+I.print(errs()); // 打印指令本身，包括操作符、操作数等，不包括返回值
 I.getOpcodeName(); // 获取操作符的字符串名称
-I.getNumOperands(); // 获取操作数个数
+I.getNumOperands(); // 获取该指令的操作数个数
 I.getOperand(i); // 获取第i个操作数，返回llvm::Value*
-
+I.getNumUses(); // 获取该指令返回值被其他指令使用的次数
+I.users(); // 获取该指令返回值被其他指令使用的迭代器，通过const User* U : I.users()可以进行遍历
 I.hasMetaData(); // 检查当前指令是否附有metadata，比如调试信息
 I.getMetaData("dbg"); // 获取当前指令的dbg调试信息
+
+const llvm::BranchInst* BI = dyn_cast<BranchInst>(&I); // BranchInst继承Instruction
+BI.getOperand(i); // BranchInst的getOperand返回的似乎不是操作数
 ```
+
+
 
 ### 调试信息分析
 
-[前文提到](#opaque-pointer)，在编译程序时添加`-g`选项，可以生成类似
+[前文提到](#opaque-pointer)，在编译程序时添加`-g`选项，也可以从调试信息中恢复部分类型信息。
+
+
+## 参考文章
+
+1. [LLVM IR入门指南](https://evian-zhang.github.io/llvm-ir-tutorial/01-LLVM%E6%9E%B6%E6%9E%84%E7%AE%80%E4%BB%8B.html)
+2. [LLVM API参考手册](https://llvm.org/docs/LangRef.html)

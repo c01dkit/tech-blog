@@ -1,0 +1,3 @@
+[submodule "mkdocs-toolchain"]
+	path = mkdocs-toolchain
+	url = https://github.com/TonyCrane/mkdocs-toolchain.git

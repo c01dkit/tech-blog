@@ -29,6 +29,7 @@ nav:
   - 软件安全:
     - software-security/index.md
     - 程序逆向:
+      - software-security/reverse/index.md
       - IDA基础: software-security/reverse/IDA.md
       - 逆向基础: software-security/reverse/reverse-basic.md
       - 逆向高阶: software-security/reverse/reverse-advanced.md
@@ -382,4 +383,5 @@ plugins:
       minify_html: true
       htmlmin_opts:
         remove_comments: true
+  - toc # cd ./mkdocs-toolchain/mkdocs-toc-plugin && pip install -e .
 

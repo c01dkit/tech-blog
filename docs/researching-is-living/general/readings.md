@@ -9,13 +9,31 @@
 
 * [ESEC/FSE 2022网安清单](https://mp.weixin.qq.com/s/rzEIY-VUuxO8kj_wuh98dg)
 
+## 报告PPT
+
+* 2024-11-28 [清华大学：2024年AIGC发展研究报告3.0版（PPT）](https://mp.weixin.qq.com/s/rp8ijD8s5hlCEuKZzr9Fgg)
+
+## AI 安全
+
+* 2024-12-06 [一张图看清AI安全的位置](https://mp.weixin.qq.com/s/j4E6hJOInGQPRcouMyi0ig)
+
 ## 软件供应链
 
 * [软件供应链检测工具现状分析](https://mp.weixin.qq.com/s/FCPBzsRg9XGnjlWbV64KmA)
+* 2024-12-10 [黑白通吃：Glutton木马潜伏主流PHP框架，隐秘侵袭长达1年](https://mp.weixin.qq.com/s/1B0lv_Xuu8sAb0d55f-Rbw)
+
+## 网络流量识别
+
+* [基于包长语义的隧道内部攻击流量识别](https://mp.weixin.qq.com/s/tx4xsyLRkQDMUtWGCIsZzw)
 
 ## 大模型
 
 * [智能安全运营：大模型工具协同与学习框架](https://mp.weixin.qq.com/s/azE65dTp9lBEumioBfIq8w)
+* 2024-05-09 [今日arXiv最热大模型论文：浙江大学：如何减轻视觉大模型中的幻觉问题](https://mp.weixin.qq.com/s/ptJSDjM80uCZ4hewcyQs9g)
+* 2024-12-08 [OpenAI的强化微调：RL+Science 创造新神还是灭霸？](https://mp.weixin.qq.com/s/faP5z275E45-U5EGHeSc3A)
+* 2024-12-09 [北交开源o1代码版！强化学习+蒙特卡洛树搜索，源代码、精选数据集以及衍生模型通通开源](https://mp.weixin.qq.com/s/Y7qZDFtBklmoTeRUxjV_fw)
+* 2024-12-09 [基于LLM的单元测试生成，你在第几级？](https://mp.weixin.qq.com/s/qRGjAFE-VlzaYuCfj0Kh6g)
+
 
 ## Google
 
