@@ -13,13 +13,13 @@ nav:
   - 算法结构:
     - algorithm-and-data-structure/index.md
     - 算法:
-      - algorithm-and-data-structure/algorithm/index.md
+      # - algorithm-and-data-structure/algorithm/index.md
       - 贪心算法: algorithm-and-data-structure/algorithm/greedy-algo.md
       - 动态规划: algorithm-and-data-structure/algorithm/dynamic-algo.md
       - 图算法: algorithm-and-data-structure/algorithm/graph-algo.md
       - 分支定界算法: algorithm-and-data-structure/algorithm/branch-and-bound-algo.md
     - 数据结构:
-      - algorithm-and-data-structure/data-structure/index.md
+      # - algorithm-and-data-structure/data-structure/index.md
       - 数组: algorithm-and-data-structure/data-structure/array.md
       - 堆栈: algorithm-and-data-structure/data-structure/stack.md
       - 队列: algorithm-and-data-structure/data-structure/queue.md

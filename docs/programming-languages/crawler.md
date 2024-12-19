@@ -195,3 +195,7 @@ while True:
     p.wait()
 
 ```
+
+# 爬虫进阶
+
+* [某云音乐爬取：反调试绕过、js调用栈回溯、Web算法逆向](https://mp.weixin.qq.com/s/SssOK-RhAUoxxGJZUyb5WA)

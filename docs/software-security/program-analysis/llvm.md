@@ -427,7 +427,7 @@ class FunctionPass : public Pass {
 
 ### 关键程序对象
 
-根据LLVM分析的程序对象不同，可以按从大到小的顺序分为Module、Function、BasicBlock、Instruction四个等级。可以直接采用for循环遍历高等级对象的方法，获取其中的下一级对象。可见前文的项目例子。
+根据LLVM分析的程序对象不同，可以按从大到小的顺序分为Module、Function、BasicBlock、Instruction四个等级。可以直接采用for循环遍历高等级对象的方法，获取其中的下一级对象。可见前文的项目例子。如果是指针，可以用getBasicBlockList()、getInstList()等函数
 
 #### llvm::Module
 
@@ -460,6 +460,9 @@ I.getMetaData("dbg"); // 获取当前指令的dbg调试信息
 
 const llvm::BranchInst* BI = dyn_cast<BranchInst>(&I); // BranchInst继承Instruction
 BI.getOperand(i); // BranchInst的getOperand返回的似乎不是操作数
+BI.getSuccessor(0); // 对于条件跳转，获取true时的后继基本块
+BI.getSuccessor(1); // 对于条件跳转，获取false时的后继基本块
+
 ```
 
 

@@ -16,6 +16,8 @@
 ## AI 安全
 
 * 2024-12-06 [一张图看清AI安全的位置](https://mp.weixin.qq.com/s/j4E6hJOInGQPRcouMyi0ig)
+* 2024-12-16 [图灵奖得主Bengio亲自打分，首份《人工智能安全指数报告》发布，中国一家公司上榜](https://mp.weixin.qq.com/s/a8Hk1XIjW7uXfhMW9D9YLQ)
+ 
 
 ## 软件供应链
 
@@ -33,7 +35,7 @@
 * 2024-12-08 [OpenAI的强化微调：RL+Science 创造新神还是灭霸？](https://mp.weixin.qq.com/s/faP5z275E45-U5EGHeSc3A)
 * 2024-12-09 [北交开源o1代码版！强化学习+蒙特卡洛树搜索，源代码、精选数据集以及衍生模型通通开源](https://mp.weixin.qq.com/s/Y7qZDFtBklmoTeRUxjV_fw)
 * 2024-12-09 [基于LLM的单元测试生成，你在第几级？](https://mp.weixin.qq.com/s/qRGjAFE-VlzaYuCfj0Kh6g)
-
+* 2024-12-11 [专为 AI Agent和AI应用构建的开源浏览器自动化 API：steel-browser](https://mp.weixin.qq.com/s/vfNSBhM5EyfSGRn9FrkXGg)
 
 ## Google
 
