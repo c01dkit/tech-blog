@@ -14,6 +14,8 @@
   - 有趣文章: general/interesting-articles
   - 短文阅读: general/readings
   - 四大调查: general/investigations
+  - 论文略读: related/static-analyze
+  - 论文精读: paper-reading/index
 - 实践:
   - 模糊测试: related/fuzzing
   - 根因分析: related/rca

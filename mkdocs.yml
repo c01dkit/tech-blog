@@ -41,8 +41,8 @@ nav:
         - 编译与配置: software-security/program-analysis/llvm.md
   - 科研生活: 
     - researching-is-living/index.md
+    - 短文阅读: researching-is-living/general/readings.md
     - latex基础: researching-is-living/general/latex.md
-    - linux内核编译: researching-is-living/related/linux-kernel.md
     - 科研心得: researching-is-living/general/sci-thoughts.md
     - 词汇学习: researching-is-living/general/word-learning.md
     - 文句摘录: researching-is-living/general/picking-ups.md
@@ -51,7 +51,9 @@ nav:
     - 有趣文章: researching-is-living/general/interesting-articles.md
     - 模糊测试: researching-is-living/related/fuzzing.md
     - 根因分析: researching-is-living/related/rca.md
-    - 短文阅读: researching-is-living/general/readings.md
+    - linux内核编译: researching-is-living/related/linux-kernel.md
+    - 论文略读: researching-is-living/related/static-analyze.md
+    - 论文精读: researching-is-living/paper-reading/index.md
   - 其他笔记:
     - misc-notes/index.md
     - 工具包:

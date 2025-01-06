@@ -2,12 +2,32 @@
 
 经常遇到新系统快速配置的环境（wsl、新服务器），特此总结一下
 
+## Ubuntu 22.04 更新国内apt source
+
+备份`sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup`
+
+华为源
+```bash
+sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+```
+阿里源
+```bash
+sudo sed -i "s@http://.*archive.ubuntu.com@http://mirrors.aliyun.com@g" /etc/apt/sources.list
+sudo sed -i "s@http://.*security.ubuntu.com@http://mirrors.aliyun.com@g" /etc/apt/sources.list
+```
+
 ## Ubuntu更新基本环境
 
 ```shell
 sudo apt update
 sudo apt install curl build-essential gcc make -y
 ```
+
+## Windows系统激活
+
+管理员权限powershell下运行`irm https://massgrave.dev/get | iex`，然后输1按回车。需要注意的是先进入看看网站脚本有没有问题，小心域名劫持被挂了钓鱼。
+
 ## 安装docker
 
 按照[https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)的说明安装即可
@@ -78,8 +98,67 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 ```
 
-个人觉得jonathan的主题比较好看，可以配置下~/.zshrc的ZSH_THEME。
+个人觉得jonathan的主题比较好看，可以配置下~/.zshrc的ZSH_THEME。`ZSH_THEME="jonathan"`
 
+## 一键设置代理
+
+```bash
+proxy_git() {
+    ssh_proxy="10.59.159.54:10811"
+    git config --global http.https://github.com.proxy ${PROXY_HTTP}
+    if ! grep -qF "Host github.com" ~/.ssh/config ; then
+        echo "Host github.com" >> ~/.ssh/config
+        echo "    User git" >> ~/.ssh/config
+        echo "    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" >> ~/.ssh/config
+    else
+        lino=$(($(awk '/Host github.com/{print NR}'  ~/.ssh/config)+2))
+        sed -i "${lino}c\    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" ~/.ssh/config
+    fi
+}
+
+proxy() {
+    # getIp
+    # pip can read http_proxy & https_proxy
+    export PROXY_HTTP="http://xxx.xxx.xxx:10811"
+    export http_proxy="${PROXY_HTTP}"
+    export HTTP_PROXY="${PROXY_HTTP}"
+    export https_proxy="${PROXY_HTTP}"
+    export HTTPS_PROXY="${PROXY_HTTP}"
+    export ftp_proxy="${PROXY_HTTP}"
+    export FTP_PROXY="${PROXY_HTTP}"
+    export rsync_proxy="${PROXY_HTTP}"
+    export RSYNC_PROXY="${PROXY_HTTP}"
+    #export ALL_PROXY="${PROXY_SOCKS5}"
+    #export all_proxy="${PROXY_SOCKS5}"
+    proxy_git
+    #if [ ! $1 ]; then
+    #    ip_
+    #fi
+    echo "Acquire::http::Proxy \"${PROXY_HTTP}\";" | sudo tee /etc/apt/apt.conf.d/proxy.conf >/dev/null 2>&1
+    echo "Acquire::https::Proxy \"${PROXY_HTTP}\";" | sudo tee -a /etc/apt/apt.conf.d/proxy.conf >/dev/null 2>&1
+    echo "${PROXY_HTTP} done."
+
+}
+
+unpro () {
+    unset http_proxy
+    unset HTTP_PROXY
+    unset https_proxy
+    unset HTTPS_PROXY
+    unset ftp_proxy
+    unset FTP_PROXY
+    unset rsync_proxy
+    unset RSYNC_PROXY
+    #unset ALL_PROXY
+    #unset all_proxy
+    sudo rm /etc/apt/apt.conf.d/proxy.conf
+    git config --global --unset http.https://github.com.proxy
+    #ip_
+    echo "done"
+}
+
+
+```
 ## git设置全局代理
 
 需要根据本地实际的情况修改目标ip和端口

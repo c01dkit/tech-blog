@@ -291,6 +291,8 @@ declare i64 @llvm.objectsize.i64(ptr <object>, i1 <min>, i1 <nullunknown>, i1 <d
 
 ## LLVM API
 
+可以参考[这里](https://llvm.org/doxygen/namespacellvm.html)快速搜索所有API。
+
 ### 头文件架构
 
 关注之前下载的llvm-project-xx.x.x.src目录下的llvm/include/llvm文件夹，里面包含`ADT`、`IR`、`IRReader`等各种头文件，从中可以了解如何调API。以15.0.7版本为例，目录架构如下：
@@ -470,6 +472,29 @@ BI.getSuccessor(1); // 对于条件跳转，获取false时的后继基本块
 ### 调试信息分析
 
 [前文提到](#opaque-pointer)，在编译程序时添加`-g`选项，也可以从调试信息中恢复部分类型信息。
+
+### 命令行参数处理
+
+引入`#include "llvm/Support/CommandLine.h"`后，可以使用`cl::opt`类来处理命令行参数，供程序使用。可以看下面的例子：
+
+```cpp
+#include "llvm/Support/CommandLine.h"
+
+using namespace llvm;
+
+// 将命令行中的before跟随的字符串和BeforeFile变量绑定，debug-level跟随的整数和DebugLevel变量绑定，默认值2
+// ./a.out --before=xxxx --debug-level=xxxx 来执行程序
+static cl::opt<std::string> BeforeFile("before", cl::desc("Path to before-bug.bc"), cl::Required);
+static cl::opt<int> DebugLevel("debug-level", cl::desc("Path to after-bug.bc"), cl::init(2));
+
+// 除了指定命令行选项，也可使用非选项式
+static cl::opt<int> AdditionalDescription(cl::Positional, cl::desc("Additional Description"), cl::value_desc("Description for value"));
+
+int main(int argc, char **argv) {
+  cl::ParseCommandLineOptions(argc, argv, "description"); // description为可选的描述字符串
+  // 随后可以使用BeforeFile和DebugLevel两个变量
+}
+```
 
 
 ## 参考文章

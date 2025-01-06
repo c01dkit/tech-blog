@@ -5,9 +5,11 @@
 * [AWS对各类技术名字的介绍](https://aws.amazon.com/cn/what-is/)
 * [MDN网络服务词汇表](https://developer.mozilla.org/en-US/docs/Glossary)
 
-## 会议总结
+## 清单列表
 
 * [ESEC/FSE 2022网安清单](https://mp.weixin.qq.com/s/rzEIY-VUuxO8kj_wuh98dg)
+* 2024-12-30 [隐者联盟2024年推文列表](https://mp.weixin.qq.com/s/MY45z_dkYncCUEwqhqp-Cg)
+
 
 ## 报告PPT
 
@@ -32,11 +34,13 @@
 
 * [智能安全运营：大模型工具协同与学习框架](https://mp.weixin.qq.com/s/azE65dTp9lBEumioBfIq8w)
 * 2024-05-09 [今日arXiv最热大模型论文：浙江大学：如何减轻视觉大模型中的幻觉问题](https://mp.weixin.qq.com/s/ptJSDjM80uCZ4hewcyQs9g)
+* 2024-11-22 [一文说清楚什么是AI Agent(智能体)](https://mp.weixin.qq.com/s/mJpyDgKclhFpaq5oRipdKg)
 * 2024-12-08 [OpenAI的强化微调：RL+Science 创造新神还是灭霸？](https://mp.weixin.qq.com/s/faP5z275E45-U5EGHeSc3A)
 * 2024-12-09 [北交开源o1代码版！强化学习+蒙特卡洛树搜索，源代码、精选数据集以及衍生模型通通开源](https://mp.weixin.qq.com/s/Y7qZDFtBklmoTeRUxjV_fw)
 * 2024-12-09 [基于LLM的单元测试生成，你在第几级？](https://mp.weixin.qq.com/s/qRGjAFE-VlzaYuCfj0Kh6g)
 * 2024-12-11 [专为 AI Agent和AI应用构建的开源浏览器自动化 API：steel-browser](https://mp.weixin.qq.com/s/vfNSBhM5EyfSGRn9FrkXGg)
-
+* 2024-12-30 [多模态大模型安全评估基准MultiTrust](https://mp.weixin.qq.com/s/hyxIq5QoFpM1lixfghV4sQ)
+* 
 ## Google
 
 * [The Ups and Downs of 0-days: A Year in Review of 0-days Exploited In-the-Wild in 2022](https://security.googleblog.com/2023/07/the-ups-and-downs-of-0-days-year-in.html)
