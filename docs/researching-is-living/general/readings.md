@@ -15,6 +15,10 @@
 
 * 2024-11-28 [清华大学：2024年AIGC发展研究报告3.0版（PPT）](https://mp.weixin.qq.com/s/rp8ijD8s5hlCEuKZzr9Fgg)
 
+## 安全洞见
+
+* 2025-01-08 [G.O.S.S.I.P 阅读推荐 2025-01-08 软件安全分析2030远景规划](https://mp.weixin.qq.com/s/xwtqwHD3cXuW4vcdMlayfw)
+
 ## AI 安全
 
 * 2024-12-06 [一张图看清AI安全的位置](https://mp.weixin.qq.com/s/j4E6hJOInGQPRcouMyi0ig)

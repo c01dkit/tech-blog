@@ -47,6 +47,10 @@ sudo ls -lah /proc/<pid>/cwd # 观察运行的命令，判断谁的程序
 ncdu # 统计当前目录下各个文件夹占用，可以进入、删除文件夹或目录
 ```
 
+## sudo权限
+
+使用`visudo`然后编辑文本即可
+
 ## 修改DNS
 
 有时候连不上网是因为DNS的问题，修改/etc/resolve.conf即可。不过这个软连接修改完了以后可能会被系统改掉，可以试试删掉以后直接创建个/etc/resolve.conf文件，再`chattr +i /etc/resovle.conf`防止修改。
@@ -144,6 +148,25 @@ WantedBy=[表示该服务所在的Target]
 https://www.baeldung.com/linux/list-open-file-descriptors
 
 Linux默认最多同时打开1024个文件，可以通过`ulimit -n`查看。fuzzing等要注意关闭文件描述符，否则可能导致服务器故障（比如ssh连不上）。/proc/<pid>/fd里列出了pid锁打开的文件。
+
+## ssh安全加固
+
+首先要禁用密码登录，采取仅公钥认证方法，且使用ed25519算法。此外，使用fail2ban来封禁那些尝试爆破ssh的ip。
+
+使用`last`查看近期成功登录的用户，使用`lastb`查看近期登录失败的用户。
+
+```bash
+sudo fail2ban-client status # 查询规则列表
+sudo fail2ban-client status sshd # 查询sshd服务封禁情况
+sudo fail2ban-client set <jail_name> banip <ip_address> # 将某ip添加到某禁止列表里
+sudo fail2ban-client set <jail_name> unbanip <ip_address> # 解封某列表的ip
+
+```
+
+## 图形化界面
+
+一般来说sshd默认打开X11forward了，ssh命令加上`-X`参数，就可以使用图形化应用，比如xclock。如果在config里配置，可以添加`ForwardX11 yes`和`ForwardX11Trusted yes`的配置选项。
+
 ## 参考资料
 
 1. [systemd相关资料](https://zhuanlan.zhihu.com/p/415469149)

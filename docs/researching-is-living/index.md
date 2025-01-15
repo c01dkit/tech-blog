@@ -19,6 +19,7 @@
 - 实践:
   - 模糊测试: related/fuzzing
   - 根因分析: related/rca
+  - 补丁正确性验证: related/pca
   - linux内核编译: related/linux-kernel
   - 科研心得: general/sci-thoughts
 {{ END_TOC }}

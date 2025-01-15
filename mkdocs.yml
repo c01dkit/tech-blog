@@ -13,13 +13,13 @@ nav:
   - 算法结构:
     - algorithm-and-data-structure/index.md
     - 算法:
-      # - algorithm-and-data-structure/algorithm/index.md
+      - algorithm-and-data-structure/algorithm/index.md
       - 贪心算法: algorithm-and-data-structure/algorithm/greedy-algo.md
       - 动态规划: algorithm-and-data-structure/algorithm/dynamic-algo.md
       - 图算法: algorithm-and-data-structure/algorithm/graph-algo.md
       - 分支定界算法: algorithm-and-data-structure/algorithm/branch-and-bound-algo.md
     - 数据结构:
-      # - algorithm-and-data-structure/data-structure/index.md
+      - algorithm-and-data-structure/data-structure/index.md
       - 数组: algorithm-and-data-structure/data-structure/array.md
       - 堆栈: algorithm-and-data-structure/data-structure/stack.md
       - 队列: algorithm-and-data-structure/data-structure/queue.md
@@ -37,8 +37,8 @@ nav:
       - pwn-college:
         - CSE 365 - spring 2023: software-security/ctf/pwn-college-cse365-spring2023.md
     - 程序分析:
-      - LLVM: 
-        - 编译与配置: software-security/program-analysis/llvm.md
+      - LLVM: software-security/program-analysis/llvm.md
+      - Frama-c: software-security/program-analysis/framac.md
   - 科研生活: 
     - researching-is-living/index.md
     - 短文阅读: researching-is-living/general/readings.md
@@ -49,11 +49,15 @@ nav:
     - 情景模板: researching-is-living/general/sentence-templates.md
     - 四大调查: researching-is-living/general/investigations.md
     - 有趣文章: researching-is-living/general/interesting-articles.md
-    - 模糊测试: researching-is-living/related/fuzzing.md
-    - 根因分析: researching-is-living/related/rca.md
-    - linux内核编译: researching-is-living/related/linux-kernel.md
+    - 安全研究:
+      - 模糊测试: researching-is-living/related/fuzzing.md
+      - 根因分析: researching-is-living/related/rca.md
+      - 补丁评估: researching-is-living/related/pca.md
+      - linux内核编译: researching-is-living/related/linux-kernel.md
     - 论文略读: researching-is-living/related/static-analyze.md
-    - 论文精读: researching-is-living/paper-reading/index.md
+    - 论文精读: 
+      - researching-is-living/paper-reading/index.md
+      - 空指针解引用修复: researching-is-living/paper-reading/xing24what.md
   - 其他笔记:
     - misc-notes/index.md
     - 工具包:
@@ -68,7 +72,8 @@ nav:
       - 服务器运维: misc-notes/environments/linux-server.md
       - 端口复用: misc-notes/environments/porting.md
       - 代理转发: misc-notes/environments/proxy.md
-
+    - 网站开发:
+      - 前端: misc-notes/software-kits/frontend.md
 
 
 # 以下配置，均参考 Xiaokang2022 https://github.com/oh-my-mkdocs/oh-my-mkdocs/blob/main/mkdocs.yml
