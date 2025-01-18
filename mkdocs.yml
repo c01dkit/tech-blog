@@ -99,10 +99,10 @@ markdown_extensions:
   ###### Python Markdown 配置（markdown 基础语法）
 
   # 被 pymdownx.extra 完全替代且【冲突】
-  # - abbr # 定义缩写
-  # - attr_list # Markdown 元素可添加 HTML 和 CSS 属性
+  - abbr # 定义缩写
+  - attr_list # Markdown 元素可添加 HTML 和 CSS 属性
   # - def_list # 定义列表
-  # - footnotes # 脚注
+  - footnotes # 脚注
   # - md_in_html # Markdown 元素可内嵌在 HTML 中
   # - tables # 表格
 
