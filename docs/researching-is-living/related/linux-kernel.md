@@ -1,4 +1,4 @@
-# linux内核学习
+# linux内核编译
 
 ## 编译
 
@@ -20,3 +20,5 @@ scripts/config --disable SYSTEM_TRUSTED_KEYS
 scripts/config --disable SYSTEM_REVOCATION_KEYS
 ```
 重新make后一路回车。
+
+清理编译结果，可以使用

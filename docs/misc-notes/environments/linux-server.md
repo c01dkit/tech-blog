@@ -20,6 +20,10 @@ echo -en '\x31\x32' | program
 echo -e '\x31\x32' | xxd -r -p | program 
 ```
 
+## 修改服务器时间
+
+使用`date`查看时区默认UTC，比北京时间慢8小时。可以使用`timedatectl set-timezone Asia/Shanghai`来调整时区。调整24小时制时，设置`/etc/default/locale`的LC_TIME为"zh_CN.UTF-8"，或者为当前用户`export LC_TIME="zh_CN.UTF-8"`。
+
 ## 查询服务器显卡
 
 查询物理槽显卡连接
