@@ -1,5 +1,9 @@
 # 文章阅读
 
+## 在技术维度之外
+
+* 2025-05-26 [一个人的成长，需要避开三大“陷阱”](https://mp.weixin.qq.com/s/1e4NpGlEAq_x3mKVXn372A)
+
 ## 综合性知识学习
 
 * [AWS对各类技术名字的介绍](https://aws.amazon.com/cn/what-is/)
@@ -29,7 +33,9 @@
 
 * [ESEC/FSE 2022网安清单](https://mp.weixin.qq.com/s/rzEIY-VUuxO8kj_wuh98dg)
 * 2024-12-30 [隐者联盟2024年推文列表](https://mp.weixin.qq.com/s/MY45z_dkYncCUEwqhqp-Cg)
-
+* 2025-05-09 [网络安全顶会——SP 2025 论文清单与摘要（上）](https://mp.weixin.qq.com/s/theExLlmSxGekY_YIRFwPg)
+* 2025-06-10 [网络安全顶会——SP 2025 论文清单与摘要（中）](https://mp.weixin.qq.com/s/5v1XZaRCfeEvMm5yscR7GQ)
+* 2025-06-07 [网络安全顶会——SP 2025 论文清单与摘要（下）](https://mp.weixin.qq.com/s/rHkw57pFboZPi_9W92menQ)
 
 ### 安全洞见
 
@@ -65,6 +71,8 @@
 * 2025-02-14 [Chain-of-Action (行动链)：从Agent工作流到Agent模型](https://mp.weixin.qq.com/s/aAW7gD_5gQ_DyhRLCfMjDw)
 * 2025-02-17 [【深度好文】LLMs发展史：从Transformer（2017）到DeepSeek-R1（2025）](https://mp.weixin.qq.com/s/nIX2HxfLjeHqBlCqFiRSOA)
 * 2025-02-24 [“源神”DeepSeek！突破H800性能上限，FlashMLA重磅开源，算力成本还能降](https://mp.weixin.qq.com/s/OZmMTW4JyiP4GWkzShlqAg)
+* 2025-06-10 [0.5B以小搏大拿下端侧模型新SOTA：4090可跑，长文本处理5倍常规加速丨清华&面壁开源](https://mp.weixin.qq.com/s/_d8yEfpkaqULxir6M3Wo2Q)
+* 2025-06-27 [启明星辰发布大模型安全威胁框架（附下载链接）](https://mp.weixin.qq.com/s/-PZmWLcgUjGNXk_j2yxlcw)
 
 ### 供应链
 

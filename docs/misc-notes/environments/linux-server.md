@@ -53,7 +53,7 @@ ncdu # 统计当前目录下各个文件夹占用，可以进入、删除文件�
 
 ## sudo权限
 
-使用`visudo`然后编辑文本即可
+使用`visudo`然后编辑文本即可，比如在文件最后添加`<username>   ALL=(ALL) NOPASSWD: ALL`
 
 ## 修改DNS
 

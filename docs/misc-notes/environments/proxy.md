@@ -2,7 +2,7 @@
 
 ## 多台电脑组局域网
 
-可以使用[zerotier](https://www.zerotier.com/)，登录以后创建一个网络。然后需要组局域网的设备下载zerotier以后join上就行了。
+可以使用[zerotier](https://www.zerotier.com/)，登录以后创建一个网络。然后需要组局域网的设备下载zerotier以后join上就行了。或者选择从源码自己编译：从[这里](https://github.com/zerotier/ZeroTierOne/releases)下载源码包，解压缩以后make即可（需要gcc/clang、rust编译环境，以及libssl-dev）
 
 可以参考[这里](https://byteage.com/157.html)或[这里](https://blog.csdn.net/hey_lie/article/details/131304142)，或者[这里的一键脚本](https://gitee.com/opopop880/zerotier_planet)的链接配置私有planet，既能提高安全性，又能加快连接速度。简单来说，需要用ZeroTier官方代码编译自己的planet文件并替换掉zerotier客户端使用的planet，然后用ztncui这个后台管理界面配置zerotier的许可。
 

@@ -21,7 +21,7 @@ sudo sed -i "s@http://.*security.ubuntu.com@http://mirrors.aliyun.com@g" /etc/ap
 
 ```shell
 sudo apt update
-sudo apt install curl build-essential gcc make -y
+sudo apt install curl build-essential -y
 ```
 
 ## Windows系统激活
@@ -34,7 +34,7 @@ sudo apt install curl build-essential gcc make -y
 
 也可以按`curl -fsSL https://get.docker.com -o get-docker.sh`、`sudo sh get-docker.sh`来安装。
 
-## rust安装与更新
+## 安装rust与更新
 
 ```shell
 curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh
@@ -76,6 +76,10 @@ registry = "git://crates.rustcc.cn/crates.io-index"
 registry = "https://code.aliyun.com/rustcc/crates.io-index.git"
 ```
 
+## 安装go
+
+从[https://go.dev/dl/](https://go.dev/dl/)下载Archive的包，解压缩（比如到~/.local），添加其中的bin目录到PATH路径。
+
 ## 设置golang代理
 
 ``` go 
@@ -85,7 +89,7 @@ go env -w  GOPROXY=https://goproxy.cn
 ## 安装ohmyzsh
 
 ```shell
-sudo apt install zsh
+sudo apt install zsh git
 ```
 
 curl和wget二选一
@@ -104,22 +108,21 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 
 ```bash
 proxy_git() {
-    ssh_proxy="10.59.159.54:10811"
     git config --global http.https://github.com.proxy ${PROXY_HTTP}
     if ! grep -qF "Host github.com" ~/.ssh/config ; then
         echo "Host github.com" >> ~/.ssh/config
         echo "    User git" >> ~/.ssh/config
-        echo "    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" >> ~/.ssh/config
+        echo "    ProxyCommand nc -X 5 -x ${PROXY_HTTP} %h %p" >> ~/.ssh/config
     else
         lino=$(($(awk '/Host github.com/{print NR}'  ~/.ssh/config)+2))
-        sed -i "${lino}c\    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" ~/.ssh/config
+        sed -i "${lino}c\    ProxyCommand nc -X 5 -x ${PROXY_HTTP} %h %p" ~/.ssh/config
     fi
 }
 
 proxy() {
     # getIp
     # pip can read http_proxy & https_proxy
-    export PROXY_HTTP="http://xxx.xxx.xxx:10811"
+    export PROXY_HTTP="http://xx.xx.xx.xx:xx"
     export http_proxy="${PROXY_HTTP}"
     export HTTP_PROXY="${PROXY_HTTP}"
     export https_proxy="${PROXY_HTTP}"
@@ -232,6 +235,8 @@ apt install fonts-wqy-microhei # 安装一个就行
 fc-cache # 刷新缓存
 fc-list # 检查列表
 ```
+
+
 
 ## 参考文章
 

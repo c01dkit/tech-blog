@@ -457,9 +457,7 @@ int max_abs(int a, int b) {
 
 在Framc-C中，如果函数A内部依赖函数B，在证明函数A的时候并不会去自动验证函数B，而是默认函数B是可证明的（provable），这提供了很好的灵活性，即便没有函数B的源码（通常是外部库）也支持验证函数A。也就是说我们选择“相信”函数B。
 
-## 基本指令与控制结构
-
-### <ruby>推理规则 <rt>inference rule</rt></ruby>
+## <ruby>推理规则 <rt>inference rule</rt></ruby>
 
 推理规则形如 $\frac{P_1 \cdots P_n}{C}$ ，表示为了确保结论 $C$ 正确，首先需要保证从 $P_1$ 到 $P_n$ 的<ruby>前提<rt>premise</rt></ruby>都正确。不需要前提的结论 $\frac{}{C}$ 称为<ruby>公理<rt>axiom</rt></ruby>。前提本身的成立可能又依赖更多前提，逐步形成<ruby>演绎树<rt>deduction tree</rt></ruby>。在本文所涉及的语境中，前提和结论用<ruby>霍尔三元组<rt>Hoare triples</rt></ruby>来进行通用表示。
 
@@ -472,7 +470,50 @@ int max_abs(int a, int b) {
 !!! warning "区分循环不变量与循环条件"
     循环不变量并不意味着循环继续执行。可以理解为在每次循环的condition进行判断时，不论condition结果为true还是false，循环不变量的值都应该为true。比如对于循环`for(int i = 0; i < 10; ++i)`而言，精确的循环不变量是`0 <= i <= 10`，而`0 <= i < 10`不是。因为对于condition检查时，i确实可以取到10的，会导致`0 <= i < 10`为false。此外，`-10 <= i <= 20`也是循环不变量。
 
+## Ghost Code
 
+Ghost Code的作用在于向C源码插入新的C代码，比如定义新的变量。这些代码只能被frama-c感知到。如下面的例子所示，需要在ACSL中使用`ghost`关键字，随后跟上正常的C代码。
+
+```c
+//@ ghost int ghost_glob_var = 0;
+
+void foo(int a) {
+    //@ ghost int ghost_loc_var = a;
+}
+
+void foo1(int a){  
+    //@ ghost int a_was_ok = 0 ;
+    if(a < 5){ 
+        a=5;
+    }  /*@ ghost else { 
+        a_was_ok = 1 ;
+    } */
+}
+```
+
+在Ghost Code内部插入ACSL时，使用`/@`和`@/`。例如：
+
+```c
+void foo(unsigned n) {
+    /*@ ghost
+        unsigned i;
+
+        /@ 
+            loop invariant 0 <= i <= n;
+            loop assigns i;
+            loop variant n-i;
+        @/
+        for (i = 0; i < n; ++i) {
+        
+        }
+
+        /@ assert i == n; @/
+    */
+}
+```
+
+
+需要注意：Frama-C不支持分析改变控制流的Ghost Code（比如插入了break、continue、goto等），原本的C代码不能访问ghost内存，ghost代码只能写入ghost内存。
 
 ## 插件
 
@@ -535,13 +576,13 @@ Frama-C依赖丰富的插件提供分析功能。因此需要研究现状与不�
 
 ???  note "Slicing"
     **功能**
-  
+    
     - 动态程序切片（Program Slicing）。
     - 根据用户定义的关注点（如某些变量或代码段），提取程序的最小化子集。
     - 删除与分析目标无关的代码。
-
+    
     **适用场景**
-
+    
     - 简化大型程序的分析。
     - 聚焦于程序中的某些关键路径。
 

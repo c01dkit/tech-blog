@@ -1,5 +1,9 @@
 nav:
   - 首页: index.md
+  - 大模型:
+    - llm/index.md
+    - 智能体:
+      - Autogen: llm/agent/autogen.md
   - 编程语言:
     - programming-languages/index.md
     - C: programming-languages/c.md
@@ -44,11 +48,13 @@ nav:
     - 短文阅读: researching-is-living/general/readings.md
     - latex基础: researching-is-living/general/latex.md
     - 科研心得: researching-is-living/general/sci-thoughts.md
+    - 个人成长: researching-is-living/general/self-growth.md
     - 词汇学习: researching-is-living/general/word-learning.md
     - 文句摘录: researching-is-living/general/picking-ups.md
     - 情景模板: researching-is-living/general/sentence-templates.md
     - 四大调查: researching-is-living/general/investigations.md
     - 有趣文章: researching-is-living/general/interesting-articles.md
+    - AI与人: researching-is-living/general/ai-thinking.md
     - 安全研究:
       - 模糊测试: researching-is-living/related/fuzzing.md
       - 根因分析: researching-is-living/related/rca.md

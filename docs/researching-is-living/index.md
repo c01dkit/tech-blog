@@ -14,12 +14,15 @@
   - 有趣文章: general/interesting-articles
   - 短文阅读: general/readings
   - 四大调查: general/investigations
+  - AI与人: general/ai-thinking
   - 论文略读: related/static-analyze
   - 论文精读: paper-reading/index
+- 思考:
+  - 科研心得: general/sci-thoughts
+  - 个人成长: general/self-growth
 - 实践:
   - 模糊测试: related/fuzzing
   - 根因分析: related/rca
   - 补丁正确性验证: related/pca
   - linux内核编译: related/linux-kernel
-  - 科研心得: general/sci-thoughts
 {{ END_TOC }}
