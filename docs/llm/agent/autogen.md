@@ -66,14 +66,11 @@ await main()
 
 **如果function tools返回的并不是最终结果，而是prompt，如何让agent继续分析？**
 
+考虑设计子智能体？在description里写明用法应该也是可以的？
+
 **function tools的参数、返回值的类型能否是自定义的类？大模型能否准确填充内容？**
 
-可以在system prompt里说明参数类型，llm能够构造复杂model并调用function tools
-
-【测试一下在定义类对象的时候使用Field添加注释，观测能否生成】
-【测试一下在function Description里注明一下类对象的结构及注释，观测能否生成】
-【测试一下prompt强调输出结果是kg，必须调用add edge 和node】
-【测试一下在system prompt里注明一下类对象及注释】
+使用from autogen_core.tools import FunctionTool的FunctionTool来定义工具库，使用pydantic的BaseModel来定义类型，autogen可以自动将这些注册的函数解析为工具集，能够构造复杂的自定义类并准确填充内容，不需要在system prompt中详细说明。在对函数命名和参数命名时要起有意义的名字，帮助模型进行理解。定义FunctionTool对象时，description参数也很重要。
 
 **如何划分function tools和agent？**
 

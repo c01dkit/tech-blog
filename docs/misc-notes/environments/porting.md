@@ -183,6 +183,8 @@ iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 4684
 
 ## https证书
 
+建议用[acme.sh](https://github.com/acmesh-official/acme.sh)来进行自动化部署。如果想手动折腾，请继续阅读。
+
 关于https证书，可以按[这里](https://certbot.eff.org/)的方法，先`snap install --classic certbot`安装certbot，（不知道为啥当时设置了一下certbot路径`sudo ln -s /snap/bin/certbot /usr/bin/certbot`）。如果80端口已经对外开放，可以简单地`certbot --nginx`自动帮忙认证（即certbot创建认证文件然后在公网访问）。如果80端口不对外开放，可以自选dns认证：`certbot certonly --manual --preferred-challenges=dns`然后在域名管理那边添加一下记录即可，比如创建一个_acme-challenge.remote的TXT记录。然后在nginx的conf那里设置好证书路径，访问就有https认证了！对于http访问，可以用301跳转。
 
 一次认证是90天有效期，到期之前会发邮件，更新证书时需要运行`certbot renew  --manual-auth-hook=xxx.sh` 其中sh脚本是自己编写的一个自动化完成DNS记录更新。为了懒省事，可以这么写：
@@ -197,3 +199,9 @@ exit 0
 然后在两分钟之内，把xxx.txt里CERTBOT_VALIDATION对应的哈希值手动更新在DNS记录里即可。
 
 此外，新找到一个可以方便地在web端配置新证书的网站：[https://xiangyuecn.github.io/ACME-HTML-Web-Browser-Client/ACME-HTML-Web-Browser-Client.html](https://xiangyuecn.github.io/ACME-HTML-Web-Browser-Client/ACME-HTML-Web-Browser-Client.html)
+
+
+
+## github网站发布
+
+github自己就有非常好的静态站点托管功能。如果想快速构建网站服务，建议用agent开发。先本地配置好nodejs，然后`npm create vite@latest`创建一个站点。发布前，先准备好gh-pages：`npm install --save-dev gh-pages`，然后修改package.json，为scripts字典添加`"deploy": "npm run build && gh-pages -d dist -f --cname xx.xx.xx",`，其中`xx.xx.xx`的域名需要在域名管理商那里添加一个指向`<github用户名>.github.io`的CNAME，可以参考github相关说明在域名管理商配置一下`<github用户名>.github.io`的A记录。github那边需要创建一个空仓库，然后本地`git remote add origin xxx`把远程仓库添加到remote里。最后运行`npm run deploy`即可。将会把编译好的网站推送到仓库的gh-pages分支，而且这个是没有历史commit记录的，仅有最新的commit。

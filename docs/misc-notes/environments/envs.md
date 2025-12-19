@@ -26,7 +26,7 @@ sudo apt install curl build-essential -y
 
 ## Windows系统激活
 
-管理员权限powershell下运行`irm https://massgrave.dev/get | iex`，然后输1按回车。需要注意的是先进入看看网站脚本有没有问题，小心域名劫持被挂了钓鱼。
+管理员权限powershell下运行`irm https://get.activated.win | iex`，然后输1按回车。需要注意的是先进入看看网站脚本有没有问题，小心域名劫持被挂了钓鱼。
 
 ## 安装docker
 
