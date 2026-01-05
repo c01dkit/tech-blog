@@ -107,22 +107,73 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 ## 一键设置代理
 
 ```bash
+
+# 在wsl中使用该getIp函数
+getIp() {
+    export proxy_port='xxxx'
+    export winip=$(ip route | grep default | awk '{print $3}')
+    export wslip=$(hostname -I | awk '{print $1}')
+    export PROXY_SOCKS5="socks5://${winip}:${proxy_port}"
+    export PROXY_HTTP="http://${winip}:${proxy_port}"
+}
+
 proxy_git() {
+    ssh_proxy="${winip}:${proxy_port}"
     git config --global http.https://github.com.proxy ${PROXY_HTTP}
     if ! grep -qF "Host github.com" ~/.ssh/config ; then
         echo "Host github.com" >> ~/.ssh/config
         echo "    User git" >> ~/.ssh/config
-        echo "    ProxyCommand nc -X 5 -x ${PROXY_HTTP} %h %p" >> ~/.ssh/config
+        echo "    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" >> ~/.ssh/config
     else
         lino=$(($(awk '/Host github.com/{print NR}'  ~/.ssh/config)+2))
-        sed -i "${lino}c\    ProxyCommand nc -X 5 -x ${PROXY_HTTP} %h %p" ~/.ssh/config
+        sed -i "${lino}c\    ProxyCommand nc -X 5 -x ${ssh_proxy} %h %p" ~/.ssh/config
     fi
 }
 
+winip_() {
+    getIp
+    echo ${winip}
+}
+
+wslip_() {
+    getIp
+    echo ${wslip}
+}
+
+x11() {
+    getIp
+    if [ ! $1 ]; then
+        # null
+        export DISPLAY=${winip}:0.0
+    else
+        export DISPLAY=${winip}:$1.0
+    fi
+    echo $DISPLAY
+    export XDG_SESSION_TYPE=x11
+    export XDG_RUNTIME_DIR=/tmp/runtime-root
+    export LIBGL_ALWAYS_INDIRECT=1
+    export PULSE_SERVER=tcp:$winip
+}
+
+proxy_npm() {
+    getIp
+    npm config set proxy ${PROXY_HTTP}
+    npm config set https-proxy ${PROXY_HTTP}
+    yarn config set proxy ${PROXY_HTTP}
+    yarn config set https-proxy ${PROXY_HTTP}
+}
+
+unpro_npm() {
+    npm config delete proxy
+    npm config delete https-proxy
+    yarn config delete proxy
+    yarn config delete https-proxy
+}
+
 proxy() {
-    # getIp
+    #getIp # 如果在wsl中使用该脚本，则启用此函数
     # pip can read http_proxy & https_proxy
-    export PROXY_HTTP="http://xx.xx.xx.xx:xx"
+    export PROXY_HTTP="http://xx.xx.xx.xx:xx" # 如果不在wsl环境中使用脚本，则启用该设定
     export http_proxy="${PROXY_HTTP}"
     export HTTP_PROXY="${PROXY_HTTP}"
     export https_proxy="${PROXY_HTTP}"
@@ -139,8 +190,7 @@ proxy() {
     #fi
     echo "Acquire::http::Proxy \"${PROXY_HTTP}\";" | sudo tee /etc/apt/apt.conf.d/proxy.conf >/dev/null 2>&1
     echo "Acquire::https::Proxy \"${PROXY_HTTP}\";" | sudo tee -a /etc/apt/apt.conf.d/proxy.conf >/dev/null 2>&1
-    echo "${PROXY_HTTP} done."
-
+    echo "Using ${PROXY_HTTP} as proxy."
 }
 
 unpro () {
@@ -156,11 +206,8 @@ unpro () {
     #unset all_proxy
     sudo rm /etc/apt/apt.conf.d/proxy.conf
     git config --global --unset http.https://github.com.proxy
-    #ip_
     echo "done"
 }
-
-
 ```
 ## git设置全局代理
 

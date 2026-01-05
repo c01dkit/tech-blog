@@ -92,7 +92,7 @@ edit_uri: edit/main/docs # 编辑地址
 edit_uri_template: null # 编辑地址模板（默认值）
 site_description: c01dkit's technical book. # 站点描述
 site_author: c01dkit # 站点作者
-copyright: Copyright &copy; 2024 c01dkit # 版权信息
+copyright: Copyright &copy; 2026 c01dkit # 版权信息
 remote_branch: gh-pages # GitHub Pages 远程分支名称（默认值）
 remote_name: origin # 远程名称（默认值）
 docs_dir: docs # 文档目录（默认值）
