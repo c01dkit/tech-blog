@@ -4,6 +4,8 @@ nav:
     - llm/index.md
     - 智能体:
       - Autogen: llm/agent/autogen.md
+    - Prompt优化:
+      - 两阶段Prompt模板: llm/prompt/two-phases-generation.md
   - 编程语言:
     - programming-languages/index.md
     - C: programming-languages/c.md
@@ -12,6 +14,7 @@ nav:
     - Java: programming-languages/java.md
     - Python: 
       - 编程技巧: programming-languages/python.md
+      - Python包管理: programming-languages/python-module.md
       - python爬虫: programming-languages/crawler.md
     - 优雅编程: programming-languages/code-gracely.md
   - 算法结构:
@@ -100,7 +103,9 @@ site_dir: site # 网站目录（默认值）
 dev_addr: 127.0.0.1:8088 # 预览模式地址（默认值）
 use_directory_urls: true # URL 使用目录名还是文件名（默认值）
 strict: false # 警告级别（默认值），出现警告就终止程序
-
+validation:
+  links:
+    absolute_links: ignore
 markdown_extensions:
   ###### Python Markdown 配置（markdown 基础语法）
 

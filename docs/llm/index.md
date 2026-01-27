@@ -7,6 +7,6 @@
 {{ BEGIN_TOC }}
 - 智能体:
   - Autogen: agent/autogen
-- Prompt优化：
+- Prompt优化:
   - 两阶段Prompt模板: prompt/two-phases-generation
 {{ END_TOC }}
