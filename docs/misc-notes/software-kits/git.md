@@ -48,6 +48,10 @@ Host github.com
 
 与他人合作项目时，有时需要做一些本地适配，但是不想妨碍其他人，可以添加到.gitignore。但对于已经处于跟踪状态的文件来说后添进.gitignore是无效的。因此可以先将文件移出跟踪态，然后再加进.gitignore里。如下：`git rm -r --cached <file/dir>`其中-r表示递归。也可以加-n表示伪放弃跟踪（用于预览会放弃对哪些文件的追踪）
 
+## 清理未跟踪文件
+
+如果需要清理仓库，恢复到刚克隆的纯净状态，可以执行`git clean -d -fx`。例如，在`git reset --hard <commit id>`后，如果希望将多余文件删掉，可以执行这行命令。`-d`会删除未跟踪的目录，`-x`会删除被.gitignore忽略的文件。
+
 ## 更换远程仓库
 
 有的时候从官方仓库git clone下代码，本地拷贝一份、各种魔改并上传到自己的私仓。又由于windows、linux环境不同，想把原来的代码更新成自己的私仓，所以需要换一下远程仓库。
@@ -55,7 +59,7 @@ Host github.com
 1. 首先取消原来的远程分支跟踪`git remote rm <remote repo name>`
 2. 然后添加自己的仓库作为远程`git remote add <remote repo name> <repo url>`
 
-好像也可以直接更换远程仓库：`git remote set-url <remote repro name> <repo url>`
+也可以直接更换远程仓库：`git remote set-url <remote repro name> <repo url>`
 
 这里的`<remote repo name>`是自己取的仓库名，之后的操作可以用它来指定对象。可以随便取，比如常见的origin。
 
@@ -101,6 +105,26 @@ Host github.com
 
 可以用`git fetch --all`拉取所有远程分支，如果没有效果，注意检查remote.origin.fetch的设置：`git config --get remote.origin.fetch`，如果是`+refs/heads/master:refs/remotes/origin/master`，则表示只拉master分支。可以修改成拉取所有分支：`git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"`。
 
+## Git rebase 合并本地多个commits
+
+这里先写一种最简单的场景，比如本地修改完commit之后发现还有要改的，又commit了一次，现在需要合并两个commits。在该分支上运行`git rebase -i HEAD~N` 其中N是从HEAD起向前需要合并的commit数。随后文本框里会显示各个commits信息，从上到下的commits时间从旧到新。保留最上面的commit为pick，下面的都改为squash，即相当于把后面的commits向前合并到最上面的那一个commit。
+
+## 自行构建git仓
+
+有时git仓库不想用github、gitee等管理，又想做到多地存储，可以自行构建一个git中心仓库：
+
+```shell
+# 在中心服务器上创建裸仓
+git init --bare 
+# 如果中心服务器已有仓库，可以直接clone导出
+git clone --bare reponame reponame.git
+
+# 在本地服务器上关联裸仓
+git remote add origin ssh://username@remote-ip:port/path/to/target.git
+```
+
+然后就可以正常使用。
+
 ## Github debug合集
 
 某种东西真的神烦，科研需要下载的仓库代码经常莫名其妙下载不了，写的代码上传补上去，build个docker慢的要死，第三方包拉取不到……浪费很多时间在因为网络连接不了导致的各种bug上，有效科研时间白白被消耗，真的很xx。
@@ -110,3 +134,7 @@ Host github.com
 一种做法是设置或者取消设置http.proxy和https.proxy
 
 另一种做法是直接取消SSL校验，虽然粗暴了点：`git config http.sslVerify false`
+
+还有就是`git@`不行换`https://`来下载
+
+
