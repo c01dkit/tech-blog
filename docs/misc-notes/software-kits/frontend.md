@@ -97,3 +97,34 @@ export default defineConfig({
 ```
 
 随后，调试时运行`npm run dev`，部署时运行`npm run build`即可
+
+
+## 快速上线mkdocs静态博客
+
+当前的站点就是使用mkdocs构建的。
+
+### 使用uv run mkdocs serve时热更新失效的解决方案
+
+在使用 `uv run mkdocs serve` 时，MkDocs 的热更新（Live Reload）失效，通常是因为 `uv` 运行时的虚拟环境隔离机制导致依赖缺失，或者路径监听的上下文发生了变化。
+
+
+**在 uv 环境中补充安装 `watchdog`**
+
+MkDocs 依赖 `watchdog` 库来实现高效的文件系统变动监听。如果你是通过 `uv` 管理依赖的，可能在当前的虚拟环境中没有正确安装或链接 `watchdog`。
+请尝试在你的项目中显式添加它：
+
+```bash
+uv add watchdog
+# 或者如果你使用的是 uv pip：
+uv pip install watchdog
+```
+安装完成后，再次运行 `uv run mkdocs serve`。
+
+
+**开启脏重载（Dirty Reload）**
+
+如果你的文档项目非常大，或者处于某些特殊的文件系统（如 WSL、Docker 挂载目录）中，文件监听事件可能无法穿透 `uv` 的进程。可以尝试加上 `--dirtyreload` 参数，这不仅能加快重载速度，有时也能绕过监听失效的问题：
+
+```bash
+uv run mkdocs serve --dirtyreload
+```

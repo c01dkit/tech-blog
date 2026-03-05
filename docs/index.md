@@ -6,7 +6,7 @@ statistics: true
 
 !!! tip "致辞"
     - 欢迎，这里是 c01dkit 的技术笔记
-    - 有关日常的一些杂谈，请[移步这里](https://blog.c01dkit.com)
+    - 做了一个论文速查网站，请[移步这里](https://sec.c01dkit.com/)
 
 !!! info inline "博客总览"
     - 笔记总数：{{pages}}篇
@@ -15,7 +15,7 @@ statistics: true
     - <span id="busuanzi_container_site_uv">访客总人数：<span id="busuanzi_value_site_uv">若干</span>人
     - <span id="busuanzi_container_site_pv">总访问次数：<span id="busuanzi_value_site_pv">若干</span>次
 
-!!! example "推荐阅读"
+!!! example "一些笔记"
     - [根因分析](https://tech.c01dkit.com/researching-is-living/related/rca/)
     - [LLVM初学笔记](https://tech.c01dkit.com/software-security/program-analysis/llvm/)
     - [C++回火](https://tech.c01dkit.com/programming-languages/cpp/)

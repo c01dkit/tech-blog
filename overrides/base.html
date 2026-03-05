@@ -99,14 +99,14 @@
 
     <!-- Theme-related style sheets -->
     {% block styles %}
-      <link rel="stylesheet" href="{{ 'assets/stylesheets/main.76a95c52.min.css' | url }}" />
+      <link rel="stylesheet" href="{{ 'assets/stylesheets/main.484c7ddc.min.css' | url }}" />
 
       <!-- Extra color palette -->
       {% if config.theme.palette %}
         {% set palette = config.theme.palette %}
         <link
           rel="stylesheet"
-          href="{{ 'assets/stylesheets/palette.06af60db.min.css' | url }}"
+          href="{{ 'assets/stylesheets/palette.ab4e12ef.min.css' | url }}"
         />
       {% endif %}
 
@@ -395,7 +395,7 @@
         "base": base_url,
         "features": features,
         "translations": {},
-        "search": "assets/javascripts/workers/search.b8dbb3d2.min.js" | url
+        "search": "assets/javascripts/workers/search.2c215733.min.js" | url
       } -%}
 
       <!-- Versioning -->
@@ -436,7 +436,7 @@
 
     <!-- Theme-related JavaScript -->
     {% block scripts %}
-      <script src="{{ 'assets/javascripts/bundle.fe8b6f2b.min.js' | url }}"></script>
+      <script src="{{ 'assets/javascripts/bundle.79ae519e.min.js' | url }}"></script>
 
       <!-- Custom JavaScript -->
       {% for script in config.extra_javascript %}
