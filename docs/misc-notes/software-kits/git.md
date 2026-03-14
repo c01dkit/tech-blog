@@ -56,12 +56,14 @@ Host github.com
 
 有的时候从官方仓库git clone下代码，本地拷贝一份、各种魔改并上传到自己的私仓。又由于windows、linux环境不同，想把原来的代码更新成自己的私仓，所以需要换一下远程仓库。
 
-1. 首先取消原来的远程分支跟踪`git remote rm <remote repo name>`
+1. 首先取消原来的远程分支跟踪`git remote remove <remote repo name>`
 2. 然后添加自己的仓库作为远程`git remote add <remote repo name> <repo url>`
 
 也可以直接更换远程仓库：`git remote set-url <remote repro name> <repo url>`
 
 这里的`<remote repo name>`是自己取的仓库名，之后的操作可以用它来指定对象。可以随便取，比如常见的origin。
+
+或者也可以不取消原来的跟踪，直接取一个新的name即可，比如gitee、github、myrepo等等。
 
 ## 子模块的下载
 
@@ -107,7 +109,14 @@ Host github.com
 
 ## Git rebase 合并本地多个commits
 
-这里先写一种最简单的场景，比如本地修改完commit之后发现还有要改的，又commit了一次，现在需要合并两个commits。在该分支上运行`git rebase -i HEAD~N` 其中N是从HEAD起向前需要合并的commit数。随后文本框里会显示各个commits信息，从上到下的commits时间从旧到新。保留最上面的commit为pick，下面的都改为squash，即相当于把后面的commits向前合并到最上面的那一个commit。
+这里先写一种最简单的场景，比如本地修改完commit之后发现还有要改的，又commit了一次，现在需要合并两个commits。在该分支上运行`git rebase -i HEAD~N` 其中N是从HEAD起向前需要合并的commit数。随后文本框里会显示各个commits信息，从上到下的commits时间从旧到新。保留最上面的commit为pick，下面的都改为squash（合并message，适用于两个commit都有实际信息量）或fixup（丢弃该message，适用于新commit是typo等没必要留在最终提交记录的内容），即相当于把后面的commits向前合并到最上面的那一个commit。如果遇到冲突，可以修复后`git rebase --continue`。如果需要放弃，就`git rebase --abort`。
+
+## 减少冗余commits
+
+有的时候本地commit后发现有一点小typo需要修改，这时：
+1. 如果还没有运行新的git commit，就可以先git add然后`git commit --amend --no-edit`来将工作区合并到之前的commit里；
+2. 如果已经commit但还没有push，可以用`git rebase -i HEAD~2`，然后按之前的教程来编辑；
+3. 如果已经push了，就在本地rebase好以后用`git push --force-with-lease`，注意不要用`--force`。
 
 ## 自行构建git仓
 
@@ -116,20 +125,29 @@ Host github.com
 ```shell
 # 在中心服务器上创建裸仓
 git init --bare 
-# 如果中心服务器已有仓库，可以直接clone导出
-git clone --bare reponame reponame.git
 
-# 在本地服务器上关联裸仓
+# 如果中心服务器已有仓库，可以直接clone导出
+git clone --bare /path/to/repo /path/to/bare/reponame.git
+
+# 在本地服务器上关联远程服务器的裸仓
 git remote add origin ssh://username@remote-ip:port/path/to/target.git
+
+# 在本地服务器关联本地裸仓
+git remote add origin /path/to/bare/reponame.git
+
+# 在本地服务器clone本地裸仓
+git clone /path/to/repo.git 
 ```
 
 然后就可以正常使用。
+
+
 
 ## Github debug合集
 
 某种东西真的神烦，科研需要下载的仓库代码经常莫名其妙下载不了，写的代码上传补上去，build个docker慢的要死，第三方包拉取不到……浪费很多时间在因为网络连接不了导致的各种bug上，有效科研时间白白被消耗，真的很xx。
 
-### Git clone报错gnutls_handshake() failed: The TLS connection was non-properly terminated.
+### git clone报错gnutls_handshake() failed: The TLS connection was non-properly terminated.
 
 一种做法是设置或者取消设置http.proxy和https.proxy
 
@@ -137,4 +155,30 @@ git remote add origin ssh://username@remote-ip:port/path/to/target.git
 
 还有就是`git@`不行换`https://`来下载
 
+### git add 报错fatal: CRLF would be replaced by LF in xxx
 
+有的时候不小心在windows powershell进行仓库管理，但是代码又要在linux场景运行，代码编辑会遇到换行符的问题。以下是解决办法：
+
+创建`.gitattributes`文件，里面写`* text=auto eol=lf`。然后在linux（wsl）中运行：
+
+
+```bash
+git config core.autocrlf false
+git config core.eol lf
+git add --renormalize .
+git commit -m "fix eol"
+git rm --cached -r .
+git reset --hard
+```
+
+可以通过运行`git ls-files --eol`来检查git记录和工作区状态。例如
+
+```bash
+i/lf    w/lf    attr/text=auto         src/main.py
+i/lf    w/crlf  attr/text=auto         README.md
+i/crlf  w/crlf  attr/text=auto         old.txt
+```
+
+其中`i/`表示index里git记录的行尾状态，`w/`表示文件实际行尾状态，`attr/`表示对这个文件生效的规则。当`i/`和`w/`全是`lf`时，说明没有问题了。
+
+然而，如果在windows中添加了新文件，由于CRLF，他们根本不会被纳入git管理。因此可以执行`git ls-files --others --exclude-standard`看一下有那些文件，然后进行物理替换：`git ls-files --others --exclude-standard -z | xargs -0 sed -i 's/\r$//'`。

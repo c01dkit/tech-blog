@@ -105,6 +105,11 @@ export default defineConfig({
 
 ### 使用uv run mkdocs serve时热更新失效的解决方案
 
+老老实实`source .venv/bin/activate`然后`mkdocs serve`吧。
+
+!!! danger "AI内容提示"
+    以下内容为未经验证的ai生成内容，仅供参考，未必准确。
+
 在使用 `uv run mkdocs serve` 时，MkDocs 的热更新（Live Reload）失效，通常是因为 `uv` 运行时的虚拟环境隔离机制导致依赖缺失，或者路径监听的上下文发生了变化。
 
 
