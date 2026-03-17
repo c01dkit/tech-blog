@@ -231,6 +231,27 @@ vncconfig -iconic &
 exec startxfce4
 ```
 
+## 低资源云服务器运行高负载命令导致卡死
+
+一些廉价服务器，比如阿里的年费99元的2核2G内存的云服务器，在运行IO密集型操作比如npm install时可能会直接导致ssh断连。此时可以限制一下对cpu和内存的使用率：
+
+```shell
+systemd-run --scope -p CPUQuota=50% -p MemoryMax=1G -p IOWeight=10 nice -n 19 npm install
+```
+
+也记得用swap缓解一下内存不够的问题，比如分配8G空间给swapfile，并设置在内存压力下提前使用swap：
+
+```shell
+fallocate -l 8G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+sysctl vm.swappiness=60 # 越接近100越积极使用swap
+echo 'vm.swappiness=60' >> /etc/sysctl.conf
+sysctl -p
+```
+
 ## 参考资料
 
 1. [systemd相关资料](https://zhuanlan.zhihu.com/p/415469149)
