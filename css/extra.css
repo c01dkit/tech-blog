@@ -12,7 +12,7 @@ html {
 [data-md-color-scheme="default"] {
     --md-primary-fg-color: rgba(232, 232, 232, 0.7);
     --md-header-bg-color: rgba(232, 232, 232, 0.7);
-    --md-typeset-a-color: forestgreen;
+    --md-typeset-a-color: firebrick;
     --md-footer-bg-color: #f6f6f6;
     --md-footer-bg-color--dark: #f6f6f6;
     --md-footer-fg-color: #222;
