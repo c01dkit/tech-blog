@@ -76,6 +76,7 @@ nav:
       - openssh: misc-notes/software-kits/openssh.md
       - sslh: misc-notes/software-kits/tech-sslh.md
       - ChatGPT: misc-notes/software-kits/try-chatgpt.md
+      - tmux: misc-notes/software-kits/tmux.md
     - Ubuntu环境配置:
       - 基础配置: misc-notes/environments/envs.md
       - 服务器运维: misc-notes/environments/linux-server.md

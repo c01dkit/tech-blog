@@ -11,6 +11,7 @@
   - Git: software-kits/git
   - OpenSSH: software-kits/openssh
   - sslh: software-kits/tech-sslh
+  - tmux: software-kits/tmux
   - GPT生成的教程: software-kits/try-chatgpt
 - 环境配置:
   - 基础环境: environments/envs

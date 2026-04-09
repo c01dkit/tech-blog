@@ -18,6 +18,10 @@
 
 初次向github提交代码前，在本地工作目录下创建.gitignore文件，里面直接写上不想追踪的文件名和文件夹名即可。（文件名不需要补全路径）
 
+## 放弃对文件的跟踪
+
+与他人合作项目时，有时需要做一些本地适配，但是不想妨碍其他人，可以添加到.gitignore。但对于已经处于跟踪状态的文件来说后添进.gitignore是无效的。因此可以先将文件移出跟踪态，然后再加进.gitignore里。如下：`git rm -r --cached <file/dir>`其中-r表示递归。也可以加-n表示伪放弃跟踪（用于预览会放弃对哪些文件的追踪）
+
 ## 撤回add
 
 使用`git add .`可以直接把当前目录都add进暂存区，对于不慎添加的内容可以使用`git rm --cached <file>`来撤回add。可以使用`git rm -r --cached .`来撤回`git add .` 。（使用`git status`可以查看暂存区，里面也有提示怎么撤回）
@@ -44,13 +48,13 @@ Host github.com
 
 有的时候git进行push到私仓时会出现卡机的问题，不确定是什么原因，如果remote repo使用的是git@xxx的url的话，可以试试改成https的链接；还不行的话可以试试git config的proxy，设置或清空。
 
-## 放弃对文件的跟踪
 
-与他人合作项目时，有时需要做一些本地适配，但是不想妨碍其他人，可以添加到.gitignore。但对于已经处于跟踪状态的文件来说后添进.gitignore是无效的。因此可以先将文件移出跟踪态，然后再加进.gitignore里。如下：`git rm -r --cached <file/dir>`其中-r表示递归。也可以加-n表示伪放弃跟踪（用于预览会放弃对哪些文件的追踪）
 
 ## 清理未跟踪文件
 
 如果需要清理仓库，恢复到刚克隆的纯净状态，可以执行`git clean -d -fx`。例如，在`git reset --hard <commit id>`后，如果希望将多余文件删掉，可以执行这行命令。`-d`会删除未跟踪的目录，`-x`会删除被.gitignore忽略的文件。
+
+如果本地不知道改了什么但是想强行和最新分支（主线）同步，可以直接`git reset --hard <commit name>`然后`git checkout <commit name>`、`git pull`。
 
 ## 更换远程仓库
 

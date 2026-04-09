@@ -171,7 +171,7 @@ unpro_npm() {
 }
 
 proxy() {
-    #getIp # 如果在wsl中使用该脚本，则启用此函数
+    #getIp # 如果在wsl中使用该脚本，则启用此函数。另外，推荐在wsl设置那边将网络设置为mirror，这样直接和宿主机处于相同网络，避免宿主机外部其他主机无法直接访问wsl开放服务的问题。
     # pip can read http_proxy & https_proxy
     export PROXY_HTTP="http://xx.xx.xx.xx:xx" # 如果不在wsl环境中使用脚本，则启用该设定
     export http_proxy="${PROXY_HTTP}"
@@ -283,6 +283,11 @@ fc-cache # 刷新缓存
 fc-list # 检查列表
 ```
 
+## 配置AI开发环境
+
+[CC Switch](https://github.com/farion1231/cc-switch)管理Claude Code、Codex、OpenClaw等配置项
+[OpenClaw](https://openclaw.ai/)AI生活助手
+[Claude Code](https://claude.com/product/claude-code)最强的代码助手
 
 
 ## 参考文章

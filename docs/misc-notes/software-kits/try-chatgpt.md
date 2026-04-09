@@ -25,7 +25,7 @@ wget --recursive --no-clobber --page-requisites --html-extension --convert-links
 
 你可以根据自己的需要修改这些选项以满足特定的要求。
 
-> 用这条命令被服务器发现恶意下载，被给403 forbidden了怎么办？
+> 用这条命令被服务器发现恶意下载，被403 forbidden了怎么办？
 
 如果你使用的命令被服务器认为是恶意下载，并且被服务器拒绝访问，那么你可以考虑以下一些方法来解决这个问题：
 
