@@ -7,6 +7,7 @@ statistics: true
 !!! tip "致辞"
     - 欢迎，这里是 c01dkit 的技术笔记
     - 做了一个论文速查网站，请[移步这里](https://sec.c01dkit.com/)
+    - 如果你是puzzlehunt爱好者，可以[移步这里](https://puzzlehunt.c01dkit.com/)
 
 !!! info inline "博客总览"
     - 笔记总数：{{pages}}篇

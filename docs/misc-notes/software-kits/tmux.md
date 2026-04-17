@@ -315,6 +315,18 @@ set -g status-left-length 30
 set -g status-right-length 60
 set -g status-left "#[fg=green]#S #[fg=white]| "
 set -g status-right "#[fg=cyan]%Y-%m-%d %H:%M "
+
+# https://gist.github.com/spicycode/1229612
+# 不使用ctrl+B的前缀，直接用alt+方向键来切换面板
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# 不适用ctrl+B的前缀，直接用shift+方向键来切换窗口
+bind -n S-Left  previous-window
+bind -n S-Right next-window
+
 ```
 
 配置里的 `#{pane_current_path}` 是tmux的格式变量之一，用来拿当前pane的cwd。结合`new-window -c`、`split-window -c`用以后，开新pane直接就在当前目录里，不用再`cd`一遍。
